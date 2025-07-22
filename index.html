@@ -20,15 +20,15 @@
         
         /* Header Hero Section */
 .hero {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
     color: white;
     text-align: center;
     overflow: hidden;
-    min-height: 100vh; /* 手機版全螢幕高度 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    z-index: -1;
 }
 
 /* 背景圖片樣式 */
@@ -39,6 +39,7 @@
     width: 100%;
     height: 100%;
     z-index: 0;
+    transition: filter 0.5s ease, transform 0.5s ease;
 }
 
 .hero-bg-desktop,
@@ -68,17 +69,36 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4); /* 調整透明度 */
+    background: rgba(0, 0, 0, 0.3);
     z-index: 1;
+    transition: background 0.5s ease;
+}
+
+/* 滾動時的模糊效果 */
+.hero.scrolled .hero-background {
+    filter: blur(5px);
+    transform: scale(1.1);
+}
+
+.hero.scrolled::before {
+    background: rgba(0, 0, 0, 0.7);
 }
 
 .hero-content {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 2;
     max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
     padding: 0 20px;
-    animation: fadeInUp 1s ease-out;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.hero.scrolled .hero-content {
+    opacity: 0;
+    transform: translate(-50%, -60%);
 }
 
 /* 下滑指示器 */
@@ -91,6 +111,11 @@
     animation: bounce 2s infinite;
     cursor: pointer;
     color: white;
+    transition: opacity 0.5s ease;
+}
+
+.hero.scrolled .scroll-indicator {
+    opacity: 0;
 }
 
 @keyframes bounce {
@@ -105,25 +130,8 @@
     }
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 /* 手機版樣式 */
 @media (max-width: 768px) {
-    .hero {
-        min-height: 100vh;
-        position: sticky;
-        top: 0;
-    }
-    
     /* 切換到手機版圖片 */
     .hero-bg-desktop {
         display: none;
@@ -132,48 +140,28 @@
     .hero-bg-mobile {
         display: block;
     }
-    
-    /* 滾動時標題淡出效果 */
-    .hero-content {
-        transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-    
-    .hero.scrolled .hero-content {
-        opacity: 0;
-        transform: translateY(-50px);
+}
+
+/* 桌面版調整 */
+@media (min-width: 769px) {
+    .hero {
+        height: 700px; /* 可調整高度 */
     }
 }
 
-/* 桌面版保持原有高度 */
+/* 主要內容區域需要加上間距 */
+.organizers {
+    position: relative;
+    z-index: 1;
+    background: #0074D9;
+    margin-top: 100vh; /* 手機版：推開整個視窗高度 */
+}
+
 @media (min-width: 769px) {
-    .hero {
-        min-height: 600px; /* 或您想要的高度 */
-        padding: 60px 20px;
+    .organizers {
+        margin-top: 700px; /* 桌面版：與 hero 高度相同 */
     }
 }
-        
-        @keyframes rotate {
-            to { transform: rotate(360deg); }
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .hero h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .hero h2 {
-            font-size: 1.8em;
-            color: #ffd700;
-            margin-bottom: 20px;
-        }
         
         .badge {
             display: inline-block;
