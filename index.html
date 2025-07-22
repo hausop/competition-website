@@ -19,25 +19,138 @@
         }
         
         /* Header Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></svg>') repeat;
-            animation: rotate 60s linear infinite;
-        }
+.hero {
+    position: relative;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+    min-height: 100vh; /* 手機版全螢幕高度 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 背景圖片樣式 */
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.hero-bg-desktop,
+.hero-bg-mobile {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 預設顯示桌面版圖片 */
+.hero-bg-desktop {
+    display: block;
+}
+
+.hero-bg-mobile {
+    display: none;
+}
+
+/* 深色遮罩層 */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* 調整透明度 */
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    animation: fadeInUp 1s ease-out;
+}
+
+/* 下滑指示器 */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    animation: bounce 2s infinite;
+    cursor: pointer;
+    color: white;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 手機版樣式 */
+@media (max-width: 768px) {
+    .hero {
+        min-height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+    
+    /* 切換到手機版圖片 */
+    .hero-bg-desktop {
+        display: none;
+    }
+    
+    .hero-bg-mobile {
+        display: block;
+    }
+    
+    /* 滾動時標題淡出效果 */
+    .hero-content {
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    .hero.scrolled .hero-content {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
+
+/* 桌面版保持原有高度 */
+@media (min-width: 769px) {
+    .hero {
+        min-height: 600px; /* 或您想要的高度 */
+        padding: 60px 20px;
+    }
+}
         
         @keyframes rotate {
             to { transform: rotate(360deg); }
@@ -484,14 +597,28 @@
 </head>
 <body>
     <!-- Hero Section -->
-    <div class="hero">
-        <div class="hero-content">
-            <div class="badge">全國大專</div>
-            <h1>第十三屆保單健診</h1>
-            <h2>暨保險規劃大賽</h2>
-            <p style="font-size: 1.2em; margin-top: 20px;">STARS 未來之星</p>
-        </div>
+<div class="hero">
+    <!-- 1. 背景圖片容器 (加在 hero-content 之前) -->
+    <div class="hero-background">
+        <img src="your-desktop-banner.jpg" alt="Banner" class="hero-bg-desktop">
+        <img src="your-mobile-banner.jpg" alt="Banner" class="hero-bg-mobile">
     </div>
+    
+    <!-- 2. 原有的內容 -->
+    <div class="hero-content">
+        <div class="badge">全國大專</div>
+        <h1>第十三屆保單健診</h1>
+        <h2>暨保險規劃大賽</h2>
+        <p style="font-size: 1.2em; margin-top: 20px;">STARS 未來之星</p>
+    </div>
+    
+    <!-- 3. 下滑提示 (加在 hero-content 之後) -->
+    <div class="scroll-indicator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 5v14M19 12l-7 7-7-7"/>
+        </svg>
+    </div>
+</div>
     
     <!-- Organizers -->
     <div class="organizers">
@@ -984,6 +1111,34 @@
         
         // Mobile-friendly interactions
         document.addEventListener('DOMContentLoaded', function() {
+            // 手機版滾動效果
+    if (window.innerWidth <= 768) {
+        let heroSection = document.querySelector('.hero');
+        let lastScrollTop = 0;
+        
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                heroSection.classList.add('scrolled');
+            } else {
+                heroSection.classList.remove('scrolled');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+    }
+    
+    // 點擊下滑指示器
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', function() {
+            window.scrollTo({
+                top: window.innerHeight,
+                behavior: 'smooth'
+            });
+        });
+    }
             // Add smooth scrolling
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
