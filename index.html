@@ -1099,34 +1099,55 @@
         
         // Mobile-friendly interactions
         document.addEventListener('DOMContentLoaded', function() {
-            // 手機版滾動效果
-    if (window.innerWidth <= 768) {
-        let heroSection = document.querySelector('.hero');
-        let lastScrollTop = 0;
-        
-        window.addEventListener('scroll', function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (scrollTop > 100) {
-                heroSection.classList.add('scrolled');
-            } else {
-                heroSection.classList.remove('scrolled');
-            }
-            
-            lastScrollTop = scrollTop;
-        });
+            // 視差滾動效果
+const heroSection = document.querySelector('.hero');
+const heroContent = document.querySelector('.hero-content');
+let ticking = false;
+
+function updateHeroEffect() {
+    const scrolled = window.pageYOffset;
+    const windowHeight = window.innerHeight;
+    const scrollPercent = Math.min(scrolled / windowHeight, 1);
+    
+    // 當滾動超過 50px 開始效果
+    if (scrolled > 50) {
+        heroSection.classList.add('scrolled');
+    } else {
+        heroSection.classList.remove('scrolled');
     }
     
-    // 點擊下滑指示器
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    if (scrollIndicator) {
-        scrollIndicator.addEventListener('click', function() {
-            window.scrollTo({
-                top: window.innerHeight,
-                behavior: 'smooth'
-            });
-        });
+    // 更細緻的漸變效果（可選）
+    if (heroContent) {
+        const opacity = Math.max(1 - scrollPercent * 1.5, 0);
+        const translateY = scrollPercent * 20;
+        heroContent.style.opacity = opacity;
+        heroContent.style.transform = `translate(-50%, calc(-50% - ${translateY}px))`;
     }
+    
+    ticking = false;
+}
+
+// 使用 requestAnimationFrame 優化效能
+function requestTick() {
+    if (!ticking) {
+        window.requestAnimationFrame(updateHeroEffect);
+        ticking = true;
+    }
+}
+
+window.addEventListener('scroll', requestTick);
+
+// 點擊下滑指示器
+const scrollIndicator = document.querySelector('.scroll-indicator');
+if (scrollIndicator) {
+    scrollIndicator.addEventListener('click', function() {
+        const targetScroll = window.innerWidth <= 768 ? window.innerHeight : 700;
+        window.scrollTo({
+            top: targetScroll,
+            behavior: 'smooth'
+        });
+    });
+}
             // Add smooth scrolling
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
