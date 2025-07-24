@@ -261,6 +261,60 @@
             border-radius: 10px;
             backdrop-filter: blur(5px);
         }
+
+        /* 協辦廠商樣式 */
+.sponsor-section {
+    max-width: 1200px;
+    margin: 25px auto 0;
+    padding: 0 25px;
+}
+
+.sponsor-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 12px 20px;
+    backdrop-filter: blur(5px);
+}
+
+.sponsor-label {
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 1.1em;
+}
+
+.sponsor-name {
+    color: rgba(255,255,255,0.9);
+    font-size: 0.95em;
+}
+
+/* PC版 - 修改grid為4欄 */
+@media (min-width: 769px) {
+    .organizers-new-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+    }
+}
+
+/* 手機版保持原樣 */
+@media (max-width: 768px) {
+    .organizers-new-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .sponsor-item {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .sponsor-section {
+        padding: 0 20px;
+    }
+}
         
         /* Main Content */
         .content {
@@ -680,7 +734,7 @@
         <!-- 北區 -->
         <div class="organizer-new-item">
             <h4>主辦學校 <span class="region-badge region-north">北</span></h4>
-            <p>銘傳大學-風險管理與保險學系</p>
+            <p>銘傳大學-資訊應用與金融保險學系</p>
         </div>
         
         <!-- 中區 -->
@@ -694,15 +748,17 @@
             <h4>主辦學校 <span class="region-badge region-south">南</span></h4>
             <p>樹德科技大學-金融管理系</p>
         </div>
-        
-        <!-- 協辦廠商 -->
-        <div class="organizer-new-item">
-            <h4>協辦廠商</h4>
-            <p>樹靈旺姓名策略有限公司</p>
+    </div>
+    
+    <!-- 協辦廠商獨立區塊 -->
+    <div class="sponsor-section">
+        <div class="sponsor-item">
+            <span class="sponsor-label">協辦廠商</span>
+            <span class="sponsor-name">樹靈旺姓名策略有限公司</span>
         </div>
     </div>
     
-    <p style="margin-top: 30px;">協辦學校：北區-中國文化大學_財務金融學系／管理科技大學_財務金融學系／淡江大學_風險管理與保險學系／朝陽科技大學_保險金融管理學系／龍華科技大學_財務金融系／蘭陽技術學院_創新財經系</p>
+    <p style="margin-top: 30px;">協辦學校：[北區]中國文化大學_財務金融學系／致理科技大學_財務金融系／淡江大學_風險管理與保險學系／實踐大學_風險管理與保險學系／德明財經科技大學_風險管理與財富規劃系／龍華科技大學_財務金融系 [中區]南華大學_財務金融學系／逢甲大學_風險管理與保險學系／國立雲林科技大學_財務金融系／僑光科技大學_財務金融系 [南區]正修科技大學_金融管理系／國立屏東大學_財務金融學系／國立高雄大學_應用經濟學系／國立高雄科技大學_風險管理與保險系／實踐大學(高雄校區)_金融管理學系</p>
 </div>
     
     <!-- Main Content -->
