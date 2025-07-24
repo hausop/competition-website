@@ -180,6 +180,72 @@
             padding: 40px 20px;
             text-align: center;
         }
+
+        /* 新的 Organizers 排版樣式 */
+.organizers-new-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+.organizer-new-item {
+    text-align: center;
+    padding: 25px 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.organizer-new-item:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateY(-2px);
+}
+
+.organizer-new-item h4 {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.organizer-new-item p {
+    font-size: 0.95em;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.5;
+}
+
+/* 區域標籤樣式 */
+.region-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: white;
+    color: #0074D9;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+    .organizers-new-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .organizer-new-item {
+        padding: 20px 15px;
+    }
+}
         
         .organizers-grid {
             display: grid;
@@ -601,17 +667,43 @@
 </div>
     
     <!-- Organizers -->
-    <div class="organizers">
-        <h3 style="margin-bottom: 20px;">主辦單位：太陽保險經紀人股份有限公司</h3>
-        <div class="organizers-grid">
-            <div class="organizer-item">全國總決賽 主辦學校：朝陽科技大學-保險金融管理系</div>
-            <div class="organizer-item">主辦學校：北區-銘傳大學-風險管理與保險學系</div>
-            <div class="organizer-item">中區-國立臺中科技大學-保險金融管理系</div>
-            <div class="organizer-item">南區-樹德科技大學-金融管理系</div>
+<div class="organizers">
+    <h3 style="margin-bottom: 20px;">主辦單位：太陽保險經紀人股份有限公司</h3>
+    
+    <div class="organizers-new-grid">
+        <!-- 全國總決賽 -->
+        <div class="organizer-new-item">
+            <h4>全國總決賽 主辦學校</h4>
+            <p>朝陽科技大學-保險金融管理系</p>
         </div>
-        <p style="margin-top: 20px;">協辦廠商：樹靈旺姓名策略有限公司</p>
-        <p>協辦學校：北區-中國文化大學_財務金融學系／管理科技大學_財務金融學系／淡江大學_風險管理與保險學系／朝陽科技大學_保險金融管理學系／龍華科技大學_財務金融系／蘭陽技術學院_創新財經系</p>
+        
+        <!-- 北區 -->
+        <div class="organizer-new-item">
+            <h4>主辦學校 <span class="region-badge region-north">北</span></h4>
+            <p>銘傳大學-風險管理與保險學系</p>
+        </div>
+        
+        <!-- 中區 -->
+        <div class="organizer-new-item">
+            <h4>主辦學校 <span class="region-badge region-center">中</span></h4>
+            <p>國立臺中科技大學-保險金融管理系</p>
+        </div>
+        
+        <!-- 南區 -->
+        <div class="organizer-new-item">
+            <h4>主辦學校 <span class="region-badge region-south">南</span></h4>
+            <p>樹德科技大學-金融管理系</p>
+        </div>
+        
+        <!-- 協辦廠商 -->
+        <div class="organizer-new-item">
+            <h4>協辦廠商</h4>
+            <p>樹靈旺姓名策略有限公司</p>
+        </div>
     </div>
+    
+    <p style="margin-top: 30px;">協辦學校：北區-中國文化大學_財務金融學系／管理科技大學_財務金融學系／淡江大學_風險管理與保險學系／朝陽科技大學_保險金融管理學系／龍華科技大學_財務金融系／蘭陽技術學院_創新財經系</p>
+</div>
     
     <!-- Main Content -->
     <div class="content">
