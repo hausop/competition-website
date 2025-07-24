@@ -290,7 +290,14 @@
     color: rgba(255,255,255,0.9);
     font-size: 0.95em;
 }
-
+        
+/* 協辦廠商外層包裝：與上方 .organizers-new-grid 同寬度與左右空隙 */
+.sponsor-wrapper {
+    max-width: 1200px;
+    margin: 25px auto 0;
+    padding: 0 20px;
+}
+        
 /* PC版 - 修改grid為4欄 */
 @media (min-width: 769px) {
     .organizers-new-grid {
@@ -750,9 +757,11 @@
         </div>
     </div>
     
-   <div class="organizer-new-item">
-    <h4>協辦廠商</h4>
-    <p>期靈旺決策科技有限公司</p>
+   <!-- 協辦廠商獨立一塊，但維持一致寬度與排版 -->
+<div class="sponsor-wrapper">
+  <div class="organizer-new-item">
+    <p>協辦廠商：期靈旺決策科技有限公司</p>
+  </div>
 </div>
     
     <p style="margin-top: 30px;">協辦學校：[北區]中國文化大學_財務金融學系／致理科技大學_財務金融系／淡江大學_風險管理與保險學系／實踐大學_風險管理與保險學系／德明財經科技大學_風險管理與財富規劃系／龍華科技大學_財務金融系 [中區]南華大學_財務金融學系／逢甲大學_風險管理與保險學系／國立雲林科技大學_財務金融系／僑光科技大學_財務金融系 [南區]正修科技大學_金融管理系／國立屏東大學_財務金融學系／國立高雄大學_應用經濟學系／國立高雄科技大學_風險管理與保險系／實踐大學(高雄校區)_金融管理學系</p>
