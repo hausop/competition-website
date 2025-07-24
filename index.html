@@ -69,7 +69,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0); /* 初始透明 */
     z-index: 1;
     transition: background 0.5s ease;
 }
@@ -145,7 +145,7 @@
 /* 桌面版調整 */
 @media (min-width: 769px) {
     .hero {
-        height: 700px; /* 可調整高度 */
+        height: 600px; /* 可調整高度 */
     }
 }
 
@@ -159,7 +159,7 @@
 
 @media (min-width: 769px) {
     .organizers {
-        margin-top: 700px; /* 桌面版：與 hero 高度相同 */
+        margin-top: 600px; /* 桌面版：與 hero 高度相同 */
     }
 }
         
@@ -590,14 +590,6 @@
     <div class="hero-background">
         <img src="desktop-banner.jpg" alt="Banner" class="hero-bg-desktop">
         <img src="mobile-banner.jpg" alt="Banner" class="hero-bg-mobile">
-    </div>
-    
-    <!-- 2. 原有的內容 -->
-    <div class="hero-content">
-        <div class="badge">全國大專</div>
-        <h1>第十三屆保單健診</h1>
-        <h2>暨保險規劃大賽</h2>
-        <p style="font-size: 1.2em; margin-top: 20px;">STARS 未來之星</p>
     </div>
     
     <!-- 3. 下滑提示 (加在 hero-content 之後) -->
@@ -1101,27 +1093,16 @@
         document.addEventListener('DOMContentLoaded', function() {
             // 視差滾動效果
 const heroSection = document.querySelector('.hero');
-const heroContent = document.querySelector('.hero-content');
 let ticking = false;
 
 function updateHeroEffect() {
     const scrolled = window.pageYOffset;
-    const windowHeight = window.innerHeight;
-    const scrollPercent = Math.min(scrolled / windowHeight, 1);
     
     // 當滾動超過 50px 開始效果
     if (scrolled > 50) {
         heroSection.classList.add('scrolled');
     } else {
         heroSection.classList.remove('scrolled');
-    }
-    
-    // 更細緻的漸變效果（可選）
-    if (heroContent) {
-        const opacity = Math.max(1 - scrollPercent * 1.5, 0);
-        const translateY = scrollPercent * 20;
-        heroContent.style.opacity = opacity;
-        heroContent.style.transform = `translate(-50%, calc(-50% - ${translateY}px))`;
     }
     
     ticking = false;
@@ -1141,7 +1122,7 @@ window.addEventListener('scroll', requestTick);
 const scrollIndicator = document.querySelector('.scroll-indicator');
 if (scrollIndicator) {
     scrollIndicator.addEventListener('click', function() {
-        const targetScroll = window.innerWidth <= 768 ? window.innerHeight : 700;
+        const targetScroll = window.innerWidth <= 768 ? window.innerHeight : 600;
         window.scrollTo({
             top: targetScroll,
             behavior: 'smooth'
