@@ -69,7 +69,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0);
     z-index: 1;
     transition: background 0.5s ease;
 }
@@ -82,23 +82,6 @@
 
 .hero.scrolled::before {
     background: rgba(0, 0, 0, 0.7);
-}
-
-.hero-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    max-width: 1200px;
-    width: 100%;
-    padding: 0 20px;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.hero.scrolled .hero-content {
-    opacity: 0;
-    transform: translate(-50%, -60%);
 }
 
 /* 下滑指示器 */
@@ -145,7 +128,7 @@
 /* 桌面版調整 */
 @media (min-width: 769px) {
     .hero {
-        height: 700px; /* 可調整高度 */
+        height: 550px; /* 可調整高度 */
     }
 }
 
@@ -159,7 +142,7 @@
 
 @media (min-width: 769px) {
     .organizers {
-        margin-top: 700px; /* 桌面版：與 hero 高度相同 */
+        margin-top: 550px; /* 桌面版：與 hero 高度相同 */
     }
 }
         
@@ -586,19 +569,19 @@
 <body>
     <!-- Hero Section -->
 <div class="hero">
-    <!-- 1. 背景圖片容器 (加在 hero-content 之前) -->
+    <!-- 背景圖片容器 -->
     <div class="hero-background">
         <img src="desktop-banner.jpg" alt="Banner" class="hero-bg-desktop">
         <img src="mobile-banner.jpg" alt="Banner" class="hero-bg-mobile">
     </div>
     
-    <!-- 2. 原有的內容 -->
-    <div class="hero-content">
-        <div class="badge">全國大專</div>
-        <h1>第十三屆保單健診</h1>
-        <h2>暨保險規劃大賽</h2>
-        <p style="font-size: 1.2em; margin-top: 20px;">STARS 未來之星</p>
+    <!-- 下滑提示 -->
+    <div class="scroll-indicator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 5v14M19 12l-7 7-7-7"/>
+        </svg>
     </div>
+</div>
     
     <!-- 3. 下滑提示 (加在 hero-content 之後) -->
     <div class="scroll-indicator">
@@ -1101,13 +1084,20 @@
         document.addEventListener('DOMContentLoaded', function() {
             // 視差滾動效果
 const heroSection = document.querySelector('.hero');
-const heroContent = document.querySelector('.hero-content');
 let ticking = false;
 
 function updateHeroEffect() {
     const scrolled = window.pageYOffset;
-    const windowHeight = window.innerHeight;
-    const scrollPercent = Math.min(scrolled / windowHeight, 1);
+    
+    // 當滾動超過 50px 開始效果
+    if (scrolled > 50) {
+        heroSection.classList.add('scrolled');
+    } else {
+        heroSection.classList.remove('scrolled');
+    }
+    
+    ticking = false;
+}
     
     // 當滾動超過 50px 開始效果
     if (scrolled > 50) {
@@ -1141,7 +1131,7 @@ window.addEventListener('scroll', requestTick);
 const scrollIndicator = document.querySelector('.scroll-indicator');
 if (scrollIndicator) {
     scrollIndicator.addEventListener('click', function() {
-        const targetScroll = window.innerWidth <= 768 ? window.innerHeight : 700;
+        const targetScroll = window.innerWidth <= 768 ? window.innerHeight : 550;
         window.scrollTo({
             top: targetScroll,
             behavior: 'smooth'
