@@ -586,6 +586,76 @@
             font-weight: bold;
             margin-top: 40px;
         }
+
+        /* Gallery Button Section */
+.gallery-button-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.gallery-button-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.gallery-button-section h2 {
+    font-size: 2.5em;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.gallery-button-section p {
+    color: #6c757d;
+    font-size: 1.1em;
+    margin-bottom: 35px;
+}
+
+.gallery-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #0074D9;
+    color: white;
+    padding: 18px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 116, 217, 0.3);
+}
+
+.gallery-button:hover {
+    background: #005ba7;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 116, 217, 0.4);
+}
+
+.gallery-button svg {
+    transition: transform 0.3s ease;
+}
+
+.gallery-button:hover svg {
+    transform: translate(3px, -3px);
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .gallery-button-section {
+        padding: 60px 20px;
+    }
+    
+    .gallery-button-section h2 {
+        font-size: 2em;
+    }
+    
+    .gallery-button {
+        padding: 15px 30px;
+        font-size: 1em;
+    }
+}
         
         /* Back to Top Button */
         .back-to-top {
