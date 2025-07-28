@@ -491,7 +491,7 @@
         .contact-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 40px;
             margin: 40px 0;
         }
         
@@ -532,8 +532,9 @@
         
         .contact-row span:first-child {
             color: #666;
-            min-width: 100px;
+            min-width: 80px;  /* ← 改小一點 */
             flex-shrink: 0;
+            margin-right: 5px;  /* ← 加入右邊距 */
         }
         
         .contact-link {
@@ -752,11 +753,14 @@
             }
             
             .contact-row {
-                flex-direction: column;
+                flex-direction: row;  /* ← 保持水平排列 */
+                flex-wrap: wrap;      /* ← 允許換行 */
             }
-            
+
             .contact-row span:first-child {
-                margin-bottom: 5px;
+                min-width: auto;      /* ← 手機版取消最小寬度 */
+                margin-right: 5px;
+                white-space: nowrap;  /* ← 防止標籤內部換行 */
             }
             
             .back-to-top {
