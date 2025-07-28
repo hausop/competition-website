@@ -844,6 +844,25 @@
         font-size: 0.8em;
         margin-top: 10px;
     }
+
+    /* 手機版表格滑動容器 */
+@media (max-width: 768px) {
+  .scoring-wrapper {
+    overflow-x: auto;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  .scoring-wrapper table {
+    min-width: 600px; /* 確保可以滑動 */
+  }
+    .scoring-table td.category {
+    writing-mode: vertical-rl;
+    text-align: center;
+    white-space: nowrap;
+  }
 }
     </style>
 </head>
@@ -1037,6 +1056,7 @@
             <h2 class="section-title">- 評分標準 -</h2>
             
             <h4>初賽評分標準：</h4>
+            <div class="scoring-wrapper">
             <table class="scoring-table" border="1">
   <tbody>
     <tr>
@@ -1074,6 +1094,7 @@
     </tr>
   </tbody>
 </table>
+                </div>
         </div>
         
         <!-- Final Competition -->
