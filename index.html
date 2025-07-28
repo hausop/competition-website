@@ -140,6 +140,12 @@
     .hero-bg-mobile {
         display: block;
     }
+
+    .scoring-table th,
+  .scoring-table td {
+    font-size: 0.85em;
+    padding: 10px;
+  }
 }
 
 /* 桌面版調整 */
@@ -793,6 +799,64 @@
             font-weight: bold;
             margin-right: 5px;
         } 
+
+        .scoring-wrapper {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.scoring-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 600px;
+  table-layout: fixed;
+  text-align: center;
+}
+
+.scoring-table th,
+.scoring-table td {
+  border: 1px solid #999;
+  padding: 12px;
+  font-size: 0.95em;
+  vertical-align: top;
+}
+
+.scoring-table thead th {
+  background-color: #d6e9f9;
+  font-weight: bold;
+}
+
+/* 最左欄固定 */
+.fixed-col {
+  position: sticky;
+  left: 0;
+  background-color: #1c91d0;
+  color: white;
+  font-weight: bold;
+  min-width: 48px;
+  max-width: 60px;
+  z-index: 2;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* 評分比重底色 */
+.scoring-table td strong {
+  display: block;
+  background: #fce9d2;
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 1.2em;
+}
+
+/* 垂直排版樣式（可選） */
+.vertical-label {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  font-weight: bold;
+  font-size: 0.9em;
+  padding: 6px 0;
+}
     </style>
 </head>
 <body>
@@ -981,46 +1045,45 @@
         </div>
         
         <!-- Scoring Criteria -->
-        <div class="section">
+        <div class="scoring-wrapper">
             <h2 class="section-title">- 評分標準 -</h2>
             
             <h4>初賽評分標準：</h4>
-            <table class="scoring-table">
-                <thead>
-                    <tr>
-                        <th rowspan="2">評分項目</th>
-                        <th>A 簡報內容方式</th>
-                        <th>B 家庭健診資料彙整</th>
-                        <th>C 保單規劃與建議</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="category">評分項目</td>
-                        <td>
-                            A-1 提綱簡明扼要<br>
-                            A-2 內容編輯美觀<br>
-                            A-3 符合主辦單位報告規範
-                        </td>
-                        <td>
-                            B-1 家庭既有保單項目<br>
-                            B-2 家庭財務收支狀況<br>
-                            B-3 家庭保障需求順位
-                        </td>
-                        <td>
-                            C-1 保單建議內容完整性<br>
-                            C-2 保費預算安排合理性<br>
-                            C-3 長期生涯規劃適合性
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="category">評分比重</td>
-                        <td style="font-size: 1.5em; font-weight: bold;">20%</td>
-                        <td style="font-size: 1.5em; font-weight: bold;">30%</td>
-                        <td style="font-size: 1.5em; font-weight: bold;">50%</td>
-                    </tr>
-                </tbody>
-            </table>
+  <table class="scoring-table">
+    <tbody>
+      <tr>
+        <td class="fixed-col" rowspan="2">評分項目</td>
+        <td>A 簡報內容方式</td>
+        <td>B 家庭健診資料彙整</td>
+        <td>C 保單規劃與建議</td>
+      </tr>
+      <tr>
+        <td>
+          A-1 提綱簡明扼要<br>
+          A-2 內容編輯美觀<br>
+          A-3 符合主辦單位報告規範
+        </td>
+        <td>
+          B-1 家庭既有保單項目<br>
+          B-2 家庭財務收支狀況<br>
+          B-3 家庭保障需求順位
+        </td>
+        <td>
+          C-1 保單建議內容完整性<br>
+          C-2 保費預算安排合理性<br>
+          C-3 長期生涯規劃適合性
+        </td>
+      </tr>
+      <tr>
+        <td class="fixed-col">評分比重</td>
+        <td><strong>20%</strong></td>
+        <td><strong>30%</strong></td>
+        <td><strong>50%</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
         </div>
         
         <!-- Final Competition -->
