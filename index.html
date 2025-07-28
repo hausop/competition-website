@@ -331,27 +331,6 @@
     .sponsor-wrapper {
     padding: 0; /* ← 加這行 */
   }
-
-    /* 表格容器可橫向滾動 */
-    .section {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    .scoring-table {
-        min-width: 600px; /* 設定最小寬度 */
-        font-size: 0.85em;
-    }
-    
-    /* 滾動提示 */
-    .section:has(.scoring-table)::after {
-        content: "← 左右滑動查看完整表格 →";
-        display: block;
-        text-align: center;
-        color: #999;
-        font-size: 0.8em;
-        margin-top: 10px;
-    }
 }
         
         /* Main Content */
