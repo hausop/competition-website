@@ -811,13 +811,15 @@
         -webkit-overflow-scrolling: touch;
     }
     
-    /* 修正手機版文字方向 */
-    .scoring-table th[rowspan],
-    .scoring-table .category {
-        writing-mode: horizontal-tb !important; /* 強制水平顯示 */
-        text-orientation: mixed !important;
-        min-width: 60px;
-    }
+    /* 手機版文字垂直顯示 */
+.scoring-table th[rowspan],
+.scoring-table .category {
+    writing-mode: vertical-rl; /* 垂直從右到左 */
+    text-orientation: upright; /* 字元保持正向 */
+    min-width: 40px; /* 可以更窄一點 */
+    height: auto;
+    padding: 10px 5px;
+}
     
     /* 固定左側欄位 */
 .scoring-table th:first-child,
