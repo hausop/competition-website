@@ -149,6 +149,12 @@
     font-weight: bold;
     white-space: nowrap;
   }
+
+    .vertical-on-mobile {
+      writing-mode: vertical-rl;
+      text-align: center;
+      white-space: nowrap;
+    }
 }
 
 /* 桌面版調整 */
@@ -1088,7 +1094,7 @@
             <table class="scoring-table" border="1">
   <tbody>
     <tr>
-      <td class="category vertical-text" rowspan="2" style="writing-mode: vertical-rl; text-align: center; background: #0082c6; color: white; font-weight: bold;">
+      <td class="category vertical-text vertical-on-mobile" rowspan="2" style="writing-mode: vertical-rl; text-align: center; background: #0082c6; color: white; font-weight: bold;">
         評分項目
       </td>
       <td style="font-weight: bold; background: #e8e8e8;">A 簡報內容方式</td>
@@ -1113,7 +1119,7 @@
       </td>
     </tr>
     <tr>
-      <td class="category vertical-text" style="writing-mode: vertical-rl; text-align: center; background: #0082c6; color: white; font-weight: bold;">
+      <td class="category vertical-text vertical-on-mobile" style="writing-mode: vertical-rl; text-align: center; background: #0082c6; color: white; font-weight: bold;">
         評分比重
       </td>
       <td style="font-size: 1.5em; font-weight: bold; background: #fde8d4;">20%</td>
