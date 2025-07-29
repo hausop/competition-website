@@ -814,11 +814,12 @@
     /* 手機版文字垂直顯示 */
 .scoring-table th[rowspan],
 .scoring-table .category {
-    writing-mode: vertical-rl; /* 垂直從右到左 */
-    text-orientation: upright; /* 字元保持正向 */
-    min-width: 40px; /* 可以更窄一點 */
+    writing-mode: vertical-lr; /* 改為從左到右 */
+    text-orientation: mixed; /* 改為 mixed */
+    min-width: 40px;
     height: auto;
     padding: 10px 5px;
+    letter-spacing: 2px; /* 增加字間距 */
 }
     
     /* 固定左側欄位 */
