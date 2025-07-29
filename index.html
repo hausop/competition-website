@@ -924,6 +924,34 @@
     display: block !important;
   }
 }
+    /* 桌機與手機切換控制 */
+.scoring-table-mobile {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .scoring-table-desktop {
+    display: none !important;
+  }
+
+  .scoring-table-mobile {
+    display: block !important;
+  }
+
+  .scoring-table-mobile table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95em;
+  }
+
+  .scoring-table-mobile th,
+  .scoring-table-mobile td {
+    padding: 12px;
+    border: 1px solid #ccc;
+    text-align: left;
+    font-size: 0.95em;
+  }
+}
 }
     </style>
 </head>
