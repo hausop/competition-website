@@ -140,26 +140,6 @@
     .hero-bg-mobile {
         display: block;
     }
-    
-    .scoring-table-desktop {
-    display: none;
-  }
-
-  .scoring-table-mobile {
-    display: block;
-  }
-
-  .scoring-table-mobile table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .scoring-table-mobile th,
-  .scoring-table-mobile td {
-    padding: 12px;
-    border: 1px solid #ccc;
-    text-align: left;
-  }
 }
 
 /* 桌面版調整 */
@@ -929,7 +909,19 @@
     text-align: left;
   }
 }
+    .scoring-table-mobile {
+  display: none !important;
+}
 
+@media (max-width: 768px) {
+  .scoring-table-desktop {
+    display: none !important;
+  }
+
+  .scoring-table-mobile {
+    display: block !important;
+  }
+}
 }
     </style>
 </head>
