@@ -811,14 +811,21 @@
     }
     
     /* 固定左側欄位 */
-    .scoring-table th:first-child,
-    .scoring-table td:first-child {
-        position: sticky;
-        left: 0;
-        z-index: 10;
-        background: #0074D9;
-        box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    }
+.scoring-table th:first-child,
+.scoring-table td.category {
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    background: #0074D9;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+/* 確保非 category 的 td 不被影響 */
+.scoring-table td:first-child:not(.category) {
+    position: static;
+    background: transparent;
+    box-shadow: none;
+}
     
     /* 確保表格有足夠寬度可滾動 */
     .scoring-table {
@@ -932,8 +939,8 @@
         <!-- 協辦單位區塊 -->
     <div class="sponsor-wrapper" style="margin-top: 25px;">
         <div class="organizer-new-item">
-            <h4>｜ 協辦單位 ｜</h4>
-            <p style="font-size: 0.85em;">(依筆劃排序)</p>
+            <h4 style="margin-bottom: 3px;">｜ 協辦單位 ｜</h4>
+            <p style="font-size: 0.85em; margin-top: 0; margin-bottom: 8px;">(依筆劃排序)</p>
             <p>友邦人壽｜台新人壽｜台灣人壽｜全球人壽｜安達人壽｜法國巴黎人壽｜第一金人壽｜凱基人壽｜新光人壽｜遠雄人壽｜中國信託產險｜安達產物｜兆豐保險｜明台產物保險｜法國巴黎產險｜泰安產物保險｜國泰產險｜富邦產險｜華南產險｜新光產物保險｜國立高雄科技大學-產學營運處｜</p>
         </div>
     </div>
