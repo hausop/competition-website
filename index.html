@@ -158,10 +158,15 @@
     vertical-align: middle;
   }
 }
+        
         /* 預設隱藏手機版表格（只有桌面顯示） */
-.mobile-only {
+        .mobile-only {
   display: none;
 }
+
+        .pc-only {
+    display: block;
+  }
 
 /* 桌面版調整 */
 @media (min-width: 769px) {
@@ -933,7 +938,7 @@
       padding: 0;       /* 移除灰色容器 padding */
       overflow: visible !important; /* 移除左右滑 */
       border: none !important;
-        display: block !important;
+      display: block !important;
   }
 
     .mobile-only table {
@@ -947,6 +952,9 @@
       font-size: 14px;
       padding: 8px;
       word-break: break-word;
+    }
+      .pc-only {
+      display: none !important;
     }
   }
     /* 這部分要在媒體查詢外面 */
@@ -1145,92 +1153,100 @@
             <h2 class="section-title">- 評分標準 -</h2>
             
             <h4>初賽評分標準：</h4>
-            <div class="mobile-only">
-            <table class="scoring-table">
-  <tbody>
-    <tr>
-      <td class="category vertical-text vertical-on-mobile" rowspan="2" style="writing-mode: vertical-rl; text-align: center; background: #0082c6; color: white; font-weight: bold;">
-        評分項目
-      </td>
-      <td style="font-weight: bold; background: #e8e8e8;">A 簡報內容方式</td>
-      <td style="font-weight: bold; background: #e8e8e8;">B 家庭健診資料彙整</td>
-      <td style="font-weight: bold; background: #e8e8e8;">C 保單規劃與建議</td>
-    </tr>
-    <tr>
-      <td>
-        A-1 提綱簡明扼要<br>
-        A-2 內容編輯美觀<br>
-        A-3 符合主辦單位報告規範
-      </td>
-      <td>
-        B-1 家庭既有保單項目<br>
-        B-2 家庭財務收支狀況<br>
-        B-3 家庭保障需求順位
-      </td>
-      <td>
-        C-1 保單建議內容完整性<br>
-        C-2 保費預算安排合理性<br>
-        C-3 長期生涯規劃適合性
-      </td>
-    </tr>
-    <tr>
-      <td class="category vertical-text vertical-on-mobile" style="writing-mode: vertical-rl; text-align: center; background: #0082c6; color: white; font-weight: bold;">
-        評分比重
-      </td>
-      <td style="font-size: 1.5em; font-weight: bold; background: #fde8d4;">20%</td>
-      <td style="font-size: 1.5em; font-weight: bold; background: #fde8d4;">30%</td>
-      <td style="font-size: 1.5em; font-weight: bold; background: #fde8d4;">50%</td>
-    </tr>
-  </tbody>
-</table>
-                <!-- 手機版直式表格 -->
-            <div class="mobile-only">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>評分項目</th>
-                            <th>評分比重</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="category-section">
-                            <td colspan="2" class="category-header">A 簡報內容方式</td>
-                        </tr>
-                        <tr>
-                            <td class="item-cell">
-                                A-1 提綱簡明扼要<br>
-                                A-2 內容編輯美觀<br>
-                                A-3 符合主辦單位報告規範
-                            </td>
-                            <td class="score-cell">20%</td>
-                        </tr>
-                        <tr class="category-section">
-                            <td colspan="2" class="category-header">B 家庭健診資料彙整</td>
-                        </tr>
-                        <tr>
-                            <td class="item-cell">
-                                B-1 家庭既有保單項目<br>
-                                B-2 家庭財務收支狀況<br>
-                                B-3 家庭保障需求順位
-                            </td>
-                            <td class="score-cell">30%</td>
-                        </tr>
-                        <tr class="category-section">
-                            <td colspan="2" class="category-header">C 保單規劃與建議</td>
-                        </tr>
-                        <tr>
-                            <td class="item-cell">
-                                C-1 保單建議內容完整性<br>
-                                C-2 保費預算安排合理性<br>
-                                C-3 長期生涯規劃適合性
-                            </td>
-                            <td class="score-cell">50%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-                </div>
-        </div>
+            <div class="section">
+  <h2 class="section-title">- 評分標準 -</h2>
+  <h4>初賽評分標準：</h4>
+
+  <!-- ✅ 桌機版橫式表格（class: pc-only） -->
+  <div class="pc-only">
+    <table class="scoring-table">
+      <tbody>
+        <tr>
+          <td class="category vertical-text vertical-on-mobile" rowspan="2" style="writing-mode: vertical-rl; text-align: center; background: #0082c6; color: white; font-weight: bold;">
+            評分項目
+          </td>
+          <td style="font-weight: bold; background: #e8e8e8;">A 簡報內容方式</td>
+          <td style="font-weight: bold; background: #e8e8e8;">B 家庭健診資料彙整</td>
+          <td style="font-weight: bold; background: #e8e8e8;">C 保單規劃與建議</td>
+        </tr>
+        <tr>
+          <td>
+            A-1 提綱簡明扼要<br>
+            A-2 內容編輯美觀<br>
+            A-3 符合主辦單位報告規範
+          </td>
+          <td>
+            B-1 家庭既有保單項目<br>
+            B-2 家庭財務收支狀況<br>
+            B-3 家庭保障需求順位
+          </td>
+          <td>
+            C-1 保單建議內容完整性<br>
+            C-2 保費預算安排合理性<br>
+            C-3 長期生涯規劃適合性
+          </td>
+        </tr>
+        <tr>
+          <td class="category vertical-text vertical-on-mobile" style="writing-mode: vertical-rl; text-align: center; background: #0082c6; color: white; font-weight: bold;">
+            評分比重
+          </td>
+          <td style="font-size: 1.5em; font-weight: bold; background: #fde8d4;">20%</td>
+          <td style="font-size: 1.5em; font-weight: bold; background: #fde8d4;">30%</td>
+          <td style="font-size: 1.5em; font-weight: bold; background: #fde8d4;">50%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ✅ 手機版直式表格（class: mobile-only） -->
+  <div class="mobile-only">
+    <div class="mobile-scoring-table">
+      <table class="vertical-scoring-table">
+        <thead>
+          <tr>
+            <th>評分項目</th>
+            <th>評分比重</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="category-section">
+            <td colspan="2" class="category-header">A 簡報內容方式</td>
+          </tr>
+          <tr>
+            <td class="item-cell">
+              A-1 提綱簡明扼要<br>
+              A-2 內容編輯美觀<br>
+              A-3 符合主辦單位報告規範
+            </td>
+            <td class="score-cell">20%</td>
+          </tr>
+          <tr class="category-section">
+            <td colspan="2" class="category-header">B 家庭健診資料彙整</td>
+          </tr>
+          <tr>
+            <td class="item-cell">
+              B-1 家庭既有保單項目<br>
+              B-2 家庭財務收支狀況<br>
+              B-3 家庭保障需求順位
+            </td>
+            <td class="score-cell">30%</td>
+          </tr>
+          <tr class="category-section">
+            <td colspan="2" class="category-header">C 保單規劃與建議</td>
+          </tr>
+          <tr>
+            <td class="item-cell">
+              C-1 保單建議內容完整性<br>
+              C-2 保費預算安排合理性<br>
+              C-3 長期生涯規劃適合性
+            </td>
+            <td class="score-cell">50%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
         
         <!-- Final Competition -->
         <div class="section">
