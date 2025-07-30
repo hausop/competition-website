@@ -158,6 +158,10 @@
     vertical-align: middle;
   }
 }
+        /* 預設隱藏手機版表格（只有桌面顯示） */
+.mobile-only {
+  display: none;
+}
 
 /* 桌面版調整 */
 @media (min-width: 769px) {
@@ -165,9 +169,6 @@
         height: 600px; /* 可調整高度 */
     }
 }
-        .mobile-only {
-    display: none;
-  }
 
 /* 主要內容區域需要加上間距 */
 .organizers {
@@ -856,10 +857,6 @@
     white-space: nowrap;
   }
 }
-    /* 這部分要在媒體查詢外面 */
-.mobile-scoring-table {
-    display: none;
-}
     /* 手機版顯示設定 */
 @media (max-width: 768px) {
     /* 隱藏原本的橫式表格 */
@@ -936,9 +933,8 @@
       padding: 0;       /* 移除灰色容器 padding */
       overflow: visible !important; /* 移除左右滑 */
       border: none !important;
-        display: block;
-
-    }
+        display: block !important;
+  }
 
     .mobile-only table {
       width: 100% !important;
@@ -953,6 +949,10 @@
       word-break: break-word;
     }
   }
+    /* 這部分要在媒體查詢外面 */
+.mobile-scoring-table {
+    display: none;
+}
     </style>
 </head>
 <body>
@@ -1184,12 +1184,12 @@
   </tbody>
 </table>
                 <!-- 手機版直式表格 -->
-            <div class="mobile-scoring-table">
-                <table class="vertical-scoring-table">
+            <div class="mobile-only">
+                <table>
                     <thead>
                         <tr>
                             <th>評分項目</th>
-                            <th>比重</th>
+                            <th>評分比重</th>
                         </tr>
                     </thead>
                     <tbody>
