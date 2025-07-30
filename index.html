@@ -951,6 +951,11 @@
     text-align: left;
     font-size: 0.95em;
   }
+
+    .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
 }
 }
     </style>
@@ -1146,7 +1151,7 @@
             
             <h4>初賽評分標準：</h4>
             <!-- 桌機版：原始表格 -->
-<div class="scoring-table-desktop">
+<div class="scoring-table-desktop table-wrapper">
   <table class="scoring-table" border="1">
     <tbody>
       <tr>
