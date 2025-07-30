@@ -813,11 +813,6 @@
 
         /* 手機版表格優化 - 保留原本樣式 */
 @media (max-width: 768px) {
-    /* 表格容器可橫向滾動 */
-    .section:has(.scoring-table) {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
     
     /* 手機版文字垂直顯示 */
 .scoring-table th[rowspan],
@@ -865,21 +860,87 @@
     .scoring-table {
         font-size: 0.85em;
     }
+
+    /* 手機版直式表格 - 預設隱藏 */
+.mobile-scoring-table {
+    display: none;
+}
     
     .scoring-table th,
     .scoring-table td {
         padding: 10px 8px;
     }
-    
-    /* 滾動提示 */
-    .section:has(.scoring-table)::after {
-        content: "← 左右滑動查看完整表格 →";
-        display: block;
-        text-align: center;
-        color: #999;
-        font-size: 0.8em;
-        margin-top: 10px;
+
+    /* 手機版顯示設定 */
+@media (max-width: 768px) {
+    /* 隱藏原本的橫式表格 */
+    .scoring-table {
+        display: none;
     }
+    
+    /* 顯示手機版直式表格 */
+    .mobile-scoring-table {
+        display: block;
+        margin: 20px 0;
+    }
+    
+    .vertical-scoring-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .vertical-scoring-table thead {
+        background: #0074D9;
+        color: white;
+    }
+    
+    .vertical-scoring-table th {
+        padding: 12px;
+        text-align: center;
+        font-weight: 600;
+    }
+    
+    .vertical-scoring-table th:last-child {
+        background: #FFE5CC;
+        color: #333;
+        width: 80px;
+    }
+    
+    /* 分類標題行 */
+    .category-header {
+        background: #f8f9fa;
+        font-weight: bold;
+        padding: 10px 15px;
+        text-align: left;
+        border-top: 2px solid #dee2e6;
+    }
+    
+    /* 項目內容 */
+    .item-cell {
+        padding: 15px;
+        line-height: 1.6;
+        border-right: 1px solid #dee2e6;
+    }
+    
+    /* 比重欄位 */
+    .score-cell {
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.2em;
+        padding: 15px;
+        background: #f8f9fa;
+    }
+    
+    .vertical-scoring-table td {
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .category-section td {
+        border-bottom: none;
+    }
+}
 
     /* 手機版表格滑動容器 */
 @media (max-width: 768px) {
@@ -1130,6 +1191,52 @@
     </tr>
   </tbody>
 </table>
+                <!-- 手機版直式表格 -->
+            <div class="mobile-scoring-table">
+                <table class="vertical-scoring-table">
+                    <thead>
+                        <tr>
+                            <th>評分項目</th>
+                            <th>比重</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="category-section">
+                            <td colspan="2" class="category-header">A 簡報內容方式</td>
+                        </tr>
+                        <tr>
+                            <td class="item-cell">
+                                A-1 提綱簡明扼要<br>
+                                A-2 內容編輯美觀<br>
+                                A-3 符合主辦單位報告規範
+                            </td>
+                            <td class="score-cell">20%</td>
+                        </tr>
+                        <tr class="category-section">
+                            <td colspan="2" class="category-header">B 家庭健診資料彙整</td>
+                        </tr>
+                        <tr>
+                            <td class="item-cell">
+                                B-1 家庭既有保單項目<br>
+                                B-2 家庭財務收支狀況<br>
+                                B-3 家庭保障需求順位
+                            </td>
+                            <td class="score-cell">30%</td>
+                        </tr>
+                        <tr class="category-section">
+                            <td colspan="2" class="category-header">C 保單規劃與建議</td>
+                        </tr>
+                        <tr>
+                            <td class="item-cell">
+                                C-1 保單建議內容完整性<br>
+                                C-2 保費預算安排合理性<br>
+                                C-3 長期生涯規劃適合性
+                            </td>
+                            <td class="score-cell">50%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
                 </div>
         </div>
         
