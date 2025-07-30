@@ -165,6 +165,9 @@
         height: 600px; /* 可調整高度 */
     }
 }
+        .mobile-only {
+    display: none;
+  }
 
 /* 主要內容區域需要加上間距 */
 .organizers {
@@ -812,28 +815,7 @@
         } 
 
         /* 手機版表格優化 - 保留原本樣式 */
-@media (max-width: 768px) {
-    
-    /* 手機版文字垂直顯示 */
-.scoring-table th[rowspan],
-.scoring-table .category {
-    writing-mode: vertical-rl; /* 從右到左 */
-    text-orientation: mixed; /* mixed 讓中文字正立 */
-    text-align: center;
-    min-width: 40px;
-    height: auto;
-    padding: 10px 5px;
-}
-
-/* 針對 iOS Safari 的修正 */
-@supports (-webkit-touch-callout: none) {
-    .scoring-table th[rowspan],
-    .scoring-table .category {
-        -webkit-writing-mode: vertical-rl;
-        writing-mode: vertical-rl;
-    }
-}
-    
+@media (max-width: 768px) {    
     /* 固定左側欄位 */
 .scoring-table th:first-child,
 .scoring-table td.category {
@@ -954,6 +936,7 @@
       padding: 0;       /* 移除灰色容器 padding */
       overflow: visible !important; /* 移除左右滑 */
       border: none !important;
+        display: block;
 
     }
 
@@ -968,17 +951,6 @@
       font-size: 14px;
       padding: 8px;
       word-break: break-word;
-    }
-  }
-    /* 預設隱藏手機版表格（PC 上） */
-  .mobile-only {
-    display: none;
-  }
-
-  /* 手機版顯示 */
-  @media (max-width: 768px) {
-    .mobile-only {
-      display: block;
     }
   }
     </style>
