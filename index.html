@@ -954,6 +954,7 @@
       padding: 0;       /* 移除灰色容器 padding */
       overflow: visible !important; /* 移除左右滑 */
       border: none !important;
+
     }
 
     .mobile-only table {
@@ -967,6 +968,17 @@
       font-size: 14px;
       padding: 8px;
       word-break: break-word;
+    }
+  }
+    /* 預設隱藏手機版表格（PC 上） */
+  .mobile-only {
+    display: none;
+  }
+
+  /* 手機版顯示 */
+  @media (max-width: 768px) {
+    .mobile-only {
+      display: block;
     }
   }
     </style>
