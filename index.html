@@ -860,17 +860,35 @@
     .scoring-table {
         font-size: 0.85em;
     }
-
-    /* 手機版直式表格 - 預設隱藏 */
-.mobile-scoring-table {
-    display: none;
-}
     
     .scoring-table th,
     .scoring-table td {
         padding: 10px 8px;
     }
 
+    /* 手機版表格滑動容器 */
+@media (max-width: 768px) {
+  .scoring-wrapper {
+    overflow-x: auto;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  .scoring-wrapper table {
+    min-width: 600px; /* 確保可以滑動 */
+  }
+    .scoring-table td.category {
+    writing-mode: vertical-rl;
+    text-align: center;
+    white-space: nowrap;
+  }
+}
+    /* 這部分要在媒體查詢外面 */
+.mobile-scoring-table {
+    display: none;
+}
     /* 手機版顯示設定 */
 @media (max-width: 768px) {
     /* 隱藏原本的橫式表格 */
@@ -940,26 +958,6 @@
     .category-section td {
         border-bottom: none;
     }
-}
-
-    /* 手機版表格滑動容器 */
-@media (max-width: 768px) {
-  .scoring-wrapper {
-    overflow-x: auto;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 20px;
-  }
-
-  .scoring-wrapper table {
-    min-width: 600px; /* 確保可以滑動 */
-  }
-    .scoring-table td.category {
-    writing-mode: vertical-rl;
-    text-align: center;
-    white-space: nowrap;
-  }
 }
     </style>
 </head>
