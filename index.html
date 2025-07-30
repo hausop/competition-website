@@ -868,17 +868,6 @@
 
     /* 手機版表格滑動容器 */
 @media (max-width: 768px) {
-  .scoring-wrapper {
-    overflow-x: auto;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 20px;
-  }
-
-  .scoring-wrapper table {
-    min-width: 600px; /* 確保可以滑動 */
-  }
     .scoring-table td.category {
     writing-mode: vertical-rl;
     text-align: center;
@@ -959,6 +948,27 @@
         border-bottom: none;
     }
 }
+    /* 手機版 table 自適應寬度 */
+  @media (max-width: 768px) {
+    .mobile-only {
+      padding: 0;       /* 移除灰色容器 padding */
+      overflow: visible !important; /* 移除左右滑 */
+      border: none !important;
+    }
+
+    .mobile-only table {
+      width: 100% !important;
+      border-collapse: collapse;
+      background-color: transparent;
+    }
+
+    .mobile-only th,
+    .mobile-only td {
+      font-size: 14px;
+      padding: 8px;
+      word-break: break-word;
+    }
+  }
     </style>
 </head>
 <body>
@@ -1151,8 +1161,8 @@
             <h2 class="section-title">- 評分標準 -</h2>
             
             <h4>初賽評分標準：</h4>
-            <div class="scoring-wrapper">
-            <table class="scoring-table" border="1">
+            <div class="mobile-only">
+            <table class="scoring-table">
   <tbody>
     <tr>
       <td class="category vertical-text vertical-on-mobile" rowspan="2" style="writing-mode: vertical-rl; text-align: center; background: #0082c6; color: white; font-weight: bold;">
