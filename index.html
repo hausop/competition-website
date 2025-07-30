@@ -157,16 +157,7 @@
     text-align: center;
     vertical-align: middle;
   }
-}
-        
-        /* 預設隱藏手機版表格（只有桌面顯示） */
-        .mobile-only {
-  display: none;
-}
-
-        .pc-only {
-    display: block;
-  }
+}ㄒ
 
 /* 桌面版調整 */
 @media (min-width: 769px) {
@@ -869,12 +860,6 @@
         display: none;
     }
     
-    /* 顯示手機版直式表格 */
-    .mobile-scoring-table {
-        display: block;
-        margin: 20px 0;
-    }
-    
     .vertical-scoring-table {
         width: 100%;
         border-collapse: collapse;
@@ -938,7 +923,6 @@
       padding: 0;       /* 移除灰色容器 padding */
       overflow: visible !important; /* 移除左右滑 */
       border: none !important;
-      display: block !important;
   }
 
     .mobile-only table {
@@ -953,14 +937,44 @@
       padding: 8px;
       word-break: break-word;
     }
-      .pc-only {
-      display: none !important;
-    }
   }
-    /* 這部分要在媒體查詢外面 */
-.mobile-scoring-table {
-    display: none;
+
+    /* 預設顯示設定（在所有媒體查詢外面） */
+.pc-only {
+    display: block;
 }
+
+.mobile-only {
+    display: none; !important;
+}
+
+.mobile-scoring-table {
+    display: none; !important;
+}
+
+/* 手機版顯示設定 */
+@media (max-width: 768px) {
+    /* 切換顯示 */
+    .pc-only {
+        display: none !important;
+    }
+    
+    .mobile-only {
+        display: block !important;
+    }
+    
+    .mobile-scoring-table {
+        display: block !important;
+    }
+    
+    /* 手機版表格樣式 */
+    .vertical-scoring-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
     </style>
 </head>
 <body>
@@ -1083,32 +1097,24 @@
         
         <!-- Registration Process -->
         <div class="section">
-            <h2 class="section-title">- 報名程序說明 -</h2>
-            <div class="process-grid">
-                <div class="process-item">
-                    <h4>(一) 報名資格：</h4>
-                    <p>全國各大專院校金融、財金、保險相關科系或對於保險規劃有興趣之在校學生皆可組隊參與，初賽參與各團隊人數3人以上，最多6人。</p>
-                </div>
-                <div class="process-item">
-                    <h4>(二) 報名方式：</h4>
-                    <p>自大賽官網下載或大賽簡章中填寫約定書，於報名截止日前完成線上報名程序且<a href="https://www.taiyung.com.tw/competition/" target="_blank" class="highlight">將約定書上傳官網</a>，完成報名程序。</p>
-                </div>
-                <div class="process-item">
-                    <h4>(三) 說明會、比賽報名日期：</h4>
-                    <p>114年09月08日(一)起至114年12月26日(五)。</p>
-                </div>
-                <div class="process-item">
-                    <h4>(四) 收件截止日期：</h4>
-                    <p class="highlight">114年12月26日(五) 12:00 止。</p>
-                </div>
-                <div class="process-item">
-                    <h4>(五) 完成線上報名程序且約定書得隨同初賽資料傳送至主辦單位，視同報名完成。</h4>
-                </div>
-                <div class="process-item">
-                    <h4>(六) 報名費用：無需費用。</h4>
-                </div>
-            </div>
-        </div>
+    <h2 class="section-title">- 報名程序說明 -</h2>
+    
+    <h4>(一) 報名資格：</h4>
+    <p>全國各大專院校金融、財金、保險相關科系或對於保險規劃有興趣之在校學生皆可組隊參與，初賽參與各團隊人數3人以上，最多6人。</p>
+    
+    <h4>(二) 報名方式：</h4>
+    <p>自大賽官網下載或大賽簡章中填寫約定書，於報名截止日前完成線上報名程序且<a href="https://www.taiyung.com.tw/competition/register.aspx" target="_blank" class="highlight">將約定書上傳官網</a>，完成報名程序。</p>
+    
+    <h4>(三) 說明會、比賽報名日期：</h4>
+    <p>114年09月08日(一)起至114年12月26日(五)。</p>
+    
+    <h4>(四) 收件截止日期：</h4>
+    <p class="highlight">114年12月26日(五) 12:00 止。</p>
+    
+    <h4>(五) 完成線上報名程序且約定書得隨同初賽資料傳送至主辦單位，視同報名完成。</h4>
+    
+    <h4>(六) 報名費用：無需費用。</h4>
+</div>
         
         <!-- Initial Competition Process -->
         <div class="section">
