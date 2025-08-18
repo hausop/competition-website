@@ -1,9 +1,2 @@
-<!-- 檔案名稱：_redirects -->
-<!-- 放在你的 GitHub repo 根目錄 -->
-
 # 基本密碼保護
 /*    /.netlify/functions/basic-auth    200
-
-<!-- 或者簡單的重導向保護 -->
-<!-- /admin/*  /login  401 -->
-<!-- /*        /password-check.html  200 -->
