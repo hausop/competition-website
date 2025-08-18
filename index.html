@@ -974,6 +974,51 @@
         background: white;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
+
+    // 11. CSS 樣式保護（加入到 <style> 區塊）
+const protectionCSS = `
+    /* 防止圖片選取 */
+    img {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        user-drag: none;
+        pointer-events: none;
+    }
+    
+    /* 允許圖片正常互動但保護內容 */
+    img.interactive {
+        pointer-events: auto;
+    }
+    
+    /* 防止文字選取（部分區域） */
+    .protected-content {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    /* 隱藏右鍵選單樣式 */
+    .no-context-menu {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+`;
+
+// 動態插入保護 CSS
+const style = document.createElement('style');
+style.textContent = protectionCSS;
+document.head.appendChild(style);
     
     </style>
 </head>
@@ -1642,6 +1687,142 @@ if (scrollIndicator) {
                 observer.observe(item);
             });
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+    
+    // 1. 防止右鍵選單
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+    });
+    
+    // 2. 防止拖拽圖片
+    document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            return false;
+        }
+    });
+    
+    // 3. 防止選取文字和圖片
+    document.addEventListener('selectstart', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            return false;
+        }
+    });
+    
+    // 4. 防止 F12 開發者工具（基本防護）
+    document.addEventListener('keydown', function(e) {
+        // F12
+        if (e.keyCode === 123) {
+            e.preventDefault();
+            return false;
+        }
+        // Ctrl+Shift+I
+        if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+            e.preventDefault();
+            return false;
+        }
+        // Ctrl+Shift+C
+        if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
+            e.preventDefault();
+            return false;
+        }
+        // Ctrl+U (檢視原始碼)
+        if (e.ctrlKey && e.keyCode === 85) {
+            e.preventDefault();
+            return false;
+        }
+        // Ctrl+S (儲存頁面)
+        if (e.ctrlKey && e.keyCode === 83) {
+            e.preventDefault();
+            return false;
+        }
+    });
+    
+    // 5. 圖片載入後移除 src 屬性，改用背景圖片
+    function protectImages() {
+        const images = document.querySelectorAll('img');
+        images.forEach(function(img) {
+            if (img.src && !img.dataset.protected) {
+                const originalSrc = img.src;
+                img.dataset.protected = 'true';
+                
+                // 保留原始尺寸
+                if (!img.style.width) img.style.width = img.offsetWidth + 'px';
+                if (!img.style.height) img.style.height = img.offsetHeight + 'px';
+                
+                // 改用背景圖片
+                img.style.backgroundImage = `url(${originalSrc})`;
+                img.style.backgroundSize = 'cover';
+                img.style.backgroundPosition = 'center';
+                img.style.backgroundRepeat = 'no-repeat';
+                
+                // 移除 src
+                img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InRyYW5zcGFyZW50Ii8+PC9zdmc+';
+                img.alt = '';
+            }
+        });
+    }
+    
+    // 6. 頁面載入完成後保護圖片
+    setTimeout(protectImages, 1000);
+    
+    // 7. 監控新增的圖片（如果有動態載入）
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.addedNodes.length) {
+                setTimeout(protectImages, 100);
+            }
+        });
+    });
+    
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+    
+    // 8. 防止透過控制台取得圖片
+    const originalLog = console.log;
+    console.log = function() {
+        // 靜默處理
+    };
+    
+    // 9. 模糊化處理（增加竊取難度）
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey || e.altKey || e.metaKey) {
+            document.body.style.filter = 'blur(5px)';
+            setTimeout(function() {
+                document.body.style.filter = 'none';
+            }, 100);
+        }
+    });
+    
+    // 10. 顯示警告訊息（如果偵測到可疑行為）
+    let warningShown = false;
+    function showWarning() {
+        if (!warningShown) {
+            warningShown = true;
+            // 簡單警告而不打擾正常瀏覽
+            console.warn('此網站內容受到保護，請尊重智慧財產權。');
+        }
+    }
+    
+    // 偵測開發者工具開啟
+    let devtools = {open: false};
+    setInterval(function() {
+        if (window.outerHeight - window.innerHeight > 200 || 
+            window.outerWidth - window.innerWidth > 200) {
+            if (!devtools.open) {
+                devtools.open = true;
+                showWarning();
+            }
+        } else {
+            devtools.open = false;
+        }
+    }, 500);
+});
     </script>
 </body>
 </html>
