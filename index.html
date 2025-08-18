@@ -20,7 +20,7 @@
         
         /* Header Hero Section */
 .hero {
-    position: relative;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -28,7 +28,7 @@
     color: white;
     text-align: center;
     overflow: hidden;
-    z-index: 0;
+    z-index: -1;
 }
 
 /* 背景圖片樣式 */
@@ -171,6 +171,7 @@
     position: relative;
     z-index: 1;
     background: #0074D9;
+    margin-top: 100vh; /* 手機版：推開整個視窗高度 */
 }
 
 @media (min-width: 769px) {
@@ -1550,33 +1551,6 @@
     </footer>
     
     <script>
-
-        // 確保頁面載入時在最頂端
-        window.addEventListener('load', function() {
-            // 強制滾動到頂部
-            window.scrollTo(0, 0);
-            
-            // 移除瀏覽器的滾動記憶
-            if ('scrollRestoration' in history) {
-                history.scrollRestoration = 'manual';
-            }
-        });
-        
-        // 在 DOM 載入完成時也執行一次
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                window.scrollTo(0, 0);
-            }, 0);
-        });
-        
-        // Back to Top functionality
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-        
         // Back to Top functionality
         function scrollToTop() {
             window.scrollTo({
