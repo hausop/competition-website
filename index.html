@@ -1551,6 +1551,33 @@
     </footer>
     
     <script>
+
+        // 確保頁面載入時在最頂端
+        window.addEventListener('load', function() {
+            // 強制滾動到頂部
+            window.scrollTo(0, 0);
+            
+            // 移除瀏覽器的滾動記憶
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+        });
+        
+        // 在 DOM 載入完成時也執行一次
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                window.scrollTo(0, 0);
+            }, 0);
+        });
+        
+        // Back to Top functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
         // Back to Top functionality
         function scrollToTop() {
             window.scrollTo({
