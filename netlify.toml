@@ -1,7 +1,3 @@
-<!-- ==================== -->
-<!-- 檔案名稱：netlify.toml -->
-<!-- 進階設定檔 -->
-
 [build]
   functions = "netlify/functions"
 
