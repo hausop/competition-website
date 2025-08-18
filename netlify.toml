@@ -1,0 +1,11 @@
+# 網站密碼保護設定
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/auth"
+  status = 200
+  force = false
+  conditions = {Role = ["visitor"]}
+
+# 基本密碼保護（簡易版）
+[build.environment]
+  NETLIFY_AUTH_USERS = "admin:your-password-here"
