@@ -1,11 +1,15 @@
-# 網站密碼保護設定
+<!-- ==================== -->
+<!-- 檔案名稱：netlify.toml -->
+<!-- 進階設定檔 -->
+
+[build]
+  functions = "netlify/functions"
+
 [[redirects]]
   from = "/*"
-  to = "/.netlify/functions/auth"
+  to = "/password-check.html"
   status = 200
   force = false
-  conditions = {Role = ["visitor"]}
 
-# 基本密碼保護（簡易版）
-[build.environment]
-  NETLIFY_AUTH_USERS = "admin:your-password-here"
+[context.production.environment]
+  SITE_PASSWORD = "your-password-here"
