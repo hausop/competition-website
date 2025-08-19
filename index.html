@@ -84,19 +84,7 @@
     background: rgba(0, 0, 0, 0.7);
 }
 
-.hero-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    max-width: 1200px;
-    width: 100%;
-    padding: 0 20px;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.hero.scrolled .hero-content {
+.hero.scrolled .hero-main-content {
     opacity: 0;
     transform: translate(-50%, -60%);
 }
@@ -129,56 +117,6 @@
         transform: translateX(-50%) translateY(-5px);
     }
 }
-
-/* 手機版樣式 */
-@media (max-width: 768px) {
-    /* 切換到手機版圖片 */
-    .hero-bg-desktop {
-        display: none;
-    }
-    
-    .hero-bg-mobile {
-        display: block;
-    }
-    
-    .vertical-text {
-    writing-mode: vertical-rl;
-    text-align: center;
-    background: #0082c6;
-    color: white;
-    font-weight: bold;
-    white-space: nowrap;
-  }
-
-    .vertical-on-mobile {
-    writing-mode: vertical-rl;
-    text-orientation: upright;
-    white-space: nowrap;
-    text-align: center;
-    vertical-align: middle;
-  }
-}ㄒ
-
-/* 桌面版調整 */
-@media (min-width: 769px) {
-    .hero {
-        height: 600px; /* 可調整高度 */
-    }
-}
-
-/* 主要內容區域需要加上間距 */
-.organizers {
-    position: relative;
-    z-index: 1;
-    background: #0074D9;
-    margin-top: 100vh; /* 手機版：推開整個視窗高度 */
-}
-
-@media (min-width: 769px) {
-    .organizers {
-        margin-top: 600px; /* 桌面版：與 hero 高度相同 */
-    }
-}
         
         .badge {
             display: inline-block;
@@ -189,13 +127,38 @@
             font-size: 0.9em;
             margin-bottom: 20px;
         }
+
+        /* 桌面版調整 */
+@media (min-width: 769px) {
+    .hero {
+        height: 600px; /* 桌面版固定高度 */
+    }
+    
+    .organizers {
+        margin-top: 600px; /* 配合 hero 高度 */
+    }
+}
+
+/* Organizers Section */
+.organizers {
+    position: relative;
+    z-index: 1;
+    background: #0074D9;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    margin-top: 100vh; /* 推開 hero 區域 */
+}
         
         /* Organizers Section */
         .organizers {
+            position: relative;
+            z-index: 1;
             background: #0074D9;
             color: white;
             padding: 40px 20px;
             text-align: center;
+            margin-top: 100vh; /* 推開 hero 區域 */
         }
 
         /* 新的 Organizers 排版樣式 */
@@ -857,15 +820,7 @@
 }
        
         /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 1.8em;
-            }
-            
-            .hero h2 {
-                font-size: 1.3em;
-            }
-            
+        @media (max-width: 768px) {         
             .timeline-table {
                 font-size: 0.9em;
             }
@@ -1135,13 +1090,21 @@ document.head.appendChild(style);
 <body>
     <!-- Hero Section -->
 <div class="hero">
-    <!-- 1. 背景圖片容器 (加在 hero-content 之前) -->
+    <!-- 1. 背景圖片容器 -->
     <div class="hero-background">
-        <img src="desktop-banner.jpg" alt="Banner" class="hero-bg-desktop">
-        <img src="mobile-banner.jpg" alt="Banner" class="hero-bg-mobile">
+        <!-- 背景圖（用於裝飾） -->
+        <img src="banner-bg.jpg" alt="Background" class="hero-bg-image">
+        <!-- 深色遮罩（可選） -->
+        <div class="hero-overlay"></div>
     </div>
     
-    <!-- 3. 下滑提示 (加在 hero-content 之後) -->
+    <!-- 2. 主體內容容器 -->
+    <div class="hero-main-content">
+        <!-- 主體圖片（logo、文字等重要元素） -->
+        <img src="banner-main.png" alt="第十三屆全國大專保單健診暨保險規劃大賽" class="hero-main-image">
+    </div>
+    
+    <!-- 3. 下滑提示 -->
     <div class="scroll-indicator">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 5v14M19 12l-7 7-7-7"/>
