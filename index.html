@@ -745,7 +745,27 @@
         .gallery-item:hover {
             transform: scale(1.05);
         }
-        
+
+        /* Footer responsive text */
+.footer-text {
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 480px) {
+    .footer-text {
+        font-size: clamp(0.7rem, 3.5vw, 0.9rem);
+    }
+}
+
+@media (max-width: 360px) {
+    .footer-text {
+        font-size: clamp(0.6rem, 3vw, 0.8rem);
+    }
+}
+       
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
@@ -1454,7 +1474,7 @@ document.head.appendChild(style);
     
     <!-- Footer -->
     <footer style="background: #1a1a1a; color: #888; text-align: center; padding: 20px;">
-        <p>-大賽相關日期與地點如有更動，以主辦單位最新公告為準-</p>
+        <p class="footer-text">-大賽相關日期與地點如有更動，以主辦單位最新公告為準-</p>
     </footer>
     
     <script>
