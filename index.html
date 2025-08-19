@@ -258,6 +258,49 @@
     font-size: 0.75em;
 }
 
+        /* 桌面版/手機版切換顯示 */
+.organizers-desktop {
+    display: block;
+}
+
+.organizers-mobile {
+    display: none;
+}
+
+/* 手機版主辦學校樣式 */
+.mobile-schools-list {
+    text-align: left;
+    margin-top: 10px;
+}
+
+.mobile-school-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+    color: rgba(255,255,255,0.9);
+}
+
+.mobile-school-item .region-badge {
+    flex-shrink: 0;
+}
+
+/* 手機版顯示切換 */
+@media (max-width: 768px) {
+    .organizers-desktop {
+        display: none;
+    }
+    
+    .organizers-mobile {
+        display: block;
+    }
+    
+    .organizers-mobile .organizers-new-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
+
         /* 協辦學校特殊樣式 */
 .co-schools .schools-list {
     text-align: left;
@@ -1106,29 +1149,62 @@ document.head.appendChild(style);
 <div class="organizers">
     <h3 style="margin-bottom: 20px;">主辦單位：太陽保險經紀人股份有限公司</h3>
     
-    <div class="organizers-new-grid">
-        <!-- 全國總決賽 -->
-        <div class="organizer-new-item">
-            <h4>全國總決賽 主辦學校</h4>
-            <p>朝陽科技大學-保險金融管理系</p>
+    <!-- 桌面版顯示 -->
+    <div class="organizers-desktop">
+        <div class="organizers-new-grid">
+            <!-- 全國總決賽 -->
+            <div class="organizer-new-item">
+                <h4>全國總決賽 主辦學校</h4>
+                <p>朝陽科技大學-保險金融管理系</p>
+            </div>
+            
+            <!-- 北區 -->
+            <div class="organizer-new-item">
+                <h4><span class="region-badge region-north">北</span> 主辦學校</h4>
+                <p>銘傳大學-資訊應用與金融保險學系</p>
+            </div>
+            
+            <!-- 中區 -->
+            <div class="organizer-new-item">
+                <h4><span class="region-badge region-center">中</span> 主辦學校</h4>
+                <p>國立臺中科技大學-保險金融管理系</p>
+            </div>
+            
+            <!-- 南區 -->
+            <div class="organizer-new-item">
+                <h4><span class="region-badge region-south">南</span> 主辦學校</h4>
+                <p>樹德科技大學-金融管理系</p>
+            </div>
         </div>
-        
-        <!-- 北區 -->
-        <div class="organizer-new-item">
-            <h4><span class="region-badge region-north">北</span> 主辦學校</h4>
-            <p>銘傳大學-資訊應用與金融保險學系</p>
-        </div>
-        
-        <!-- 中區 -->
-        <div class="organizer-new-item">
-            <h4><span class="region-badge region-center">中</span> 主辦學校</h4>
-            <p>國立臺中科技大學-保險金融管理系</p>
-        </div>
-        
-        <!-- 南區 -->
-        <div class="organizer-new-item">
-            <h4><span class="region-badge region-south">南</span> 主辦學校</h4>
-            <p>樹德科技大學-金融管理系</p>
+    </div>
+    
+    <!-- 手機版顯示 -->
+    <div class="organizers-mobile">
+        <div class="organizers-new-grid">
+            <!-- 全國總決賽 -->
+            <div class="organizer-new-item">
+                <h4>全國總決賽 主辦學校</h4>
+                <p>朝陽科技大學-保險金融管理系</p>
+            </div>
+            
+            <!-- 合併的主辦學校 -->
+            <div class="organizer-new-item">
+                <h4>主辦學校</h4>
+                <div class="mobile-schools-list">
+                    <div class="mobile-school-item">
+                        <span class="region-badge">北</span>
+                        <span>銘傳大學-資訊應用與金融保險學系</span>
+                    </div>
+                    <div class="mobile-school-item">
+                        <span class="region-badge">中</span>
+                        <span>國立臺中科技大學-保險金融管理系</span>
+                    </div>
+                    <div class="mobile-school-item">
+                        <span class="region-badge">南</span>
+                        <span>樹德科技大學-金融管理系</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
