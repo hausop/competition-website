@@ -75,17 +75,16 @@
             background: rgba(0, 0, 0, 0.7);
         }
 
-        /* 主體內容 - 修正版 */
+        /* 主體內容 - 優化版 */
         .hero-main-content {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 2;
-            width: 90%;
-            max-width: 1000px;
+            width: 85%;
+            max-width: 700px; /* 從 1000px 降到 700px，PC 不會太大 */
             height: auto;
-            max-height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -96,7 +95,6 @@
         .hero-main-image {
             width: 100%;
             height: auto;
-            max-height: 100%;
             object-fit: contain;
         }
 
@@ -670,13 +668,23 @@
         }
 
         /* ========== 響應式設計 ========== */
-        @media (max-width: 768px) {
-            /* Hero 調整 */
+        /* 平板尺寸 */
+        @media (min-width: 769px) and (max-width: 1024px) {
             .hero-main-content {
-                width: 95%;
-                height: auto;
-                max-height: 70vh;
+                width: 75%;
+                max-width: 600px;
+            }
+        }
+
+        /* 手機尺寸 */
+        @media (max-width: 768px) {
+            /* Hero 調整 - 手機版加大 */
+            .hero-main-content {
+                width: 100%; /* 使用全寬 */
+                max-width: 500px; /* 設定最大寬度 */
                 padding: 10px;
+                top: 45%; /* 稍微上移，避免太靠下 */
+                transform: translate(-50%, -45%);
             }
 
             /* 主辦單位網格 */
@@ -756,7 +764,15 @@
             }
         }
 
+        /* 小手機調整 */
         @media (max-width: 480px) {
+            .hero-main-content {
+                width: 100%;
+                max-width: 400px;
+                top: 42%; /* 再稍微上移 */
+                transform: translate(-50%, -42%);
+            }
+
             .footer-text {
                 font-size: clamp(0.7rem, 3.5vw, 0.9rem);
             }
@@ -764,9 +780,11 @@
 
         @media (max-width: 375px) {
             .hero-main-content {
-                height: auto;
-                max-height: 60vh;
+                width: 100%;
+                max-width: 350px;
                 padding: 5px;
+                top: 40%; /* 小螢幕再上移一點 */
+                transform: translate(-50%, -40%);
             }
 
             .footer-text {
@@ -775,10 +793,18 @@
         }
 
         /* 橫向模式優化 */
+        @media (orientation: landscape) and (max-height: 600px) {
+            .hero-main-content {
+                max-width: 500px;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+
         @media (orientation: landscape) and (max-height: 500px) {
             .hero-main-content {
-                max-height: 85vh;
-                width: 80%;
+                max-width: 400px;
+                padding: 5px;
             }
         }
 
