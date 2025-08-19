@@ -84,6 +84,36 @@
     background: rgba(0, 0, 0, 0.7);
 }
 
+        /* 主體內容容器 - 始終置中 */
+.hero-main-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 95%; /* 增加寬度使用率 */
+    max-width: 1200px; /* 增加最大寬度 */
+    height: 90%; /* 設定高度 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* 主體圖片 - 自適應大小 */
+.hero-main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 保持比例，完整顯示 */
+    object-position: center; /* 確保居中 */
+}
+
+.hero.scrolled .hero-main-content {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+}
+
 .hero.scrolled .hero-main-content {
     opacity: 0;
     transform: translate(-50%, -60%);
@@ -115,6 +145,46 @@
     }
     60% {
         transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+        /* 手機版響應式設計 */
+@media (max-width: 768px) {
+    /* 主體內容調整 */
+    .hero-main-content {
+        width: 100%; /* 手機版使用全寬 */
+        height: 80%; /* 降低高度，留空間給下滑提示 */
+        padding: 10px;
+    }
+    
+    /* 主體圖片調整 */
+    .hero-main-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+    }
+}
+
+/* 超小螢幕（iPhone SE 等） */
+@media (max-width: 375px) {
+    .hero-main-content {
+        width: 100%;
+        height: 70%; /* 更小的螢幕降低高度 */
+        padding: 5px;
+    }
+}
+
+/* 橫向模式優化 */
+@media (orientation: landscape) and (max-height: 500px) {
+    .hero-main-content {
+        height: 85%;
+        width: 80%;
+    }
+    
+    .hero-main-image {
+        max-width: 90%;
+        max-height: 90%;
     }
 }
         
