@@ -258,6 +258,50 @@
     font-size: 0.75em;
 }
 
+        /* 協辦學校特殊樣式 */
+.co-schools .schools-list {
+    text-align: left;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.co-schools .school-region {
+    display: flex;
+    margin: 12px 0;
+    line-height: 1.6;
+}
+
+.co-schools .region-label {
+    color: #f2e84f;
+    font-weight: bold;
+    min-width: 50px;
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+
+.co-schools .school-names {
+    color: rgba(255,255,255,0.9);
+    font-size: 0.95em;
+}
+
+/* 手機版協辦學校樣式 */
+@media (max-width: 768px) {
+    .co-schools .schools-list {
+        padding: 0 15px;
+    }
+    
+    .co-schools .school-region {
+        flex-direction: column;
+        margin: 15px 0;
+    }
+    
+    .co-schools .region-label {
+        margin-bottom: 5px;
+        display: inline-block;
+    }
+}
+
 /* 響應式調整 */
 @media (max-width: 768px) {
     .organizers-new-grid {
@@ -1098,14 +1142,25 @@ document.head.appendChild(style);
     </div>
     
     <!-- 協辦學校區塊 -->
-    <div class="sponsor-wrapper" style="margin-top: 25px;">
-        <div class="organizer-new-item">
-            <h4>｜ 協辦學校 ｜</h4>
-            <p>[北區]中國文化大學-財務金融學系｜致理科技大學-財務金融系｜淡江大學-風險管理與保險學系｜實踐大學-風險管理與保險學系｜德明財經科技大學-風險管理與財富規劃系｜龍華科技大學-財務金融系</p>
-            <p>[中區]南華大學-財務金融學系｜逢甲大學-風險管理與保險學系｜國立雲林科技大學-財務金融系｜僑光科技大學-財務金融系</p>
-            <p>[南區]正修科技大學-金融管理系｜國立屏東大學-財務金融學系｜國立高雄大學-應用經濟學系｜國立高雄科技大學-風險管理與保險系｜實踐大學(高雄校區)-金融管理學系</p>
+<div class="sponsor-wrapper" style="margin-top: 25px;">
+    <div class="organizer-new-item co-schools">
+        <h4>｜ 協辦學校 ｜</h4>
+        <div class="schools-list">
+            <div class="school-region">
+                <span class="region-label">[北區]</span>
+                <span class="school-names">中國文化大學-財務金融學系｜致理科技大學-財務金融系｜淡江大學-風險管理與保險學系｜實踐大學-風險管理與保險學系｜德明財經科技大學-風險管理與財富規劃系｜龍華科技大學-財務金融系</span>
+            </div>
+            <div class="school-region">
+                <span class="region-label">[中區]</span>
+                <span class="school-names">南華大學-財務金融學系｜逢甲大學-風險管理與保險學系｜國立雲林科技大學-財務金融系｜僑光科技大學-財務金融系</span>
+            </div>
+            <div class="school-region">
+                <span class="region-label">[南區]</span>
+                <span class="school-names">正修科技大學-金融管理系｜國立屏東大學-財務金融學系｜國立高雄大學-應用經濟學系｜國立高雄科技大學-風險管理與保險系｜實踐大學(高雄校區)-金融管理學系</span>
+            </div>
         </div>
     </div>
+</div>
 
         <!-- 協辦單位區塊 -->
     <div class="sponsor-wrapper" style="margin-top: 25px;">
