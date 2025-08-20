@@ -146,20 +146,20 @@
             }
         }
 
-        /* ========== 主辦單位區塊 ========== */
+        /* PC & 預設 */
         .organizers {
             position: relative;
             z-index: 1;
             background: #0074D9;
             color: white;
-            padding: 35px 20px;
+            padding: 35px 20px;  /* PC 版 padding */
             text-align: center;
-            margin-top: 100vh; /* 初始值，會被 JS 動態覆蓋 */
+            margin-top: 100vh;  /* JS 會動態覆蓋 */
             transition: margin-top 0.3s ease;
         }
 
         .organizers h3 {
-            margin-top: -3px;  /* 文字上移 */
+            margin-top: -3px;  /* PC 版微調上移 */
             margin-bottom: 20px;
         }
 
@@ -694,6 +694,20 @@
 
         /* 手機尺寸 */
         @media (max-width: 768px) {
+            .organizers {
+                display: flex;
+                align-items: center;    /* 垂直置中文字 */
+                justify-content: center;/* 水平置中文字 */
+                flex-direction: column;
+                min-height: 80px;       /* 保持區塊高度一致 */
+                padding: 10px 15px 20px 15px; /* 手機縮小 padding */
+            }
+
+            .organizers h3 {
+                margin: 0;              /* 不要往上壓 */
+                font-size: 1.05em;      /* 字稍微小一點，看起來更平衡 */
+            }
+            
             /* Hero 調整 - 手機版加大 */
             .hero-main-content {
                 width: 100%; /* 使用全寬 */
