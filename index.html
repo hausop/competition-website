@@ -25,7 +25,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: calc(100vh - 80px); /* 減去藍色區塊的高度 */
             color: white;
             text-align: center;
             overflow: hidden;
@@ -117,10 +117,10 @@
             transform: translate(-50%, -60%);
         }
 
-        /* 下滑指示器 */
+        /* 下滑指示器 - 調整位置 */
         .scroll-indicator {
             position: absolute;
-            bottom: 30px;
+            bottom: 100px; /* 往上移，避免被藍色區塊遮住 */
             left: 50%;
             transform: translateX(-50%);
             z-index: 2;
@@ -148,26 +148,54 @@
 
         /* ========== 主辦單位區塊 ========== */
         .organizers {
-            position: relative;
+            position: fixed; /* 改為 fixed */
+            bottom: 0; /* 固定在底部 */
+            left: 0;
+            width: 100%;
             z-index: 1;
             background: #0074D9;
             color: white;
-            padding: 40px 20px;
+            padding: 25px 20px; /* 調整 padding */
             text-align: center;
+            min-height: 80px; /* 設定最小高度 */
+            transition: transform 0.5s ease;
+        }
+
+        /* 滾動後的主辦單位區塊 */
+        .organizers.scrolled-view {
+            position: relative;
+            bottom: auto;
             margin-top: 100vh;
+            padding: 40px 20px; /* 滾動後恢復原本 padding */
         }
 
         .organizers h3 {
             margin-bottom: 20px;
+            font-size: 1.1em; /* 初始稍微縮小 */
+            transition: font-size 0.3s ease;
         }
 
-        /* 網格系統 */
+        .organizers.scrolled-view h3 {
+            font-size: 1.2em; /* 滾動後恢復大小 */
+        }
+
+        /* 初始隱藏網格內容 */
         .organizers-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 25px;
             max-width: 1200px;
             margin: 30px auto;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.5s ease, max-height 0.5s ease;
+        }
+
+        /* 滾動後顯示網格內容 */
+        .organizers.scrolled-view .organizers-grid {
+            opacity: 1;
+            max-height: 2000px; /* 足夠大的值 */
         }
 
         .organizer-item {
@@ -692,13 +720,36 @@
 
         /* 手機尺寸 */
         @media (max-width: 768px) {
-            /* Hero 調整 - 手機版加大 */
+            /* Hero 調整 - 手機版 */
+            .hero {
+                height: calc(100vh - 60px); /* 手機版藍色區塊較小 */
+            }
+
             .hero-main-content {
                 width: 100%; /* 使用全寬 */
                 max-width: 500px; /* 設定最大寬度 */
                 padding: 10px;
-                top: 45%; /* 稍微上移，避免太靠下 */
-                transform: translate(-50%, -45%);
+                top: 40%; /* 上移更多，讓箭頭能顯示 */
+                transform: translate(-50%, -40%);
+            }
+
+            /* 下滑指示器手機版位置 */
+            .scroll-indicator {
+                bottom: 80px; /* 手機版調整位置 */
+            }
+
+            /* 主辦單位區塊手機版 */
+            .organizers {
+                min-height: 60px; /* 手機版較小的高度 */
+                padding: 15px 10px;
+            }
+
+            .organizers h3 {
+                font-size: 0.95em;
+            }
+
+            .organizers.scrolled-view h3 {
+                font-size: 1.1em;
             }
 
             /* 主辦單位網格 */
@@ -1345,7 +1396,7 @@
             }
             
             // 考慮視窗高度，避免圖片太大
-            const maxHeightBasedWidth = windowHeight * 0.8;
+            const maxHeightBasedWidth = windowHeight * 0.6; // 調整為 60%，留更多空間給箭頭
             if (optimalWidth > maxHeightBasedWidth) {
                 optimalWidth = maxHeightBasedWidth;
             }
@@ -1353,16 +1404,32 @@
             // 應用計算結果
             heroContent.style.maxWidth = optimalWidth + 'px';
             
-            // 調整垂直位置（手機版稍微上移）
+            // 調整垂直位置（手機版更上移，確保箭頭可見）
             if (windowWidth <= 768) {
-                const topPosition = windowHeight <= 667 ? 42 : 45;
+                const topPosition = windowHeight <= 667 ? 38 : 40; // 更上移
                 heroContent.style.top = topPosition + '%';
                 heroContent.style.transform = `translate(-50%, -${topPosition}%)`;
             } else {
-                heroContent.style.top = '50%';
-                heroContent.style.transform = 'translate(-50%, -50%)';
+                heroContent.style.top = '45%'; // 桌面版也稍微上移
+                heroContent.style.transform = 'translate(-50%, -45%)';
             }
         }
+
+        // ========== 主辦單位區塊滾動控制 ==========
+        function handleOrganizersScroll() {
+            const organizers = document.querySelector('.organizers');
+            const scrolled = window.pageYOffset;
+            
+            // 當滾動超過 50px 時，展開完整內容
+            if (scrolled > 50) {
+                organizers.classList.add('scrolled-view');
+            } else {
+                organizers.classList.remove('scrolled-view');
+            }
+        }
+
+        // 監聽滾動事件
+        window.addEventListener('scroll', handleOrganizersScroll);
 
         // 監聽視窗大小變化
         let resizeTimer;
@@ -1424,9 +1491,9 @@
             const scrollIndicator = document.querySelector('.scroll-indicator');
             if (scrollIndicator) {
                 scrollIndicator.addEventListener('click', function() {
-                    const targetScroll = window.innerWidth <= 768 ? window.innerHeight : 600;
+                    // 滾動到主辦單位區塊展開後的位置
                     window.scrollTo({
-                        top: targetScroll,
+                        top: 100, // 滾動一點距離，觸發展開
                         behavior: 'smooth'
                     });
                 });
