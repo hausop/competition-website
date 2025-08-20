@@ -693,21 +693,7 @@
         }
 
         /* 手機尺寸 */
-        @media (max-width: 768px) {
-            .organizers {
-                display: flex;
-                align-items: center;    /* 垂直置中文字 */
-                justify-content: center;/* 水平置中文字 */
-                flex-direction: column;
-                min-height: 120px;       /* 調整藍色區塊高度 */
-                padding: 20px 15px 30px 15px; /* 手機縮小 padding */
-            }
-
-            .organizers h3 {
-                margin-top: 12px;   /* 或 10px，看感覺，正值可讓文字往下壓 */
-                font-size: 1.05em;      /* 字稍微小一點，看起來更平衡 */
-            }
-            
+        @media (max-width: 768px) {           
             /* Hero 調整 - 手機版加大 */
             .hero-main-content {
                 width: 100%; /* 使用全寬 */
@@ -1334,14 +1320,14 @@
     <script>
         // ========== 動態視窗大小調整 ==========
         function adjustHeroSize() {
-           const heroContent = document.querySelector('.hero-main-content');
-           const organizers = document.querySelector('.organizers');
-           if (!heroContent || !organizers) return;
+    const heroContent = document.querySelector('.hero-main-content');
+    const organizers = document.querySelector('.organizers');
+    if (!heroContent || !organizers) return;
 
-           const windowWidth = window.innerWidth;
-           const windowHeight = window.innerHeight;
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
 
-        // 計算主示圖最大寬度（沿用你原本的邏輯）
+    // ===== 主示圖最大寬度計算（沿用你原本的邏輯） =====
     let optimalWidth;
     if (windowWidth >= 1920) {
         optimalWidth = Math.min(650, windowWidth * 0.35);
@@ -1355,20 +1341,23 @@
         optimalWidth = Math.min(windowWidth * 0.9, 400);
     }
 
-    // 限制高度不超過視窗 80%
+    // 限制不要超過視窗高度 80%
     const maxHeightBasedWidth = windowHeight * 0.8;
     if (optimalWidth > maxHeightBasedWidth) {
         optimalWidth = maxHeightBasedWidth;
     }
     heroContent.style.maxWidth = optimalWidth + 'px';
 
-    // ========== 🔑 新增邏輯：調整 organizers 的 margin-top ==========
-    // 手機版：只露出「主辦單位」標題 (~60px 高)
-    // 桌機版：多露出主辦單位 + 主辦學校 (~200px 高)
-    const organizersExposeHeight = windowWidth <= 768 ? 60 : 200;
-    organizers.style.marginTop = (windowHeight - organizersExposeHeight) + 'px';
+    // ===== 調整 organizers 的 margin-top =====
+    if (windowWidth <= 768) {
+        // 📱 手機版：整個藍色區塊往上貼，露出視窗高度的 1/4
+        organizers.style.marginTop = (windowHeight * 0.75) + 'px';
+    } else {
+        // 💻 PC 版：多露一點（主辦單位 + 主辦學校）
+        organizers.style.marginTop = (windowHeight - 200) + 'px';
+    }
 
-    // Hero 垂直置中（手機往上調一點）
+    // ===== Hero 垂直置中（保留你的原本邏輯） =====
     if (windowWidth <= 768) {
         const topPosition = windowHeight <= 667 ? 42 : 45;
         heroContent.style.top = topPosition + '%';
@@ -1378,7 +1367,6 @@
         heroContent.style.transform = 'translate(-50%, -50%)';
     }
 }
-
 
         // 監聽視窗大小變化
         let resizeTimer;
