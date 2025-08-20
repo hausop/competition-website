@@ -152,9 +152,10 @@
             z-index: 1;
             background: #0074D9;
             color: white;
-            padding: 20px 20px 40px 20px;  /* 上 右 下 左 */
+            padding: 20px 20px 40px 20px;
             text-align: center;
-            margin-top: 80vh;
+            margin-top: 100vh; /* 初始值，會被 JS 動態覆蓋 */
+            transition: margin-top 0.3s ease;
         }
 
         .organizers h3 {
@@ -1319,51 +1320,51 @@
     <script>
         // ========== 動態視窗大小調整 ==========
         function adjustHeroSize() {
-            const heroContent = document.querySelector('.hero-main-content');
-            if (!heroContent) return;
-            
-            const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
-            
-            // 根據視窗大小動態計算最適合的寬度
-            let optimalWidth;
-            
-            if (windowWidth >= 1920) {
-                // 超大螢幕
-                optimalWidth = Math.min(650, windowWidth * 0.35);
-            } else if (windowWidth >= 1440) {
-                // 大螢幕
-                optimalWidth = Math.min(600, windowWidth * 0.4);
-            } else if (windowWidth >= 1024) {
-                // 一般桌面
-                optimalWidth = Math.min(550, windowWidth * 0.45);
-            } else if (windowWidth >= 768) {
-                // 平板
-                optimalWidth = Math.min(500, windowWidth * 0.6);
-            } else {
-                // 手機
-                optimalWidth = Math.min(windowWidth * 0.9, 400);
-            }
-            
-            // 考慮視窗高度，避免圖片太大
-            const maxHeightBasedWidth = windowHeight * 0.8;
-            if (optimalWidth > maxHeightBasedWidth) {
-                optimalWidth = maxHeightBasedWidth;
-            }
-            
-            // 應用計算結果
-            heroContent.style.maxWidth = optimalWidth + 'px';
-            
-            // 調整垂直位置（手機版稍微上移）
-            if (windowWidth <= 768) {
-                const topPosition = windowHeight <= 667 ? 42 : 45;
-                heroContent.style.top = topPosition + '%';
-                heroContent.style.transform = `translate(-50%, -${topPosition}%)`;
-            } else {
-                heroContent.style.top = '50%';
-                heroContent.style.transform = 'translate(-50%, -50%)';
-            }
-        }
+           const heroContent = document.querySelector('.hero-main-content');
+           const organizers = document.querySelector('.organizers');
+           if (!heroContent || !organizers) return;
+
+           const windowWidth = window.innerWidth;
+           const windowHeight = window.innerHeight;
+
+        // 計算主示圖最大寬度（沿用你原本的邏輯）
+    let optimalWidth;
+    if (windowWidth >= 1920) {
+        optimalWidth = Math.min(650, windowWidth * 0.35);
+    } else if (windowWidth >= 1440) {
+        optimalWidth = Math.min(600, windowWidth * 0.4);
+    } else if (windowWidth >= 1024) {
+        optimalWidth = Math.min(550, windowWidth * 0.45);
+    } else if (windowWidth >= 768) {
+        optimalWidth = Math.min(500, windowWidth * 0.6);
+    } else {
+        optimalWidth = Math.min(windowWidth * 0.9, 400);
+    }
+
+    // 限制高度不超過視窗 80%
+    const maxHeightBasedWidth = windowHeight * 0.8;
+    if (optimalWidth > maxHeightBasedWidth) {
+        optimalWidth = maxHeightBasedWidth;
+    }
+    heroContent.style.maxWidth = optimalWidth + 'px';
+
+    // ========== 🔑 新增邏輯：調整 organizers 的 margin-top ==========
+    // 手機版：只露出「主辦單位」標題 (~60px 高)
+    // 桌機版：多露出主辦單位 + 主辦學校 (~200px 高)
+    const organizersExposeHeight = windowWidth <= 768 ? 60 : 200;
+    organizers.style.marginTop = (windowHeight - organizersExposeHeight) + 'px';
+
+    // Hero 垂直置中（手機往上調一點）
+    if (windowWidth <= 768) {
+        const topPosition = windowHeight <= 667 ? 42 : 45;
+        heroContent.style.top = topPosition + '%';
+        heroContent.style.transform = `translate(-50%, -${topPosition}%)`;
+    } else {
+        heroContent.style.top = '50%';
+        heroContent.style.transform = 'translate(-50%, -50%)';
+    }
+}
+
 
         // 監聽視窗大小變化
         let resizeTimer;
