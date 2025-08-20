@@ -1350,11 +1350,11 @@
 
     // ===== 調整 organizers 的 margin-top =====
     if (windowWidth <= 768) {
-        // 📱 手機版：整個藍色區塊往上貼，露出視窗高度的 1/4
-        organizers.style.marginTop = (windowHeight * 0.75) + 'px';
+        // 📱 手機版：下移一些（從 0.75 改為 0.85）
+     organizers.style.marginTop = (windowHeight * 0.85) + 'px';
     } else {
-        // 💻 PC 版：多露一點（主辦單位 + 主辦學校）
-        organizers.style.marginTop = (windowHeight - 200) + 'px';
+        // 💻 PC 版：再往上一點（從 -200 改為 -250）
+    organizers.style.marginTop = (windowHeight - 250) + 'px';
     }
 
     // ===== Hero 垂直置中（保留你的原本邏輯） =====
