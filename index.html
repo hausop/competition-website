@@ -146,18 +146,20 @@
             }
         }
 
-        /* ========== 主辦單位區塊 ========== */
+        /* PC & 預設 */
         .organizers {
             position: relative;
             z-index: 1;
             background: #0074D9;
             color: white;
-            padding: 40px 20px;
+            padding: 35px 20px;  /* PC 版 padding */
             text-align: center;
-            margin-top: 100vh;
+            margin-top: 100vh;  /* JS 會動態覆蓋 */
+            transition: margin-top 0.3s ease;
         }
 
         .organizers h3 {
+            margin-top: -3px;  /* PC 版微調上移 */
             margin-bottom: 20px;
         }
 
@@ -691,7 +693,7 @@
         }
 
         /* 手機尺寸 */
-        @media (max-width: 768px) {
+        @media (max-width: 768px) {           
             /* Hero 調整 - 手機版加大 */
             .hero-main-content {
                 width: 100%; /* 使用全寬 */
@@ -863,7 +865,7 @@
     
     <!-- Organizers -->
     <div class="organizers">
-        <h3>主辦單位：太陽保險經紀人股份有限公司</h3>
+        <h3><span style="color: #f2e84f;">主辦單位：</span>太陽保險經紀人股份有限公司</h3>
         
         <!-- 桌面版顯示 -->
         <div class="desktop-only">
@@ -1318,51 +1320,53 @@
     <script>
         // ========== 動態視窗大小調整 ==========
         function adjustHeroSize() {
-            const heroContent = document.querySelector('.hero-main-content');
-            if (!heroContent) return;
-            
-            const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
-            
-            // 根據視窗大小動態計算最適合的寬度
-            let optimalWidth;
-            
-            if (windowWidth >= 1920) {
-                // 超大螢幕
-                optimalWidth = Math.min(650, windowWidth * 0.35);
-            } else if (windowWidth >= 1440) {
-                // 大螢幕
-                optimalWidth = Math.min(600, windowWidth * 0.4);
-            } else if (windowWidth >= 1024) {
-                // 一般桌面
-                optimalWidth = Math.min(550, windowWidth * 0.45);
-            } else if (windowWidth >= 768) {
-                // 平板
-                optimalWidth = Math.min(500, windowWidth * 0.6);
-            } else {
-                // 手機
-                optimalWidth = Math.min(windowWidth * 0.9, 400);
-            }
-            
-            // 考慮視窗高度，避免圖片太大
-            const maxHeightBasedWidth = windowHeight * 0.8;
-            if (optimalWidth > maxHeightBasedWidth) {
-                optimalWidth = maxHeightBasedWidth;
-            }
-            
-            // 應用計算結果
-            heroContent.style.maxWidth = optimalWidth + 'px';
-            
-            // 調整垂直位置（手機版稍微上移）
-            if (windowWidth <= 768) {
-                const topPosition = windowHeight <= 667 ? 42 : 45;
-                heroContent.style.top = topPosition + '%';
-                heroContent.style.transform = `translate(-50%, -${topPosition}%)`;
-            } else {
-                heroContent.style.top = '50%';
-                heroContent.style.transform = 'translate(-50%, -50%)';
-            }
-        }
+    const heroContent = document.querySelector('.hero-main-content');
+    const organizers = document.querySelector('.organizers');
+    if (!heroContent || !organizers) return;
+
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    // ===== 主示圖最大寬度計算（沿用你原本的邏輯） =====
+    let optimalWidth;
+    if (windowWidth >= 1920) {
+        optimalWidth = Math.min(650, windowWidth * 0.35);
+    } else if (windowWidth >= 1440) {
+        optimalWidth = Math.min(600, windowWidth * 0.4);
+    } else if (windowWidth >= 1024) {
+        optimalWidth = Math.min(550, windowWidth * 0.45);
+    } else if (windowWidth >= 768) {
+        optimalWidth = Math.min(500, windowWidth * 0.6);
+    } else {
+        optimalWidth = Math.min(windowWidth * 0.9, 400);
+    }
+
+    // 限制不要超過視窗高度 80%
+    const maxHeightBasedWidth = windowHeight * 0.8;
+    if (optimalWidth > maxHeightBasedWidth) {
+        optimalWidth = maxHeightBasedWidth;
+    }
+    heroContent.style.maxWidth = optimalWidth + 'px';
+
+    // ===== 調整 organizers 的 margin-top =====
+    if (windowWidth <= 768) {
+        // 📱 手機版：下移一些（從 0.75 改為 0.85）
+     organizers.style.marginTop = (windowHeight * 0.86) + 'px';
+    } else {
+        // 💻 PC 版：再往上一點（從 -200 改為 -250）
+    organizers.style.marginTop = (windowHeight - 225) + 'px';
+    }
+
+    // ===== Hero 垂直置中（保留你的原本邏輯） =====
+    if (windowWidth <= 768) {
+        const topPosition = windowHeight <= 667 ? 42 : 45;
+        heroContent.style.top = topPosition + '%';
+        heroContent.style.transform = `translate(-50%, -${topPosition}%)`;
+    } else {
+        heroContent.style.top = '50%';
+        heroContent.style.transform = 'translate(-50%, -50%)';
+    }
+}
 
         // 監聽視窗大小變化
         let resizeTimer;
