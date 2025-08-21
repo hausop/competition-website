@@ -706,8 +706,8 @@
                width: 95%;
                max-width: 600px;  /* 放大主視覺 */
                padding: 5px;
-               top: 28%;          /* 往上 */
-               transform: translate(-50%, -28%);
+               top: 18%;          /* 往上 */
+               transform: translate(-50%, -18%);
             }
         }
 
@@ -1539,7 +1539,7 @@
     // ===== 調整 organizers 的 margin-top =====
     if (windowWidth <= 768) {
         // 📱 手機版：下移一些（從 0.75 改為 0.85）
-     organizers.style.marginTop = (windowHeight * 0.86) + 'px';
+     organizers.style.marginTop = (windowHeight * 0.87) + 'px';
     } else {
         // 💻 PC 版：再往上一點（從 -200 改為 -250）
     organizers.style.marginTop = (windowHeight - 225) + 'px';
@@ -1547,7 +1547,7 @@
 
     // ===== Hero 垂直置中（保留你的原本邏輯） =====
     if (windowWidth <= 768) {
-        const topPosition = windowHeight <= 667 ? 25 : 28;
+        const topPosition = windowHeight <= 667 ? 15 : 18;
         heroContent.style.top = topPosition + '%';
         heroContent.style.transform = `translate(-50%, -${topPosition}%)`;
     } else {
