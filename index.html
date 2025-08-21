@@ -702,14 +702,14 @@
 
         /* 手機尺寸 */
         @media (max-width: 768px) {           
-            /* Hero 調整 - 手機版加大 */
-            .hero-main-content {
-                width: 100%; /* 使用全寬 */
-                max-width: 500px; /* 設定最大寬度 */
-                padding: 10px;
-                top: 45%; /* 稍微上移，避免太靠下 */
-                transform: translate(-50%, -45%);
+           .hero-main-content {
+               width: 95%;
+               max-width: 600px;  /* 放大主視覺 */
+               padding: 5px;
+               top: 40%;          /* 往上 */
+               transform: translate(-50%, -40%);
             }
+        }
 
             /* 主辦單位網格 */
             .organizers-grid {
@@ -1526,7 +1526,7 @@
     } else if (windowWidth >= 768) {
         optimalWidth = Math.min(500, windowWidth * 0.6);
     } else {
-        optimalWidth = Math.min(windowWidth * 0.9, 400);
+        optimalWidth = Math.min(windowWidth * 0.95, 600);
     }
 
     // 限制不要超過視窗高度 80%
