@@ -844,181 +844,86 @@
         .prize-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    max-width: 1100px;
+    gap: 16px;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 0 10px; /* 新增 */
 }
 
 .prize-card {
-    position: relative;
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     display: flex;
-    align-items: stretch;
-    padding: 0;
-    transition: all 0.3s ease;
-    min-width: 0;
+    align-items: center;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     overflow: hidden;
-    height: 180px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .prize-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
 }
 
-        /* 左側漸變背景區域 */
-.prize-card-left {
-    width: 100px;
-    padding: 20px 15px;
+.prize-left {
+    background: linear-gradient(to right, #fff5cc, #ffffff);
+    padding: 16px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: center;
-    position: relative;
 }
 
-/* 每個獎項的漸變背景 */
-.prize-card.gold .prize-card-left {
-    background: linear-gradient(135deg, #fff4d4 0%, #ffebbb 100%);
+.prize-left img {
+    width: 60px;
+    height: auto;
 }
 
-.prize-card.silver .prize-card-left {
-    background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
-}
-
-.prize-card.bronze .prize-card-left {
-    background: linear-gradient(135deg, #ffe0cc 0%, #ffd4b8 100%);
-}
-
-.prize-card.merit .prize-card-left {
-    background: linear-gradient(135deg, #e8f4ff 0%, #d4e9ff 100%);
-}
-
-.prize-card img {
-    width: 65px;
-    height: 65px;
-    object-fit: contain;
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
-}
-
-/* 右側內容區域 */
-.prize-content {
+.prize-right {
     flex: 1;
-    padding: 20px 20px 20px 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    padding: 16px;
 }
 
 .prize-title {
-    font-size: 1.5em;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: #2c3e50;
-    line-height: 1.2;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-bottom: 6px;
 }
 
 .prize-amount {
-    font-size: 1.8em;
-    font-weight: 800;
+    font-size: 1.6em;
+    font-weight: bold;
     color: #0074D9;
-    margin-bottom: 12px;
-    letter-spacing: -0.5px;
+    margin-bottom: 8px;
 }
 
 .prize-benefits {
     list-style: none;
     padding: 0;
     margin: 0;
-    font-size: 0.85em;
-    color: #666;
-    line-height: 1.6;
-}
-
-.prize-benefits li {
-    position: relative;
-    padding-left: 20px;
-    margin-bottom: 4px;
+    font-size: 0.95em;
+    color: #555;
 }
 
 .prize-benefits li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
+    content: "✓ ";
     color: #0074D9;
     font-weight: bold;
 }
 
 @media (max-width: 768px) {
     .prize-grid {
-        grid-template-columns: 1fr; /* 改為單列 */
-        gap: 12px;
-        padding: 0 15px;
-        max-width: 100%;
+        grid-template-columns: 1fr;
     }
-
     .prize-card {
         flex-direction: row;
-        justify-content: flex-start;
-        text-align: left;
-        padding: 12px;
-        width: 100%;
-        box-sizing: border-box;
     }
-
-    .prize-card img {
-        width: 40px;
-        margin-right: 12px;
+    .prize-left img {
+        width: 50px;
     }
-
-    .prize-content {
-        text-align: left;
-        flex: 1;
-        min-width: 0;
-    }
-
     .prize-title {
-        font-size: 1em;
-    }
-
-    .prize-amount {
         font-size: 1.2em;
     }
-
-    .prize-benefits {
-        font-size: 0.8em;
-    }
-}
-
-        /* 更小螢幕的額外優化 */
-@media (max-width: 480px) {
-    .prize-grid {
-        padding: 0 10px;
-        gap: 10px;
-    }
-
-    .prize-card {
-        padding: 10px;
-    }
-
-    .prize-card img {
-        width: 35px;
-        margin-right: 8px;
-    }
-
-    .prize-title {
-        font-size: 0.95em;
-    }
-
     .prize-amount {
-        font-size: 1.1em;
-    }
-
-    .prize-benefits {
-        font-size: 0.75em;
+        font-size: 1.4em;
     }
 }
     </style>
@@ -1343,20 +1248,24 @@
     </p>
         <div class="prize-grid">
     <div class="prize-card">
-        <img src="ICON-01.png" alt="冠軍">
-        <div class="prize-content">
+        <div class="prize-left">
+            <img src="ICON-01.png" alt="冠軍">
+        </div>
+        <div class="prize-right">
             <div class="prize-title">冠軍</div>
             <div class="prize-amount">$30,000</div>
             <ul class="prize-benefits">
-                <li>加碼獎金 $10,000</li>
+                <li>※冠軍20,000+主辦單位太陽保險經紀人另加碼獎金新台幣10,000元</li>
                 <li>軟體使用權限 3 年</li>
             </ul>
         </div>
     </div>
 
     <div class="prize-card">
-        <img src="ICON-02.png" alt="亞軍">
-        <div class="prize-content">
+        <div class="prize-left">
+            <img src="ICON-02.png" alt="亞軍">
+        </div>
+        <div class="prize-right">
             <div class="prize-title">亞軍</div>
             <div class="prize-amount">$10,000</div>
             <ul class="prize-benefits">
@@ -1366,8 +1275,10 @@
     </div>
 
     <div class="prize-card">
-        <img src="ICON-03.png" alt="季軍">
-        <div class="prize-content">
+        <div class="prize-left">
+            <img src="ICON-03.png" alt="季軍">
+        </div>
+        <div class="prize-right">
             <div class="prize-title">季軍</div>
             <div class="prize-amount">$8,000</div>
             <ul class="prize-benefits">
@@ -1377,12 +1288,14 @@
     </div>
 
     <div class="prize-card">
-        <img src="ICON-04.png" alt="特優">
-        <div class="prize-content">
+        <div class="prize-left">
+            <img src="ICON-04.png" alt="特優">
+        </div>
+        <div class="prize-right">
             <div class="prize-title">特優</div>
             <div class="prize-amount">$6,000</div>
             <ul class="prize-benefits">
-                <li>軟體使用權限 3 年</li>
+                <li>軟體使用權限 2 年</li>
             </ul>
         </div>
     </div>
