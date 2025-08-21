@@ -847,6 +847,7 @@
     gap: 16px;
     max-width: 1000px;
     margin: 0 auto;
+    padding: 0 10px; /* 新增 */
 }
 
 .prize-card {
@@ -857,6 +858,8 @@
     align-items: center;
     padding: 10px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-width: 0; /* 新增 */
+    overflow: hidden; /* 新增 */
 }
 
 .prize-card:hover {
@@ -874,6 +877,7 @@
 .prize-content {
     flex: 1;
     text-align: left;
+    min-width: 0; /* 新增 */
 }
 
 .prize-title {
@@ -905,21 +909,71 @@
 
 @media (max-width: 768px) {
     .prize-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr; /* 改為單列 */
+        gap: 12px;
+        padding: 0 15px;
+        max-width: 100%;
     }
 
     .prize-card {
         flex-direction: row;
         justify-content: flex-start;
         text-align: left;
+        padding: 12px;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .prize-card img {
-        margin-right: 8px;
+        width: 40px;
+        margin-right: 12px;
     }
 
     .prize-content {
         text-align: left;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .prize-title {
+        font-size: 1em;
+    }
+
+    .prize-amount {
+        font-size: 1.2em;
+    }
+
+    .prize-benefits {
+        font-size: 0.8em;
+    }
+}
+
+        /* 更小螢幕的額外優化 */
+@media (max-width: 480px) {
+    .prize-grid {
+        padding: 0 10px;
+        gap: 10px;
+    }
+
+    .prize-card {
+        padding: 10px;
+    }
+
+    .prize-card img {
+        width: 35px;
+        margin-right: 8px;
+    }
+
+    .prize-title {
+        font-size: 0.95em;
+    }
+
+    .prize-amount {
+        font-size: 1.1em;
+    }
+
+    .prize-benefits {
+        font-size: 0.75em;
     }
 }
     </style>
