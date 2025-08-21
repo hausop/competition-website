@@ -660,6 +660,11 @@
             display: inline-block;
         }
 
+        .text-highlight {
+            font-size: 0.8em; /* 字體大小變大 */
+            color: red;      /* 顏色變為紅色 */
+        }
+
         .badge {
             display: inline-block;
             background: #ff6b6b;
@@ -840,6 +845,114 @@
             -ms-user-select: none;
             user-select: none;
         }
+
+        .prize-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.prize-card {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.prize-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+.prize-left {
+    background: linear-gradient(to right, #fff5cc, #ffffff);
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.prize-left img {
+    width: 60px;
+    height: auto;
+}
+
+.prize-right {
+    flex: 1;
+    padding: 16px;
+}
+
+.prize-title {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.prize-amount {
+    font-size: 1.6em;
+    font-weight: bold;
+    color: #0074D9;
+    margin-bottom: 8px;
+}
+
+.prize-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.95em;
+    color: #555;
+}
+
+.prize-benefits li::before {
+    content: "✓ ";
+    color: #0074D9;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .prize-grid {
+        grid-template-columns: 1fr;
+    }
+    .prize-card {
+        flex-direction: row;
+    }
+    .prize-left img {
+        width: 50px;
+    }
+    .prize-title {
+        font-size: 1.2em;
+    }
+    .prize-amount {
+        font-size: 1.4em;
+    }
+}
+
+        /* 移除子層清單的預設樣式並重設計數器 */
+.custom-list {
+  list-style-type: none;
+  padding-left: 0;
+  counter-reset: custom-counter; /* **重要：在這裡重設計數器** */
+}
+
+/* 讓列表項目有相對定位，以便偽元素定位 */
+.custom-list li {
+  position: relative;
+  padding-left: 2em; /* 調整文字與編號的距離 */
+}
+
+/* 使用 ::before 偽元素來自訂子層編號 (1), (2)... */
+.custom-list li::before {
+  content: '(' counter(custom-counter) ') '; /* 產生 (1), (2) 的編號 */
+  counter-increment: custom-counter; /* 增加計數器 */
+  position: absolute;
+  left: 0;
+}
+        
     </style>
 </head>
 <body>
@@ -1048,7 +1161,7 @@
                 <li>成員</li>
                 <li>收支</li>
                 <li>情境</li>
-                <li>自前保單狀況</li>
+                <li>目前保單狀況</li>
                 <li>未來保單規劃</li>
                 <li>規劃目的與方向總結</li>
             </ol>
@@ -1063,11 +1176,21 @@
             <p>針對受訪家庭保單健診結果，依其需求擬定完整的家庭保險建議書，進行保險商品查詢與比較，並就保險規劃之目的與方向簡述。<span class="warning">初賽報告總頁數以50頁(含附件)為上限。</span></p>
             
             <h4>(六) 初賽報告收件：</h4>
-            <p>於初賽收件截止日114年12月25日(四)17:00前將參賽保險規劃書以PDF檔格式自官網上傳給主辦單位，完成初賽程序。</p>
+            <p>於初賽收件截止日2025年12月26日(五)12:00前將參賽保險規劃書以PDF檔格式自官網上傳給主辦單位，完成初賽程序。</p>
             
             <h4>(七) 初賽結果：</h4>
             <p>入圍公告，各區依初審結果取前十名隊伍公告為優等隊伍，且取前名隊伍入圍參賽全國總決賽，惟參賽隊伍代表需簽回【參與總決賽確認函】，若無回覆、取消參賽資格，由次一名次隊伍依序遞補入圍。</p>
-           
+            <ol style="margin: 10px 0; padding-left: 40px;">
+                <li>入圍公告，各區依初審結果取前十名隊伍公告為優等隊伍，且取數名隊伍入圍參賽全國總決賽，惟參賽隊伍代表需簽回【參與總決賽確認函】，若無回覆，取消參賽資格，由次一名次隊伍依序遞補入圍。優等獎之獲獎隊伍數，依參賽隊伍數酌與調整之。</li>
+                <li>全國總決賽三區入圍隊伍數，依實際繳交報告隊伍數比例分配，總參賽隊伍為12隊。</li>
+                <li>入圍公告暨優等組頒獎典禮地點及時間：</li>
+                <ol class="custom-list">
+                    <li>北區：2026/01/12（一）銘傳大學 (111台北市士林區基河路130號)</li>
+                    <li>中區：2026/01/13（二）國立臺中科技大學 (404台中市北區三民路三段129號)</li>
+                    <li>南區：2026/01/14（三）樹德科技大學<span class="text-highlight">(824 高雄市燕巢區橫山路59號)</span></li>
+                </ol>
+            </ol>
+            
             <h4>(八) 初賽評分標準：</h4>
             <!-- 桌面版橫式表格 -->
             <div class="desktop-only">
@@ -1154,48 +1277,74 @@
             </div>
         </div>
         
-        <!-- Prize Section -->
+        <!-- 獎項區塊 Prize Section -->
         <div class="section">
             <h2 class="section-title">- 總決賽獎勵 -</h2>
-            <div class="prizes">
-                <div class="prize-item prize-gold">
-                    <h3>冠軍</h3>
-                    <p>第一名(1隊)</p>
-                    <p class="prize-amount">獎金$30,000元</p>
-                    <p>每人獎狀乙張 每隊錦旗一面</p>
-                    <p style="font-size: 0.9em;">保險健診主軟體每位使用權限3年</p>
-                </div>
-                <div class="prize-item prize-silver">
-                    <h3>亞軍</h3>
-                    <p>第二名(2隊)</p>
-                    <p class="prize-amount">獎金$10,000元</p>
-                    <p>每人獎狀乙張 每隊錦旗一面</p>
-                    <p style="font-size: 0.9em;">保險健診主軟體每位使用權限3年</p>
-                </div>
-                <div class="prize-item prize-bronze">
-                    <h3>季軍</h3>
-                    <p>第三名(3隊)</p>
-                    <p class="prize-amount">獎金$8,000元</p>
-                    <p>每人獎狀乙張 每隊錦旗一面</p>
-                    <p style="font-size: 0.9em;">保險健診主軟體每位使用權限3年</p>
-                </div>
-                <div class="prize-item" style="background: #f8f9fa; color: #333;">
-                    <h3>特優</h3>
-                    <p>特優(6隊)</p>
-                    <p class="prize-amount">獎金$6,000元</p>
-                    <p>每人獎狀乙張 每隊錦旗一面</p>
-                    <p style="font-size: 0.9em;">保險健診主軟體每位使用權限3年</p>
-                </div>
-            </div>
+            <p style="text-align: center; margin: 20px 0 30px 0;">
+        每人獎狀乙張 每隊錦旗一面
+    </p>
+        <div class="prize-grid">
+    <div class="prize-card">
+        <div class="prize-left">
+            <img src="ICON-01.png" alt="冠軍">
+        </div>
+        <div class="prize-right">
+            <div class="prize-title">冠軍</div>
+            <div class="prize-amount">$30,000</div>
+            <ul class="prize-benefits">
+                <li>※冠軍20,000+主辦單位太陽保險經紀人另加碼獎金新台幣10,000元</li>
+                <li>軟體使用權限 3 年</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="prize-card">
+        <div class="prize-left">
+            <img src="ICON-02.png" alt="亞軍">
+        </div>
+        <div class="prize-right">
+            <div class="prize-title">亞軍</div>
+            <div class="prize-amount">$10,000</div>
+            <ul class="prize-benefits">
+                <li>軟體使用權限 3 年</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="prize-card">
+        <div class="prize-left">
+            <img src="ICON-03.png" alt="季軍">
+        </div>
+        <div class="prize-right">
+            <div class="prize-title">季軍</div>
+            <div class="prize-amount">$8,000</div>
+            <ul class="prize-benefits">
+                <li>軟體使用權限 3 年</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="prize-card">
+        <div class="prize-left">
+            <img src="ICON-00.png" alt="特優">
+        </div>
+        <div class="prize-right">
+            <div class="prize-title">特優</div>
+            <div class="prize-amount">$6,000</div>
+            <ul class="prize-benefits">
+                <li>軟體使用權限 2 年</li>
+            </ul>
+        </div>
+    </div>
+</div>
             <p style="text-align: center; margin-top: 20px;">
-                冠軍$20,000元+主辦單位太陽保險經紀人另加碼獎金新台幣$10,000元<br>
                 ※保險健診主軟體使用權限於大賽總決賽日翌日起一個月內申請完單，如逾期視為放棄資格※
             </p>
             
             <h4>(七) 頒獎與發表：</h4>
             <p>總決賽現場進行頒獎儀式，得獎隊伍將於活動官方網站及相關報章媒體刊出。</p>
-        </div>
-        </div>
+</div>
+            </div>
         
         <!-- Important Notes -->
         <div class="section">
