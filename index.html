@@ -880,7 +880,7 @@
     position: relative;
 }
 
-        /* 每個獎項的漸變背景 */
+/* 每個獎項的漸變背景 */
 .prize-card.gold .prize-card-left {
     background: linear-gradient(135deg, #fff4d4 0%, #ffebbb 100%);
 }
@@ -899,7 +899,8 @@
 
 .prize-card img {
     width: 65px;
-    height: auto;
+    height: 65px;
+    object-fit: contain;
     filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
 }
 
@@ -913,10 +914,11 @@
 }
 
 .prize-title {
-    font-size: 1.3em;
+    font-size: 1.5em;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     color: #2c3e50;
+    line-height: 1.2;
 }
 
 .prize-amount {
