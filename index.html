@@ -840,6 +840,87 @@
             -ms-user-select: none;
             user-select: none;
         }
+
+        .prize-modern {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.prize-modern:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(255,215,0,0.3);
+}
+
+.prize-header {
+    background: linear-gradient(135deg, #FFD700, #FFC107);
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.prize-badge {
+    width: 80px;
+    height: 80px;
+}
+
+.prize-body {
+    padding: 30px 25px;
+}
+
+.prize-body h3 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.prize-divider {
+    width: 60px;
+    height: 3px;
+    background: #FFD700;
+    margin: 0 auto 25px;
+}
+
+.prize-amount-box {
+    text-align: center;
+    margin: 25px 0;
+}
+
+.prize-amount-box small {
+    display: block;
+    color: #999;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.prize-amount-box strong {
+    font-size: 2.2em;
+    color: #333;
+}
+
+.prize-benefits {
+    list-style: none;
+    padding: 0;
+    margin-top: 25px;
+}
+
+.prize-benefits li {
+    padding: 8px 0;
+    color: #666;
+    font-size: 0.95em;
+    position: relative;
+    padding-left: 25px;
+}
+
+.prize-benefits li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #FFD700;
+    font-weight: bold;
+}
     </style>
 </head>
 <body>
@@ -1163,34 +1244,24 @@
         <div class="section">
             <h2 class="section-title">- 總決賽獎勵 -</h2>
             <div class="prizes">
-                <div class="prize-item prize-gold">
-                    <h3>冠軍</h3>
-                    <p>第一名(1隊)</p>
-                    <p class="prize-amount">獎金$30,000元</p>
-                    <p>每人獎狀乙張 每隊錦旗一面</p>
-                    <p style="font-size: 0.9em;">保險健診主軟體每位使用權限3年</p>
-                </div>
-                <div class="prize-item prize-silver">
-                    <h3>亞軍</h3>
-                    <p>第二名(2隊)</p>
-                    <p class="prize-amount">獎金$10,000元</p>
-                    <p>每人獎狀乙張 每隊錦旗一面</p>
-                    <p style="font-size: 0.9em;">保險健診主軟體每位使用權限3年</p>
-                </div>
-                <div class="prize-item prize-bronze">
-                    <h3>季軍</h3>
-                    <p>第三名(3隊)</p>
-                    <p class="prize-amount">獎金$8,000元</p>
-                    <p>每人獎狀乙張 每隊錦旗一面</p>
-                    <p style="font-size: 0.9em;">保險健診主軟體每位使用權限3年</p>
-                </div>
-                <div class="prize-item" style="background: #f8f9fa; color: #333;">
-                    <h3>特優</h3>
-                    <p>特優(6隊)</p>
-                    <p class="prize-amount">獎金$6,000元</p>
-                    <p>每人獎狀乙張 每隊錦旗一面</p>
-                    <p style="font-size: 0.9em;">保險健診主軟體每位使用權限3年</p>
-                </div>
+                <div class="prize-item prize-modern">
+    <div class="prize-header">
+        <img src="crown-icon.png" alt="冠軍" class="prize-badge">
+    </div>
+    <div class="prize-body">
+        <h3>冠軍</h3>
+        <div class="prize-divider"></div>
+        <div class="prize-amount-box">
+            <small>獎金</small>
+            <strong>$30,000</strong>
+        </div>
+        <ul class="prize-benefits">
+            <li>每人獎狀乙張</li>
+            <li>每隊錦旗一面</li>
+            <li>保險健診主軟體3年使用權</li>
+        </ul>
+    </div>
+</div>
             </div>
             <p style="text-align: center; margin-top: 20px;">
                 冠軍$20,000元+主辦單位太陽保險經紀人另加碼獎金新台幣$10,000元<br>
