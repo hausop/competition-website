@@ -78,9 +78,9 @@
         /* 主體內容 - 優化版 */
         .hero-main-content {
             position: absolute;
-            top: 50%;
+            top: 38%; /* top越小，主視覺越往上 */
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -38%); /* translateY是用來校正垂直置中 */
             z-index: 2;
             width: 85%;
             max-width: 600px; /* 進一步縮小 PC 版 */
@@ -1547,7 +1547,7 @@
 
     // ===== Hero 垂直置中（保留你的原本邏輯） =====
     if (windowWidth <= 768) {
-        const topPosition = windowHeight <= 667 ? 42 : 45;
+        const topPosition = windowHeight <= 667 ? 35 : 38;
         heroContent.style.top = topPosition + '%';
         heroContent.style.transform = `translate(-50%, -${topPosition}%)`;
     } else {
