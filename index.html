@@ -844,63 +844,122 @@
         .prize-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    max-width: 1000px;
+    gap: 20px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
 .prize-card {
+    position: relative;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     background: #fff;
     border-radius: 16px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 320px;
 }
 
 .prize-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
-.prize-left {
-    background: linear-gradient(to right, #fff5cc, #ffffff);
-    padding: 16px;
+/* 隊伍數量標籤 */
+.team-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #0074D9;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+/* 獎項圖片與背景 */
+.prize-top {
+    position: relative;
+    padding: 20px 20px 10px;
     display: flex;
-    justify-content: center;
+    align-items: flex-start;
+    min-height: 120px;
+}
+
+.prize-icon-wrapper {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 80px;
+    height: 80px;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    z-index: 2;
 }
 
-.prize-left img {
-    width: 60px;
+.prize-icon-wrapper img {
+    width: 100%;
     height: auto;
+    object-fit: contain;
 }
 
-.prize-right {
+/* 背景漸層 - 只在左側中間部分 */
+.prize-gradient {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: 45%;
+    height: 40%;
+    background: linear-gradient(135deg, rgba(255, 245, 204, 0.6), transparent);
+    border-radius: 0 100% 100% 0;
+    z-index: 1;
+}
+
+/* 獎項內容 */
+.prize-content {
     flex: 1;
-    padding: 16px;
+    padding: 0 20px 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .prize-title {
-    font-size: 1.4em;
+    font-size: 1.8em;
     font-weight: bold;
-    margin-bottom: 6px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    margin-top: 60px;
 }
 
 .prize-amount {
-    font-size: 1.6em;
+    font-size: 2em;
     font-weight: bold;
     color: #0074D9;
-    margin-bottom: 8px;
+    margin-bottom: auto;
+}
+
+/* 底部福利說明 */
+.prize-footer {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    text-align: center;
 }
 
 .prize-benefits {
     list-style: none;
     padding: 0;
     margin: 0;
-    font-size: 0.95em;
-    color: #555;
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.6;
+}
+
+.prize-benefits li {
+    margin: 5px 0;
 }
 
 .prize-benefits li::before {
@@ -909,23 +968,41 @@
     font-weight: bold;
 }
 
+/* 特殊說明文字 */
+.prize-note {
+    font-size: 0.75em;
+    color: #888;
+    margin-top: 5px;
+}
+
 @media (max-width: 768px) {
     .prize-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
+    
     .prize-card {
-        flex-direction: row;
+        min-height: 280px;
     }
-    .prize-left img {
-        width: 50px;
+    
+    .prize-icon-wrapper {
+        width: 70px;
+        height: 70px;
     }
+    
     .prize-title {
-        font-size: 1.2em;
+        font-size: 1.5em;
+        margin-top: 50px;
     }
+    
     .prize-amount {
-        font-size: 1.4em;
+        font-size: 1.8em;
     }
-}
+    
+    .team-badge {
+        font-size: 0.8em;
+        padding: 3px 8px;
+    }
     </style>
 </head>
 <body>
