@@ -841,85 +841,70 @@
             user-select: none;
         }
 
-        .prize-modern {
+        .prize-medal {
     background: white;
-    border-radius: 15px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-}
-
-.prize-modern:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(255,215,0,0.3);
-}
-
-.prize-header {
-    background: linear-gradient(135deg, #FFD700, #FFC107);
-    padding: 40px 20px;
-    text-align: center;
-}
-
-.prize-badge {
-    width: 80px;
-    height: 80px;
-}
-
-.prize-body {
-    padding: 30px 25px;
-}
-
-.prize-body h3 {
-    font-size: 1.8em;
-    color: #333;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.prize-divider {
-    width: 60px;
-    height: 3px;
-    background: #FFD700;
-    margin: 0 auto 25px;
-}
-
-.prize-amount-box {
-    text-align: center;
-    margin: 25px 0;
-}
-
-.prize-amount-box small {
-    display: block;
-    color: #999;
-    font-size: 0.9em;
-    margin-bottom: 5px;
-}
-
-.prize-amount-box strong {
-    font-size: 2.2em;
-    color: #333;
-}
-
-.prize-benefits {
-    list-style: none;
-    padding: 0;
-    margin-top: 25px;
-}
-
-.prize-benefits li {
-    padding: 8px 0;
-    color: #666;
-    font-size: 0.95em;
     position: relative;
-    padding-left: 25px;
 }
 
-.prize-benefits li::before {
-    content: "✓";
+.medal-container {
+    position: relative;
+    padding: 30px 20px 20px;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+}
+
+.medal-image {
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+}
+
+.medal-rank {
     position: absolute;
-    left: 0;
-    color: #FFD700;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5em;
     font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.prize-medal h3 {
+    font-size: 2em;
+    color: #333;
+    margin: 20px 0 15px;
+}
+
+.prize-info {
+    padding: 0 20px 30px;
+}
+
+.prize-money {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.currency {
+    font-size: 1.2em;
+    color: #666;
+}
+
+.amount {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #FFD700;
+}
+
+.prize-desc, .prize-bonus {
+    color: #666;
+    font-size: 0.9em;
+    margin: 8px 0;
 }
     </style>
 </head>
@@ -1244,76 +1229,64 @@
         <div class="section">
             <h2 class="section-title">- 總決賽獎勵 -</h2>
             <div class="prizes">
-                <div class="prize-item prize-modern">
-    <div class="prize-header">
-        <img src="crown-icon.png" alt="冠軍" class="prize-badge">
+                <div class="prize-item prize-medal">
+    <div class="medal-container">
+        <img src="gold-medal.png" alt="金牌" class="medal-image">
+        <div class="medal-rank">1st</div>
     </div>
-    <div class="prize-body">
-        <h3>冠軍</h3>
-        <div class="prize-divider"></div>
-        <div class="prize-amount-box">
-            <small>獎金</small>
-            <strong>$30,000</strong>
+    <h3>冠軍</h3>
+    <div class="prize-info">
+        <div class="prize-money">
+            <span class="currency">NT$</span>
+            <span class="amount">30,000</span>
         </div>
-        <ul class="prize-benefits">
-            <li>每人獎狀乙張</li>
-            <li>每隊錦旗一面</li>
-            <li>保險健診主軟體3年使用權</li>
-        </ul>
+        <p class="prize-desc">每人獎狀乙張・每隊錦旗一面</p>
+        <p class="prize-bonus">保險健診主軟體使用權限3年</p>
     </div>
 </div>
-                <div class="prize-item prize-modern">
-    <div class="prize-header">
-        <img src="crown-icon.png" alt="冠軍" class="prize-badge">
+                <div class="prize-item prize-medal">
+    <div class="medal-container">
+        <img src="gold-medal.png" alt="金牌" class="medal-image">
+        <div class="medal-rank">1st</div>
     </div>
-    <div class="prize-body">
-        <h3>季軍</h3>
-        <div class="prize-divider"></div>
-        <div class="prize-amount-box">
-            <small>獎金</small>
-            <strong>$30,000</strong>
+    <h3>季軍</h3>
+    <div class="prize-info">
+        <div class="prize-money">
+            <span class="currency">NT$</span>
+            <span class="amount">30,000</span>
         </div>
-        <ul class="prize-benefits">
-            <li>每人獎狀乙張</li>
-            <li>每隊錦旗一面</li>
-            <li>保險健診主軟體3年使用權</li>
-        </ul>
+        <p class="prize-desc">每人獎狀乙張・每隊錦旗一面</p>
+        <p class="prize-bonus">保險健診主軟體使用權限3年</p>
     </div>
 </div>
-                <div class="prize-item prize-modern">
-    <div class="prize-header">
-        <img src="crown-icon.png" alt="冠軍" class="prize-badge">
+                <div class="prize-item prize-medal">
+    <div class="medal-container">
+        <img src="gold-medal.png" alt="金牌" class="medal-image">
+        <div class="medal-rank">1st</div>
     </div>
-    <div class="prize-body">
-        <h3>亞軍</h3>
-        <div class="prize-divider"></div>
-        <div class="prize-amount-box">
-            <small>獎金</small>
-            <strong>$30,000</strong>
+    <h3>亞軍</h3>
+    <div class="prize-info">
+        <div class="prize-money">
+            <span class="currency">NT$</span>
+            <span class="amount">30,000</span>
         </div>
-        <ul class="prize-benefits">
-            <li>每人獎狀乙張</li>
-            <li>每隊錦旗一面</li>
-            <li>保險健診主軟體3年使用權</li>
-        </ul>
+        <p class="prize-desc">每人獎狀乙張・每隊錦旗一面</p>
+        <p class="prize-bonus">保險健診主軟體使用權限3年</p>
     </div>
 </div>
-                <div class="prize-item prize-modern">
-    <div class="prize-header">
-        <img src="crown-icon.png" alt="冠軍" class="prize-badge">
+                <div class="prize-item prize-medal">
+    <div class="medal-container">
+        <img src="gold-medal.png" alt="金牌" class="medal-image">
+        <div class="medal-rank">1st</div>
     </div>
-    <div class="prize-body">
-        <h3>特優</h3>
-        <div class="prize-divider"></div>
-        <div class="prize-amount-box">
-            <small>獎金</small>
-            <strong>$30,000</strong>
+    <h3>特優</h3>
+    <div class="prize-info">
+        <div class="prize-money">
+            <span class="currency">NT$</span>
+            <span class="amount">30,000</span>
         </div>
-        <ul class="prize-benefits">
-            <li>每人獎狀乙張</li>
-            <li>每隊錦旗一面</li>
-            <li>保險健診主軟體3年使用權</li>
-        </ul>
+        <p class="prize-desc">每人獎狀乙張・每隊錦旗一面</p>
+        <p class="prize-bonus">保險健診主軟體使用權限3年</p>
     </div>
 </div>
             </div>
