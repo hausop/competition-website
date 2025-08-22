@@ -98,6 +98,20 @@
             object-fit: contain;
         }
 
+        .hero-main-content.desktop-only {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.hero-banner-left {
+    width: 700px;
+    max-width: 100%;
+}
+.hero-banner-right {
+    width: 350px;
+    max-width: 100%;
+}
+
         /* 超大螢幕限制 */
         @media (min-width: 1920px) {
             .hero-main-content {
@@ -999,13 +1013,32 @@
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <div class="hero">
-        <!-- 背景圖片容器 -->
-        <div class="hero-background">
-            <img src="banner-bg.jpg" alt="Background" class="hero-bg-image">
-        </div>
-        
+    <!-- 置於 <body> 中的 Hero Section -->
+<div class="hero">
+    <!-- 背景圖片容器 -->
+    <div class="hero-background">
+        <img src="banner-bg.jpg" alt="Background" class="hero-bg-image">
+    </div>
+
+    <!-- 桌面版：左右兩張圖 -->
+    <div class="hero-main-content desktop-only">
+        <img src="banner-left.png" alt="左側主視覺" class="hero-banner-left">
+        <img src="banner-right.png" alt="右側主視覺" class="hero-banner-right">
+    </div>
+
+    <!-- 手機版：原單張主視覺 -->
+    <div class="hero-main-content mobile-only">
+        <img src="banner-main.png" alt="第十三屆全國大專保單健診暨保險規劃大賽" class="hero-main-image">
+    </div>
+
+    <!-- 下滑提示 -->
+    <div class="scroll-indicator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 5v14M19 12l-7 7-7-7"/>
+        </svg>
+    </div>
+</div>
+    
         <!-- 主體內容容器 -->
         <div class="hero-main-content">
             <img src="banner-main.png" alt="第十三屆全國大專保單健診暨保險規劃大賽" class="hero-main-image">
