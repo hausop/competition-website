@@ -98,6 +98,17 @@
             object-fit: contain;
         }
 
+        /* ====== 主視覺：雙圖容器（基礎：手機優先） ====== */
+.banner-desktop { display: none; } /* 手機預設隱藏雙圖 */
+.banner-mobile  { display: block; } /* 手機沿用原本單圖 */
+
+.banner-left,
+.banner-right {
+  display: block;
+  height: auto;
+  object-fit: contain;
+}
+
         /* 超大螢幕限制 */
         @media (min-width: 1920px) {
             .hero-main-content {
@@ -692,6 +703,32 @@
         }
 
         /* ========== 響應式設計 ========== */
+        /* ====== 桌機版（≥769px）：顯示雙圖，整體置中 ====== */
+@media (min-width: 769px) {
+  .banner-desktop { 
+    display: flex;
+    align-items: center;      /* 垂直對齊（要底對齊就改成 flex-end） */
+    justify-content: center;  /* 整體置中 */
+    gap: 24px;                /* 左右圖間距 */
+  }
+  .banner-mobile { display: none; } /* 桌機隱藏單圖容器 */
+
+  /* 左右兩張圖的寬度控制（以 700 與 350 為基準） */
+  .banner-left  { width: clamp(420px, 45vw, 700px); }
+  .banner-right { width: clamp(210px, 22.5vw, 350px); }
+
+  /* 高度保護，避免太高超出台高 */
+  .banner-left,
+  .banner-right {
+    max-height: min(70vh, 650px);
+  }
+}
+
+/* 超大螢幕：微調上限，可依喜好調整 */
+@media (min-width: 1440px) {
+  .banner-left  { width: min(700px, 46vw); }
+  .banner-right { width: min(350px, 23vw); }
+}
         /* 平板尺寸 */
         @media (min-width: 769px) and (max-width: 1024px) {
             .hero-main-content {
@@ -1008,8 +1045,18 @@
         
         <!-- 主體內容容器 -->
         <div class="hero-main-content">
-            <img src="banner-main.png" alt="第十三屆全國大專保單健診暨保險規劃大賽" class="hero-main-image">
-        </div>
+  <!-- 桌機版：左右兩張圖 -->
+  <div class="banner-desktop">
+    <img src="banner-left.png" alt="左圖" class="banner-left">
+    <img src="banner-right.png" alt="右圖" class="banner-right">
+  </div>
+
+  <!-- 手機版：沿用原本單張主視覺 -->
+  <div class="banner-mobile">
+    <img src="banner-main.png" alt="第十三屆全國大專保單健診暨保險規劃大賽" class="hero-main-image">
+  </div>
+</div>
+
         
         <!-- 下滑提示 -->
         <div class="scroll-indicator">
@@ -1514,26 +1561,33 @@
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
 
-    // ===== 主示圖最大寬度計算（沿用你原本的邏輯） =====
-    let optimalWidth;
-    if (windowWidth >= 1920) {
-        optimalWidth = Math.min(650, windowWidth * 0.35);
-    } else if (windowWidth >= 1440) {
-        optimalWidth = Math.min(600, windowWidth * 0.4);
-    } else if (windowWidth >= 1024) {
-        optimalWidth = Math.min(550, windowWidth * 0.45);
-    } else if (windowWidth >= 768) {
-        optimalWidth = Math.min(500, windowWidth * 0.6);
-    } else {
-        optimalWidth = Math.min(windowWidth * 0.95, 600);
-    }
+    // ===== 主示圖最大寬度計算（雙圖友善版） =====
+let optimalWidth;
+if (windowWidth > 768) {
+  // 桌機：左右兩張加上間距，目標總寬 ~ 700 + 350 + gap ≈ 1100px
+  optimalWidth = Math.min(1100, windowWidth * 0.75);
+} else {
+  // 手機：維持你原來的寫法（單圖）
+  if (windowWidth >= 1920) {
+      optimalWidth = Math.min(650, windowWidth * 0.35);
+  } else if (windowWidth >= 1440) {
+      optimalWidth = Math.min(600, windowWidth * 0.4);
+  } else if (windowWidth >= 1024) {
+      optimalWidth = Math.min(550, windowWidth * 0.45);
+  } else if (windowWidth >= 768) {
+      optimalWidth = Math.min(500, windowWidth * 0.6);
+  } else {
+      optimalWidth = Math.min(windowWidth * 0.95, 600);
+  }
+}
 
-    // 限制不要超過視窗高度 80%
-    const maxHeightBasedWidth = windowHeight * 0.8;
-    if (optimalWidth > maxHeightBasedWidth) {
-        optimalWidth = maxHeightBasedWidth;
-    }
-    heroContent.style.maxWidth = optimalWidth + 'px';
+// 不超過視窗高度 80%
+const maxHeightBasedWidth = windowHeight * 0.8;
+if (optimalWidth > maxHeightBasedWidth && windowWidth <= 768) {
+  // 只有手機需要用高度限制去壓寬度；桌機交由各圖自己的 max-height 控制即可
+  optimalWidth = maxHeightBasedWidth;
+}
+heroContent.style.maxWidth = optimalWidth + 'px';
 
     // ===== 調整 organizers 的 margin-top =====
     if (windowWidth <= 768) {
