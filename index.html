@@ -29,7 +29,7 @@
             color: white;
             text-align: center;
             overflow: hidden;
-            z-index: 0;
+            z-index: -1;
         }
 
         /* 背景圖片容器 */
@@ -98,33 +98,6 @@
             object-fit: contain;
         }
 
-        .hero-images-desktop {
-    display: flex;
-    align-items: center; /* 讓兩張圖垂直置中對齊 */
-    justify-content: center;
-    gap: 20px; /* 兩張圖之間的間距 */
-}
-
-.hero-image-left {
-    width: 700px;
-    height: 350px;
-    object-fit: cover; /* 讓圖片不變形 */
-    border-radius: 10px;
-}
-
-.hero-image-right {
-    width: 350px;
-    height: 450px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-        /* 桌面版 Hero 區塊寬度調整 */
-@media (min-width: 1024px) {
-    .hero-main-content {
-        max-width: 1100px;
-    }
-}
         /* 超大螢幕限制 */
         @media (min-width: 1920px) {
             .hero-main-content {
@@ -150,7 +123,7 @@
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 1000; /* 下滑箭頭位置 */
+            z-index: 10; /* 下滑箭頭位置 */
             animation: bounce 2s infinite;
             cursor: pointer;
             color: white;
@@ -292,7 +265,7 @@
             flex-shrink: 0;
         }
 
-        /* 顯示控制 - 預設桌面 */
+        /* 顯示控制 */
         .desktop-only {
             display: block;
         }
@@ -1035,15 +1008,8 @@
         
         <!-- 主體內容容器 -->
         <div class="hero-main-content">
-        <!-- 手機版單張圖 -->
-        <img src="banner-main.png" alt="第十三屆全國大專保單健診暨保險規劃大賽" class="hero-main-image mobile-only">
-
-        <!-- 桌面版雙圖 -->
-        <div class="desktop-only hero-images-desktop">
-            <img src="banner-left.png" alt="橫式圖" class="hero-image-left">
-            <img src="banner-right.png" alt="直式圖" class="hero-image-right">
-       </div>
-</div>
+            <img src="banner-main.png" alt="第十三屆全國大專保單健診暨保險規劃大賽" class="hero-main-image">
+        </div>
         
         <!-- 下滑提示 -->
         <div class="scroll-indicator">
