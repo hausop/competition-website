@@ -355,48 +355,62 @@
         }
 
         /* 手機版表格 */
-        .vertical-scoring-table {
-            display: none;
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+.vertical-scoring-table {
+  display: none;
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  table-layout: fixed;              /* 固定欄寬，避免字被擠 */
+}
 
-        .vertical-scoring-table thead {
-            background: #0074D9;
-            color: white;
-        }
+.vertical-scoring-table thead {
+  background: #0074D9;
+  color: #fff;
+}
 
-        .vertical-scoring-table th {
-            padding: 12px;
-            text-align: center;
-            font-weight: 600;
-        }
+.vertical-scoring-table th {
+  padding: 12px;
+  text-align: center;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e7eb;
+}
 
-        .vertical-scoring-table .category-header {
-            background: #f8f9fa;
-            font-weight: bold;
-            padding: 10px 15px;
-            text-align: left;
-            border-top: 2px solid #dee2e6;
-        }
+/* 藍色標題中間加清楚的分隔線 */
+.vertical-scoring-table th:nth-child(1) {
+  width: 66%;
+  border-right: 2px solid rgba(255,255,255,0.7);
+}
+.vertical-scoring-table th:nth-child(2) {
+  width: 34%;
+  white-space: nowrap;
+}
 
-        .vertical-scoring-table .item-cell {
-            padding: 15px;
-            line-height: 1.6;
-            border-right: 1px solid #dee2e6;
-        }
+.vertical-scoring-table .category-header {
+  background: #f8f9fa;
+  font-weight: bold;
+  padding: 10px 15px;
+  text-align: left;
+  border-top: 2px solid #e5e7eb;
+}
 
-        .vertical-scoring-table .score-cell {
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.2em;
-            padding: 15px;
-            background: #fde8d4;
-            border-left: 2px solid #dee2e6;  /* 改為灰色分隔線，較清楚 */
-            min-width: 80px;                 /* 給評分比重一欄固定寬度 */
-        }
+.vertical-scoring-table .item-cell {
+  padding: 15px;
+  line-height: 1.6;
+  border-right: 1px solid #e5e7eb;
+  width: 66%;
+}
+
+.vertical-scoring-table .score-cell {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 15px;
+  background: #fde8d4;
+  border-left: 2px solid #e5e7eb;   /* 與左欄分隔 */
+  width: 34%;                       /* 讓評分比重更寬 */
+  white-space: nowrap;              /* 20%/30%/50% 不換行 */
+}
 
         /* ========== 獎項區塊 ========== */
         .prizes {
