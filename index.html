@@ -393,10 +393,8 @@
             font-weight: bold;
             font-size: 1.2em;
             padding: 15px;
-            background: #fde8d4;        /* 跟 PC 一致的底色（覆蓋 #f8f9f9） */
-  border-left: 1px solid #fff;/* 中間白色分隔線 */
-  vertical-align: middle;     /* 跨兩列時讓 % 垂直置中 */
-  white-space: nowrap;
+            background: #fde8d4;
+            border-left: 1px solid #fff;   /* 白色分隔線 */
         }
 
         /* ========== 獎項區塊 ========== */
@@ -1036,19 +1034,6 @@
   left: 0;
 }
         
-        /* 手機版直式表格：配合 rowspan 版面 */
-.vertical-scoring-table .score-cell {
-  background: #fde8d4;        /* 跟 PC 一致的底色（覆蓋 #f8f9f9） */
-  border-left: 1px solid #fff;/* 中間白色分隔線 */
-  vertical-align: middle;     /* 跨兩列時讓 % 垂直置中 */
-  white-space: nowrap;
-}
-
-/* 避免與白線重疊成雙線，關掉左欄右側的灰線 */
-.vertical-scoring-table .category-header,
-.vertical-scoring-table .item-cell {
-  border-right: none;
-}
     </style>
 </head>
 <body>
@@ -1346,8 +1331,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="category-header">A 簡報內容方式</td>
-                            <td class="score-cell" rowspan="2">20%</td>
+                            <td colspan="2" class="category-header">A 簡報內容方式</td>
                         </tr>
                         <tr>
                             <td class="item-cell">
@@ -1358,8 +1342,7 @@
                             <td class="score-cell">20%</td>
                         </tr>
                         <tr>
-                            <td class="category-header">B 家庭健診資料彙整</td>
-                            <td class="score-cell" rowspan="2">30%</td>
+                            <td colspan="2" class="category-header">B 家庭健診資料彙整</td>
                         </tr>
                         <tr>
                             <td class="item-cell">
@@ -1370,8 +1353,7 @@
                             <td class="score-cell">30%</td>
                         </tr>
                         <tr>
-                            <td class="category-header">C 保單規劃與建議</td>
-                            <td class="score-cell" rowspan="2">50%</td>
+                            <td colspan="2" class="category-header">C 保單規劃與建議</td>
                         </tr>
                         <tr>
                             <td class="item-cell">
