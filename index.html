@@ -398,7 +398,20 @@
   padding: 15px;
   line-height: 1.6;
   border-right: 1px solid #e5e7eb;
-  width: 66%;
+  white-space: nowrap;                  /* 一律單行 */
+  font-size: clamp(14px, 3.6vw, 16px);  /* 依裝置自適應，不會出現 ... */
+}
+
+        /* 固定兩欄比例，避免左欄被擠而換行 */
+.vertical-scoring-table { table-layout: fixed; }
+.vertical-scoring-table th:nth-child(1),
+.vertical-scoring-table .item-cell { width: 64%; }
+.vertical-scoring-table th:nth-child(2),
+.vertical-scoring-table .score-cell { width: 36%; }
+
+/* 評分比重字體自適應 */
+.vertical-scoring-table .score-cell {
+  font-size: clamp(18px, 5.2vw, 22px);
 }
 
 .vertical-scoring-table .score-cell {
