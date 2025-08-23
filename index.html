@@ -373,91 +373,56 @@
   padding: 12px;
   text-align: center;
   font-weight: 600;
-    border-bottom: 2px solid #e5e7eb;   /* 表頭下方補上底線 */
+  border-bottom: 2px solid #e5e7eb; /* 表頭底線補上 */
 }
-
-/* 左欄：標題 A/B/C */
-.category-header-left {
-  background: #f8f9fa;
-  font-weight: bold;
-  padding: 10px 15px;
-  text-align: left;
-  border-top: 2px solid #e5e7eb;
-  border-right: 1px solid #e5e7eb;
-  width: 64%;
+.vertical-scoring-table th:nth-child(1){ width:64%; border-right:2px solid rgba(255,255,255,.7); }
+.vertical-scoring-table th:nth-child(2){ width:36%; }
+        
+/* 左欄：A/B/C 標題 */
+.category-header-left{
+  background:#f8f9fa;
+  font-weight:bold;
+  padding:10px 15px;
+  text-align:left;
+  border-top:2px solid #e5e7eb;
+  border-right:1px solid #e5e7eb;
+  width:64%;
 }
 
 /* 左欄：內文 */
-.vertical-scoring-table .item-cell {
-  padding: 15px;
-  line-height: 1.6;
-  border-right: 1px solid #e5e7eb;
-  white-space: nowrap;                  /* 一律單行 */
-  font-size: clamp(14px, 3.6vw, 16px);  /* 自適應字體大小 */
-  width: 64%;
+.vertical-scoring-table .item-cell{
+  padding:15px;
+  line-height:1.6;
+  border-right:1px solid #e5e7eb;
+  white-space:nowrap;                   /* 單行 */
+  font-size:clamp(14px,3.6vw,16px);     /* 自適應字體 */
+  width:64%;
 }
 
-/* 右欄：百分比 */
-.vertical-scoring-table .score-cell {
-  text-align: center;
-  vertical-align: middle;               /* 垂直置中 */
-  font-weight: bold;
-  font-size: clamp(18px, 5.2vw, 22px);  /* 自適應字體大小 */
-  padding: 15px;
-  background: #fde8d4;
-  border-left: 2px solid #e5e7eb;       /* 與左欄分隔 */
-  border-bottom: 2px solid #e5e7eb;     /* 底部分隔線 */
-  border-top: 2px solid #e5e7eb;        /* 頭部分隔線 */
-  width: 36%;
+/* 右欄：百分比（與左欄兩列對齊，直向置中） */
+.vertical-scoring-table .score-cell{
+  text-align:center;
+  vertical-align:middle;
+  font-weight:bold;
+  font-size:clamp(18px,5.2vw,22px);
+  padding:15px;
+  background:#fde8d4;
+  border-left:2px solid #e5e7eb;        /* 與左欄的分隔線 */
+  border-top:2px solid #e5e7eb;         /* 右欄頂線 */
+  border-bottom:2px solid #e5e7eb;      /* 右欄底線（預設） */
+  width:36%;
 }
 
-/* 藍色標題中間加清楚的分隔線 */
-.vertical-scoring-table th:nth-child(1) {
-  width: 66%;
-  border-right: 2px solid rgba(255,255,255,0.7);
-}
-.vertical-scoring-table th:nth-child(2) {
-  width: 34%;
-  white-space: nowrap;
+/* ===== 指定每組百分比下邊線樣式（你要的效果） ===== */
+/* A 的 20%（tbody 第1列）與 B 的 30%（tbody 第3列）底線改白色 */
+.vertical-scoring-table tbody tr:nth-of-type(1) .score-cell,
+.vertical-scoring-table tbody tr:nth-of-type(3) .score-cell{
+  border-bottom:2px solid #fff;
 }
 
-.vertical-scoring-table .category-header {
-  background: #f8f9fa;
-  font-weight: bold;
-  padding: 10px 15px;
-  text-align: left;
-  border-top: 2px solid #e5e7eb;
-}
-
-.vertical-scoring-table .item-cell {
-  padding: 15px;
-  line-height: 1.6;
-  border-right: 1px solid #e5e7eb;
-  white-space: nowrap;                  /* 一律單行 */
-  font-size: clamp(14px, 3.6vw, 16px);  /* 依裝置自適應，不會出現 ... */
-}
-
-        /* 固定兩欄比例，避免左欄被擠而換行 */
-.vertical-scoring-table { table-layout: fixed; }
-.vertical-scoring-table th:nth-child(1),
-.vertical-scoring-table .item-cell { width: 64%; }
-.vertical-scoring-table th:nth-child(2),
-.vertical-scoring-table .score-cell { width: 36%; }
-
-/* 評分比重字體自適應 */
-.vertical-scoring-table .score-cell {
-  font-size: clamp(18px, 5.2vw, 22px);
-}
-
-.vertical-scoring-table .score-cell {
-  text-align: center;
-  font-weight: bold;
-  font-size: 1.2em;
-  padding: 15px;
-  background: #fde8d4;
-  border-left: 2px solid #e5e7eb;   /* 與左欄分隔 */
-  width: 34%;                       /* 讓評分比重更寬 */
-  white-space: nowrap;              /* 20%/30%/50% 不換行 */
+/* C 的 50%（tbody 第5列）底線移除 */
+.vertical-scoring-table tbody tr:nth-of-type(5) .score-cell{
+  border-bottom:none;
 }
 
         /* ========== 獎項區塊 ========== */
