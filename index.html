@@ -995,52 +995,82 @@
 
         /* 手機版 - 維持原有橫向卡片設計 */
         @media (max-width: 768px) {
-            .prize-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-            
-            .prize-card {
-                flex-direction: row;
-                align-items: center;
-                text-align: left;
-                padding: 0;
-                min-height: auto;
-            }
-            
-            .prize-icon {
-                background: linear-gradient(to right, #fff5cc, #ffffff);
-                width: auto;
-                height: auto;
-                margin-bottom: 0;
-                padding: 16px;
-                border-radius: 16px 0 0 16px;
-            }
-            
-            .prize-icon img {
-                width: 50px;
-            }
-            
-            .prize-content {
-                flex: 1;
-                padding: 16px;
-            }
-            
-            .prize-title {
-                font-size: 1.2em;
-                margin-bottom: 6px;
-            }
-            
-            .prize-amount {
-                font-size: 1.4em;
-                margin-bottom: 8px;
-            }
-            
-            .prize-benefits {
-                font-size: 0.85em;
-            }
-        }
+  /* 一列一張卡 */
+  .prize-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
 
+  /* 卡片外觀：大圓角 + 柔和陰影（對齊你給的圖） */
+  .prize-card {
+    display: grid;
+    grid-template-columns: 108px 1fr;   /* 左 icon、右內容 */
+    align-items: center;
+    gap: 12px;
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    padding: 18px;
+    min-height: auto;
+  }
+
+  /* 左側圖塊：淡黃到白的漸層背景、內部 icon 置中 */
+  .prize-icon {
+    width: 108px;
+    height: 108px;
+    margin: 0;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #faefc8 0%, #ffffff 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .prize-icon img {
+    width: 84px; height: auto; object-fit: contain;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.12));
+  }
+
+  /* 右側：標題、金額、權益 */
+  .prize-content { padding: 0 0 0 4px; }
+
+  .prize-title {
+    margin: 0 0 6px 0;
+    font-size: 28px;            /* 黑色大字：冠軍/亞軍/季軍/特優 */
+    font-weight: 900;
+    color: #111827;             /* 近黑 */
+    letter-spacing: .5px;
+  }
+
+  .prize-amount {
+    margin: 0 0 10px 0;
+    font-size: 30px;            /* 藍色大金額 */
+    font-weight: 900;
+    color: #0b72e7;
+    line-height: 1.1;
+  }
+
+  .prize-benefits {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 18px;            /* 右側兩行說明 */
+    color: #6b7280;
+  }
+  .prize-benefits li {
+    display: flex; align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+    padding: 0;
+    position: relative;
+  }
+  /* 藍色打勾符號 */
+  .prize-benefits li::before {
+    content: "✓";
+    color: #0b72e7;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 1;
+  }
+}
+        
         /* 移除子層清單的預設樣式並重設計數器 */
 .custom-list {
   list-style-type: none;
