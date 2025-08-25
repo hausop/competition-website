@@ -993,70 +993,78 @@
             left: 0;
         }
 
-        /* 手機版 - 維持原有橫向卡片設計 */
-        @media (max-width: 768px) {
-  /* 手機：單欄直式 */
-  .prize-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
+       /* 手機版 – 圖在左、右側顯示金額與隊數，隱藏「冠軍/亞軍…」字樣 */
+@media (max-width: 768px) {
+  .prize-grid { grid-template-columns: 1fr; gap: 18px; }
 
   .prize-card {
-    display: flex;
-    flex-direction: column;   /* 上圖下文 */
+    display: grid;
+    grid-template-columns: 110px 1fr;   /* 左：圖 右：文字 */
     align-items: center;
-    text-align: center;
-    padding: 20px;
+    padding: 16px;
     min-height: auto;
-    position: relative;       /* 供標籤使用（若之後要改定位） */
+    text-align: left;
   }
 
-  /* 圖片放大 */
-  .prize-icon { background: none; margin-bottom: 12px; padding: 0; }
-  .prize-icon img { width: 120px; height: auto; object-fit: contain; }
+  /* 左側圖示加左側淡黃漸層背景、與你的原色一致 */
+  .prize-icon {
+    background: linear-gradient(to right, #fff5cc, #ffffff);
+    margin: 0;
+    padding: 18px 14px;
+    width: 110px;      /* 與 grid 左欄一致 */
+    height: 110px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .prize-icon img { width: 82px; height: auto; }
 
-  .prize-content { width: 100%; padding: 0; }
+  /* 右側內容區 */
+  .prize-content { padding: 0 4px 0 14px; }
 
-  /* 隱藏「冠軍/亞軍/季軍/特優」標題行 */
+  /* 隱藏「冠軍/亞軍…」這一行字 */
   .prize-title { display: none; }
 
-  /* 隊伍數量標籤：放在原標題的位置 */
+  /* 金額在最上方，加粗放大 */
+  .prize-amount {
+    font-size: clamp(26px, 7.2vw, 38px);
+    margin: 0 0 6px 0;         /* 與隊數標籤距離在這裡調 */
+    line-height: 1.1;
+  }
+
+  /* 隊伍數量標籤（藍色膠囊） */
   .team-badge {
-  display: inline-block;
-  background: #0074D9;
-  color: #fff;
-  font-size: 0.9em;
-  font-weight: 700;
-  padding: 4px 12px;
-  border-radius: 999px;
-  margin-bottom: 4px;  /* ← 原本 10px，改小一點讓標籤靠近金額 */
-}
-  /* 金額與說明字級 */
-  .prize-amount   { font-size: 1.6em; margin: 6px 0 10px; }
-            
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: #0d6efd;  /* 你原本的藍色 */
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1;
+    margin-bottom: 10px;       /* 與下方條列的距離 */
+  }
+  /* 想再更靠近金額 → 改 .prize-amount 的 margin-bottom 或這裡的 margin-top/bottom */
+
+  /* 條列：打勾與文字像一般段落對齊 */
   .prize-benefits {
-  font-size: 0.95em;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.prize-benefits li {
-  /* 這段改用兩欄：左✓、右文字；多行會自動貼齊第一行 */
-  display: grid;
-  grid-template-columns: 1.1em auto;
-  align-items: start;        /* ✓ 與多行文字頂端對齊 */
-  column-gap: 4px;
-  margin: 8px auto;          /* 置中整條 */
-  width: fit-content;        /* 區塊寬度依內容 */
-  text-align: left;          /* 文字區內部靠左 */
-}
-
-.prize-benefits li::before {
-  content: "✓";
-  color: #0074D9;
-  font-weight: 700;
-  line-height: 1.2;          /* 調整✓高度，避免偏上/偏下 */
+    font-size: 16px;
+    line-height: 1.7;
+    margin-top: 8px;
+    padding: 0;
+  }
+  .prize-benefits li {
+    display: flex;            /* 讓勾勾與文字同一行對齊 */
+    align-items: baseline;
+    gap: 10px;                /* 勾勾與文字間距：想靠近就縮小 */
+    margin: 6px 0;
+    padding: 0;               /* 取消原本左內距 */
+  }
+  .prize-benefits li::before {
+    content: "✓";
+    position: static;         /* 用文字流排版，不再絕對定位 */
+    color: #0d6efd;
+    font-weight: 700;
+  }
 }
 
 
@@ -1433,8 +1441,10 @@
       <img src="ICON-01.png" alt="冠軍">
     </div>
     <div class="prize-content">
-      <div class="team-badge">1隊</div>   <!-- 標題改成隊伍數 -->
+      <!-- 金額在上 -->
       <div class="prize-amount">$30,000</div>
+      <!-- 隊伍標籤在金額下 -->
+      <div class="team-badge">1隊</div>
       <ul class="prize-benefits">
         <li>※冠軍20,000+主辦單位太陽保險經紀人另加碼獎金新台幣10,000元</li>
         <li>軟體使用權限 3 年</li>
@@ -1448,8 +1458,8 @@
       <img src="ICON-02.png" alt="亞軍">
     </div>
     <div class="prize-content">
-      <div class="team-badge">2隊</div>
       <div class="prize-amount">$10,000</div>
+      <div class="team-badge">2隊</div>
       <ul class="prize-benefits">
         <li>軟體使用權限 3 年</li>
       </ul>
@@ -1462,8 +1472,8 @@
       <img src="ICON-03.png" alt="季軍">
     </div>
     <div class="prize-content">
-      <div class="team-badge">3隊</div>
       <div class="prize-amount">$8,000</div>
+      <div class="team-badge">3隊</div>
       <ul class="prize-benefits">
         <li>軟體使用權限 3 年</li>
       </ul>
@@ -1476,8 +1486,8 @@
       <img src="ICON-00.png" alt="特優">
     </div>
     <div class="prize-content">
-      <div class="team-badge">6隊</div>
       <div class="prize-amount">$6,000</div>
+      <div class="team-badge">6隊</div>
       <ul class="prize-benefits">
         <li>軟體使用權限 2 年</li>
       </ul>
