@@ -1036,24 +1036,27 @@
             
   .prize-benefits {
   font-size: 0.95em;
-  text-align: center;
-  list-style: none; /* 移除預設圓點 */
+  list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .prize-benefits li {
-  margin: 6px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center; /* 整行置中 */
-  gap: 3px; /* 打勾跟文字之間的距離 */
+  /* 這段改用兩欄：左✓、右文字；多行會自動貼齊第一行 */
+  display: grid;
+  grid-template-columns: 1.1em auto;
+  align-items: start;        /* ✓ 與多行文字頂端對齊 */
+  column-gap: 4px;
+  margin: 8px auto;          /* 置中整條 */
+  width: fit-content;        /* 區塊寬度依內容 */
+  text-align: left;          /* 文字區內部靠左 */
 }
 
 .prize-benefits li::before {
   content: "✓";
   color: #0074D9;
-  font-weight: bold;
-  position: static;   /* ← 改回正常 inline 位置 */
+  font-weight: 700;
+  line-height: 1.2;          /* 調整✓高度，避免偏上/偏下 */
 }
 
 
