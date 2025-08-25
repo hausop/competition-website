@@ -525,9 +525,10 @@
 
         .contact-row span:first-child {
             color: #666;
-            min-width: 80px;
-            flex-shrink: 0;
-            margin-right: 5px;
+            display: inline-block;
+            width: 90px;      /* ✅ 固定寬度，可調整 */
+            text-align: right;/* ✅ 文字靠右，冒號齊一排 */
+            margin-right: 10px;
         }
 
         .contact-link {
