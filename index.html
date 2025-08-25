@@ -995,6 +995,12 @@
 
         /* 手機版 - 維持原有橫向卡片設計 */
         @media (max-width: 768px) {
+  .prize-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* 整張卡片左側做漸層（而不是只在 icon 底下） */
   .prize-card {
   flex-direction: row;          /* 左圖右文 */
   align-items: center;
@@ -1008,7 +1014,62 @@
   gap: 16px;
 }
 
-            
+  /* icon 區塊背景改透明（讓左側漸層來承接） */
+  .prize-icon {
+  background: transparent;      /* 圖塊不再有底色，讓卡片的漸層露出 */
+  width: 108px;                 /* 參考示意圖放大一些 */
+  height: 108px;
+  margin-bottom: 0;
+  padding: 0;                   /* 內距拿掉，避免擠壓文字 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;             /* 不需要局部圓角 */
+}
+.prize-icon img {
+  width: 84px;                  /* 獎盃大小 */
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.12));
+}
+
+  .prize-content { flex: 1; padding-left: 4px; }
+
+  /* 標題、金額與清單字級對齊你的參考圖 */
+  .prize-title {
+    font-size: clamp(22px, 6vw, 30px);
+    font-weight: 900;
+    color: #111827;
+    margin: 0 0 6px 0;
+  }
+  .prize-amount {
+    font-size: clamp(24px, 6.6vw, 32px);
+    font-weight: 900;
+    color: #0b72e7;
+    margin: 0 0 10px 0;
+    line-height: 1.1;
+  }
+
+  .prize-benefits {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: clamp(14px, 4.2vw, 18px);
+    color: #6b7280;
+  }
+  .prize-benefits li {
+    display: flex; align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+  }
+  .prize-benefits li::before {
+    content: "✓";
+    color: #0b72e7;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 1;
+  }
+}
 
         /* 移除子層清單的預設樣式並重設計數器 */
 .custom-list {
