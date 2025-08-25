@@ -471,81 +471,87 @@
         }
 
         /* ========== 聯絡區塊 ========== */
-        .contact-section {
-            background: #f8f9fa;
-            padding: 60px 20px;
-        }
+.contact-section {
+  background: #f8f9fa;
+  padding: 60px 20px;
+}
 
-        .contact-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+.contact-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin: 40px 0;
-        }
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin: 40px 0;
+}
 
-        .contact-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+.contact-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
-        .contact-header .divider {
-            width: 4px;
-            height: 24px;
-            background: #0074D9;
-            margin-right: 10px;
-        }
+.contact-header .divider {
+  width: 4px;
+  height: 24px;
+  background: #0074D9;
+  margin-right: 10px;
+}
 
-        .contact-header h3 {
-            color: #2c3e50;
-            font-size: 1.3em;
-        }
+.contact-header h3 {
+  color: #2c3e50;
+  font-size: 1.3em;
+}
 
-        .contact-info {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-        }
+.contact-info {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
 
-        .contact-details {
-            margin-top: 20px;
-        }
+.contact-details {
+  margin-top: 20px;
+}
 
-        .contact-row {
-            display: flex;
-            margin: 10px 0;
-            line-height: 1.8;
-        }
+/* ✅ label 固定寬，冒號齊排 */
+.contact-row {
+  display: grid;
+  grid-template-columns: 110px auto; /* 左固定寬，右自適應 */
+  align-items: start;
+  margin: 10px 0;
+  line-height: 1.8;
+}
 
-        .contact-row span:first-child {
-            color: #666;
-            display: inline-block;
-            width: 90px;      /* ✅ 固定寬度，可調整 */
-            text-align: right;/* ✅ 文字靠右，冒號齊一排 */
-            margin-right: 10px;
-        }
+.contact-row span:first-child {
+  font-weight: 600;
+  color: #333;
+  text-align: left;
+  white-space: nowrap;
+}
 
-        .contact-link {
-            color: #0074D9;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
+.contact-row span:last-child {
+  color: #555;
+}
 
-        .contact-link:hover {
-            color: #005ba7;
-            text-decoration: underline;
-        }
+.contact-link {
+  color: #0074D9;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
 
-        .contact-link.large {
-            font-size: 1.3em;
-            font-weight: bold;
-        }
+.contact-link:hover {
+  color: #005ba7;
+  text-decoration: underline;
+}
+
+.contact-link.large {
+  font-size: 1.3em;
+  font-weight: bold;
+}
 
         .contact-phone-box {
             display: flex;
@@ -1447,7 +1453,7 @@
     </div>
     <div class="prize-content">
       <div class="prize-amount">$30,000</div>
-      <div class="team-badge badge-gold">1隊</div>
+      <div class="team-badge badge-gold">1 隊</div>
     </div>
     <ul class="prize-benefits">
       <li>※冠軍20,000+主辦單位太陽保險經紀人另加碼獎金新台幣10,000元</li>
@@ -1462,7 +1468,7 @@
     </div>
     <div class="prize-content">
       <div class="prize-amount">$10,000</div>
-      <div class="team-badge badge-silver">2隊</div>
+      <div class="team-badge badge-silver">2 隊</div>
     </div>
     <ul class="prize-benefits">
       <li>軟體使用權限 3 年</li>
@@ -1476,7 +1482,7 @@
     </div>
     <div class="prize-content">
       <div class="prize-amount">$8,000</div>
-      <div class="team-badge badge-bronze">3隊</div>
+      <div class="team-badge badge-bronze">3 隊</div>
     </div>
     <ul class="prize-benefits">
       <li>軟體使用權限 3 年</li>
@@ -1490,7 +1496,7 @@
     </div>
     <div class="prize-content">
       <div class="prize-amount">$6,000</div>
-      <div class="team-badge badge-special">6隊</div>
+      <div class="team-badge badge-special">6 隊</div>
     </div>
     <ul class="prize-benefits">
       <li>軟體使用權限 2 年</li>
@@ -1520,41 +1526,83 @@
         </div>
         </div>
     
-    <!-- Contact Section -->
-    <div class="contact-section">
-        <div class="contact-container">
-            <h2 class="section-title" style="color: #2c3e50;">- 聯絡我們 -</h2>
-            
-            <div class="contact-content">
-                <div class="contact-main">
-                    <div class="contact-header">
-                        <div class="divider"></div>
-                        <h3>活動相關：</h3>
-                    </div>
-                    <div class="contact-info">
-                        <p><strong>太陽保險經紀人股份有限公司</strong></p>
-                        <div class="contact-details">
-                            <div class="contact-row">
-                                <span>聯絡人：</span>保單大賽工作團隊
-                            </div>
-                            <div class="contact-row">
-                                <span>手機號碼：</span><a href="tel:0924-120-288" class="contact-link">0924-120-288</a>
-                            </div>
-                            <div class="contact-row">
-                                <span>傳真：</span><a href="tel:0719728818" class="contact-link">(07)972-8818</a>
-                            </div>
-                            <div class="contact-row">
-                                <span>Line ID：</span><a href="https://line.me/ti/p/~0924120288" class="contact-link" target="_blank" rel="noopener noreferrer">0924120288▸點我加Line</a>
-                            </div>
-                            <div class="contact-row">
-                                <span>聯絡電話：</span><a href="tel:0719728898" class="contact-link">(07)972-8898</a>
-                            </div>
-                            <div class="contact-row">
-                                <span>電子郵件：</span><a href="mailto:999@taiyung.com.tw" class="contact-link">999@taiyung.com.tw</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+   <!-- Contact Section -->
+<section class="contact-section">
+  <div class="contact-container">
+    <div class="contact-content">
+      
+      <!-- 左半：活動相關 -->
+      <div class="contact-info">
+        <div class="contact-header">
+          <div class="divider"></div>
+          <h3>活動相關</h3>
+        </div>
+        <div class="contact-details">
+          <div class="contact-row">
+            <span>聯絡人：</span>
+            <span>保單大賽工作團隊</span>
+          </div>
+          <div class="contact-row">
+            <span>手機號碼：</span>
+            <span><a href="tel:+886924120288" class="contact-link">0924-120-288</a></span>
+          </div>
+          <div class="contact-row">
+            <span>傳真：</span>
+            <span>(07)972-8818</span>
+          </div>
+          <div class="contact-row">
+            <span>Line ID：</span>
+            <span>
+              <a href="https://line.me/ti/p/~0924120288" class="contact-link">
+                <svg width="18" height="18" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:4px;" aria-hidden="true">
+                  <circle cx="12" cy="12" r="11" fill="#06C655"/>
+                  <path d="M12 6.2c-3.3 0-6 2.3-6 5.1 0 2.1 1.5 3.9 3.7 4.7-.1.7-.4 1.8-1.1 2.8 1.2-.3 2.4-1 3.1-1.5.1 0 .2.1.3.1 3.3 0 6-2.3 6-5.1s-2.7-5.1-6-5.1z" fill="#fff"/>
+                </svg>
+                @0924120288
+              </a>
+            </span>
+          </div>
+          <div class="contact-row">
+            <span>聯絡電話：</span>
+            <span><a href="tel:+88679728898" class="contact-link">(07)972-8898</a></span>
+          </div>
+          <div class="contact-row">
+            <span>電子郵件：</span>
+            <span><a href="mailto:999@taiyung.com.tw" class="contact-link">999@taiyung.com.tw</a></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右半：客服專區 -->
+      <div class="contact-info">
+        <div class="contact-header">
+          <div class="divider"></div>
+          <h3>客服專區</h3>
+        </div>
+        <div class="contact-details">
+          <div class="contact-row">
+            <span>客服電話：</span>
+            <span><a href="tel:+88672211987" class="contact-link">(07)221-1987</a></span>
+          </div>
+          <div class="contact-row">
+            <span>Line 客服：</span>
+            <span>
+              <a href="https://line.me/ti/p/@osa0846b" class="contact-link">
+                <svg width="18" height="18" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:4px;" aria-hidden="true">
+                  <circle cx="12" cy="12" r="11" fill="#06C655"/>
+                  <path d="M12 6.2c-3.3 0-6 2.3-6 5.1 0 2.1 1.5 3.9 3.7 4.7-.1.7-.4 1.8-1.1 2.8 1.2-.3 2.4-1 3.1-1.5.1 0 .2.1.3.1 3.3 0 6-2.3 6-5.1s-2.7-5.1-6-5.1z" fill="#fff"/>
+                </svg>
+                @osa0846b
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- End Contact Section -->
                 
                 <div class="contact-secondary">
                     <div class="contact-header">
@@ -1565,7 +1613,7 @@
                         <div class="contact-phone-box">
                             <span class="phone-icon">📞</span>
                             <span>客服電話：</span>
-                            <a href="tel:07-2211987" class="contact-link large">07-2211987</a>
+                            <a href="tel:+88672211987" class="contact-link large">07-2211987</a>
                         </div>
                         <div class="contact-line-box">
                             <span>Line 客服：</span><a href="https://line.me/ti/p/@osa0846b" class="contact-link" target="_blank" rel="noopener noreferrer">@osa0846b</a>
