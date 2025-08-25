@@ -534,6 +534,7 @@
   white-space: nowrap;              /* 單行 */
   text-align: justify;              /* 左右齊 */
   text-justify: inter-ideograph;    /* CJK 字距演算法 */
+  text-align-last: justify;      /* ← 新增這行，跨瀏覽器更穩 */
   font-weight: 600;
   color: #333;
 }
@@ -849,10 +850,11 @@
                 grid-template-columns: 1fr;
             }
 
-            .contact-row span:first-child {
-                min-width: auto;
-                white-space: nowrap;
-            }
+            .contact-row .label {
+  min-width: auto;     /* 手機不強迫固定寬 */
+  white-space: nowrap; /* 仍維持單行 */
+}
+
 
             /* 賽事回顧 */
             .gallery-button-section {
@@ -1550,11 +1552,11 @@
     <div class="contact-content">
       
       <!-- 左半：活動相關 -->
-      <div class="contact-info">
-        <div class="contact-header">
+      <div class="contact-header">
           <div class="divider"></div>
           <h3>活動相關</h3>
-        </div>
+      </div>
+      <div class="contact-info">
         <div class="contact-details">
           <div class="contact-row">
             <span class="label">聯絡人：</span>
@@ -1592,19 +1594,19 @@
       </div>
 
       <!-- 右半：客服專區 -->
-      <div class="contact-info">
         <div class="contact-header">
           <div class="divider"></div>
           <h3>客服專區</h3>
         </div>
+      <div class="contact-info">
         <div class="contact-details">
           <div class="contact-row">
-            <span>客服電話：</span>
-            <span><a href="tel:+88672211987" class="contact-link">(07)221-1987</a></span>
+            <span class="label">客服電話：</span>
+            <span class="value"><a href="tel:+88672211987" class="contact-link">(07)221-1987</a></span>
           </div>
           <div class="contact-row">
-            <span>Line 客服：</span>
-            <span>
+            <span class="label">Line 客服：</span>
+              <span class="value">
               <a href="https://line.me/ti/p/@osa0846b" class="contact-link" target="_blank" rel="noopener noreferrer">
                 <svg width="18" height="18" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:4px;" aria-hidden="true">
                   <circle cx="12" cy="12" r="11" fill="#06C655"/>
