@@ -21,15 +21,13 @@
 
         /* ========== Hero 區塊 ========== */
         .hero {
-            position: fixed;
-            top: 0;
-            left: 0;
+            position: relative;  /* 改為 relative，避免覆蓋整頁 */
             width: 100%;
             height: 100vh;
             color: white;
             text-align: center;
             overflow: hidden;
-            z-index: -1;
+            z-index: 0;
         }
 
         /* 背景圖片容器 */
@@ -54,16 +52,17 @@
 
         /* 深色遮罩層 */
         .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,var(--overlay-opacity,0));
-            z-index: 1;
-            transition: none;
-        }
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,var(--overlay-opacity,0));
+    z-index: 1;
+    pointer-events: none;
+    transition: none;
+}
 
 
         /* 主體內容 - 優化版 */
@@ -89,7 +88,18 @@
 .hero-background, .hero-main-content { transition: none; }
 
 /* 遮罩改用變數驅動，避免整頁黑掉 */
-.hero::before { background: rgba(0,0,0,var(--overlay-opacity,0)); transition: none; }
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,var(--overlay-opacity,0));
+    z-index: 1;
+    pointer-events: none;
+    transition: none;
+}
 
 /* 疊放層級，避免遮罩壓到下面內容 */
 .hero { z-index: 0; }
@@ -1732,24 +1742,32 @@ heroContent.style.maxWidth = optimalWidth + 'px';
   const windowHeight = window.innerHeight;
   const progress = Math.min(scrolled / windowHeight, 1); // 0~1
 
-  // 背景圖：模糊 + 微縮放
+  // 背景：模糊 + 微縮放
   const bg = document.querySelector('.hero-background');
   if (bg) {
-    bg.style.filter = `blur(${progress * 6}px)`;         // 0 → 6px
-    bg.style.transform = `scale(${1 + progress * 0.1})`; // 1 → 1.1
+    bg.style.filter = `blur(${progress * 6}px)`;
+    bg.style.transform = `scale(${1 + progress * 0.1})`;
   }
 
-  // 主視覺：透明度用變數縮放，不再覆蓋 translate
+  // 主視覺：透明度 + 縮放
   const content = document.querySelector('.hero-main-content');
   if (content) {
-    content.style.opacity = String(1 - progress);                // 1 → 0
-    content.style.setProperty('--hero-scale', String(1 - progress * 0.08)); // 1 → 0.92
+    content.style.opacity = String(1 - progress);
+    content.style.setProperty('--hero-scale', String(1 - progress * 0.08));
   }
 
-  // 黑色遮罩：0 → 0.7
+  // 遮罩透明度
   const hero = document.querySelector('.hero');
   if (hero) {
     hero.style.setProperty('--overlay-opacity', String(progress * 0.7));
+  }
+
+  // 下滑箭頭淡出
+  const arrow = document.querySelector('.scroll-indicator');
+  if (arrow) {
+    const a = Math.max(0, 1 - progress * 1.5);
+    arrow.style.opacity = String(a);
+    arrow.style.pointerEvents = a <= 0.05 ? 'none' : 'auto';
   }
 
   ticking = false;
