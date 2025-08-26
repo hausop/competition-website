@@ -596,10 +596,12 @@
             text-align: center;
             color: #ff6b6b;
             font-weight: bold;
-            margin-top: 40px;
-            
-            font-size: clamp(12px, 2.5vw, 18px); /* ✅ 自適應字體，會隨螢幕縮放 */
-            white-space: nowrap;                /* ✅ 永遠單行，不換行 */
+            margin-top: 20px;           /* 與上方卡片距離 */
+            margin-bottom: 10px;        /* 與 footer 距離 */
+            padding: 0 10px;            /* 左右靠近邊緣 */
+            font-size: clamp(13px, 1.8vw, 18px); /* 自適應但不會縮太小 */
+            white-space: normal;        /* 允許換行 */
+            line-height: 1.6;           /* 行距，讓兩行不會擠 */
         }
 
         /* ========== 賽事回顧按鈕 ========== */
@@ -1636,7 +1638,8 @@
 
     <!-- 單行、可縮放字體的注意語 -->
     <div class="disclaimer">
-      <p>※大賽期間提供保單健診系統免費使用，詳見本大賽官方網站※</p>
+      <p>※大賽期間提供保單健診系統免費使用※</p>
+      <p>詳見本大賽官方網站</p>
     </div>
   </div><!-- /.contact-container -->
 </section><!-- End Contact Section -->
