@@ -25,7 +25,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: 100vh; /* 基底使用 100vh，下面用 @supports 覆蓋為 100dvh */
             color: white;
             text-align: center;
             overflow: hidden;
@@ -165,7 +165,7 @@
             color: white;
             padding: 35px 20px;  /* PC 版 padding */
             text-align: center;
-            margin-top: 100vh;  /* JS 會動態覆蓋 */
+            margin-top: 100vh;  /* 基底使用 100vh，JS 會動態覆蓋；@supports 會覆蓋為 100dvh */
             transition: margin-top 0.3s ease;
         }
 
@@ -542,7 +542,6 @@
   width: 100%;                   /* 單行也能左右齊（尾巴撐開） */
 }
 .contact-row .value{ color:#555; word-break: break-word; }
-}
 
 .contact-link {
   color: #0074D9;
@@ -1113,6 +1112,12 @@
   position: absolute;
   left: 0;
 }
+
+/* ========= dvh 覆蓋（相容支援的瀏覽器） ========= */
+@supports (height: 100dvh) {
+  .hero { height: 100dvh; }
+  .organizers { margin-top: 100dvh; }
+}
         
     </style>
 </head>
@@ -1650,62 +1655,62 @@
     </footer>
     
     <script>
-        // ========== 動態視窗大小調整 ==========
+        // ========== 動態視窗大小調整 ========== 
         function adjustHeroSize() {
-    const heroContent = document.querySelector('.hero-main-content');
-    const organizers = document.querySelector('.organizers');
-    if (!heroContent || !organizers) return;
+            const heroContent = document.querySelector('.hero-main-content');
+            const organizers = document.querySelector('.organizers');
+            if (!heroContent || !organizers) return;
 
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
 
-    // ===== 主示圖最大寬度計算（雙圖友善版） =====
-let optimalWidth;
-if (windowWidth > 768) {
-  // 桌機：左右兩張加上間距，目標總寬 ~ 700 + 350 + gap ≈ 1100px
-  optimalWidth = Math.min(1100, windowWidth * 0.75);
-} else {
-  // 手機：維持你原來的寫法（單圖）
-  if (windowWidth >= 1920) {
-      optimalWidth = Math.min(650, windowWidth * 0.35);
-  } else if (windowWidth >= 1440) {
-      optimalWidth = Math.min(600, windowWidth * 0.4);
-  } else if (windowWidth >= 1024) {
-      optimalWidth = Math.min(550, windowWidth * 0.45);
-  } else if (windowWidth >= 768) {
-      optimalWidth = Math.min(500, windowWidth * 0.6);
-  } else {
-      optimalWidth = Math.min(windowWidth * 0.95, 600);
-  }
-}
+            // ===== 主示圖最大寬度計算（雙圖友善版） =====
+            let optimalWidth;
+            if (windowWidth > 768) {
+              // 桌機：左右兩張加上間距，目標總寬 ~ 700 + 350 + gap ≈ 1100px
+              optimalWidth = Math.min(1100, windowWidth * 0.75);
+            } else {
+              // 手機：維持你原來的寫法（單圖）
+              if (windowWidth >= 1920) {
+                  optimalWidth = Math.min(650, windowWidth * 0.35);
+              } else if (windowWidth >= 1440) {
+                  optimalWidth = Math.min(600, windowWidth * 0.4);
+              } else if (windowWidth >= 1024) {
+                  optimalWidth = Math.min(550, windowWidth * 0.45);
+              } else if (windowWidth >= 768) {
+                  optimalWidth = Math.min(500, windowWidth * 0.6);
+              } else {
+                  optimalWidth = Math.min(windowWidth * 0.95, 600);
+              }
+            }
 
-// 不超過視窗高度 80%
-const maxHeightBasedWidth = windowHeight * 0.8;
-if (optimalWidth > maxHeightBasedWidth && windowWidth <= 768) {
-  // 只有手機需要用高度限制去壓寬度；桌機交由各圖自己的 max-height 控制即可
-  optimalWidth = maxHeightBasedWidth;
-}
-heroContent.style.maxWidth = optimalWidth + 'px';
+            // 不超過視窗高度 80%
+            const maxHeightBasedWidth = windowHeight * 0.8;
+            if (optimalWidth > maxHeightBasedWidth && windowWidth <= 768) {
+              // 只有手機需要用高度限制去壓寬度；桌機交由各圖自己的 max-height 控制即可
+              optimalWidth = maxHeightBasedWidth;
+            }
+            heroContent.style.maxWidth = optimalWidth + 'px';
 
-    // ===== 調整 organizers 的 margin-top =====
-    if (windowWidth <= 768) {
-        // 📱 手機版：下移一些（從 0.75 改為 0.85）
-     organizers.style.marginTop = (windowHeight * 0.87) + 'px';
-    } else {
-        // 💻 PC 版：再往上一點（從 -200 改為 -250）
-    organizers.style.marginTop = (windowHeight - 225) + 'px';
-    }
+            // ===== 調整 organizers 的 margin-top =====
+            if (windowWidth <= 768) {
+                // 📱 手機版：下移一些（從 0.75 改為 0.87）
+                organizers.style.marginTop = (windowHeight * 0.87) + 'px';
+            } else {
+                // 💻 PC 版：再往上一點（從 -200 改為 -225）
+                organizers.style.marginTop = (windowHeight - 225) + 'px';
+            }
 
-    // ===== Hero 垂直置中（保留你的原本邏輯） =====
-    if (windowWidth <= 768) {
-        const topPosition = windowHeight <= 667 ? 15 : 18;
-        heroContent.style.top = topPosition + '%';
-        heroContent.style.transform = `translate(-50%, -${topPosition}%)`;
-    } else {
-        heroContent.style.top = '50%';
-        heroContent.style.transform = 'translate(-50%, -50%)';
-    }
-}
+            // ===== Hero 垂直置中（保留你的原本邏輯） =====
+            if (windowWidth <= 768) {
+                const topPosition = windowHeight <= 667 ? 15 : 18;
+                heroContent.style.top = topPosition + '%';
+                heroContent.style.transform = `translate(-50%, -${topPosition}%)`;
+            } else {
+                heroContent.style.top = '50%';
+                heroContent.style.transform = 'translate(-50%, -50%)';
+            }
+        }
 
         // 監聽視窗大小變化
         let resizeTimer;
@@ -1714,7 +1719,7 @@ heroContent.style.maxWidth = optimalWidth + 'px';
             resizeTimer = setTimeout(adjustHeroSize, 100);
         });
 
-        // ========== 滾動效果 ==========
+        // ========== 滾動效果 ========== 
         // 視差滾動效果
         const heroSection = document.querySelector('.hero');
         let ticking = false;
@@ -1746,6 +1751,8 @@ heroContent.style.maxWidth = optimalWidth + 'px';
                 top: 0,
                 behavior: 'smooth'
             });
+            // 回頂後強制重算一次，避免位置需要再手動滑一下才正確
+            setTimeout(() => window.dispatchEvent(new Event('resize')), 400);
         }
 
         // 顯示/隱藏返回頂部按鈕
