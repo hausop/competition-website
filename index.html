@@ -65,22 +65,13 @@
             transition: none;
         }
 
-        /* 滾動效果 */
-        .hero.scrolled .hero-background {
-            filter: blur(5px);
-            transform: scale(1.1);
-        }
-
-        .hero.scrolled::before {
-            background: rgba(0, 0, 0, 0.7);
-        }
 
         /* 主體內容 - 優化版 */
         .hero-main-content {
             position: absolute;
             top: 38%; /* top越小，主視覺越往上 */
             left: 50%;
-            transform: translate(-50%, -38%); /* translateY是用來校正垂直置中 */
+            transform: translate(-50%, -38%) scale(var(--hero-scale,1));  /* translateY是用來校正垂直置中 */
             z-index: 2;
             width: 85%;
             max-width: 600px; /* 進一步縮小 PC 版 */
@@ -91,6 +82,19 @@
             padding: 20px;
             transition: opacity 0.5s ease, transform 0.5s ease;
         }
+
+        :root { --hero-scale: 1; --overlay-opacity: 0; }
+
+/* 這兩個交由 JS 即時調整，不要固定 0.5s 過渡 */
+.hero-background, .hero-main-content { transition: none; }
+
+/* 遮罩改用變數驅動，避免整頁黑掉 */
+.hero::before { background: rgba(0,0,0,var(--overlay-opacity,0)); transition: none; }
+
+/* 疊放層級，避免遮罩壓到下面內容 */
+.hero { z-index: 0; }
+.organizers { z-index: 1; }
+
 
         /* Hero 背景動態模糊/縮放 */
 .hero-background {
@@ -130,11 +134,6 @@
             .hero-main-content {
                 max-width: 700px;
             }
-        }
-
-        .hero.scrolled .hero-main-content {
-            opacity: 0;
-            transform: translate(-50%, -60%);
         }
 
         /* 下滑指示器 */
@@ -806,7 +805,7 @@
                 max-width: 600px;  /* 放大主視覺 */
                 padding: 5px;
                 top: 18%;          /* 往上 */
-                transform: translate(-50%, -18%);
+                transform: translate(-50%, -18%) scale(var(--hero-scale,1));
             }
 
             /* 主辦單位網格 */
@@ -889,7 +888,7 @@
                 width: 100%;
                 max-width: 400px;
                 top: 42%; /* 再稍微上移 */
-                transform: translate(-50%, -42%);
+                transform: translate(-50%, -42%) scale(var(--hero-scale,1));
             }
 
             .footer-text {
@@ -903,7 +902,7 @@
                 max-width: 350px;
                 padding: 5px;
                 top: 40%; /* 小螢幕再上移一點 */
-                transform: translate(-50%, -40%);
+                transform: translate(-50%, -40%) scale(var(--hero-scale,1));
             }
 
             .footer-text {
@@ -916,7 +915,7 @@
             .hero-main-content {
                 max-width: 500px;
                 top: 50%;
-                transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%) scale(var(--hero-scale,1));
             }
         }
 
@@ -1729,30 +1728,31 @@ heroContent.style.maxWidth = optimalWidth + 'px';
         let ticking = false;
 
         function updateHeroEffect() {
-    const scrolled = window.pageYOffset;
-    const windowHeight = window.innerHeight;
+  const scrolled = window.pageYOffset;
+  const windowHeight = window.innerHeight;
+  const progress = Math.min(scrolled / windowHeight, 1); // 0~1
 
-    // 捲動比例 0 ~ 1
-    const progress = Math.min(scrolled / windowHeight, 1);
+  // 背景圖：模糊 + 微縮放
+  const bg = document.querySelector('.hero-background');
+  if (bg) {
+    bg.style.filter = `blur(${progress * 6}px)`;         // 0 → 6px
+    bg.style.transform = `scale(${1 + progress * 0.1})`; // 1 → 1.1
+  }
 
-    // 背景模糊與縮放
-    const bg = document.querySelector('.hero-background');
-    if (bg) {
-        bg.style.filter = `blur(${progress * 6}px)`; // 最多 6px 模糊
-        bg.style.transform = `scale(${1 + progress * 0.1})`; // 最多放大 1.1 倍
-    }
+  // 主視覺：透明度用變數縮放，不再覆蓋 translate
+  const content = document.querySelector('.hero-main-content');
+  if (content) {
+    content.style.opacity = String(1 - progress);                // 1 → 0
+    content.style.setProperty('--hero-scale', String(1 - progress * 0.08)); // 1 → 0.92
+  }
 
-    // 主視覺縮小+淡出
-    const content = document.querySelector('.hero-main-content');
-    if (content) {
-        content.style.opacity = `${1 - progress}`;
-        content.style.transform = `translate(-50%, -${38 + progress*30}%) scale(${1 - progress*0.1})`;
-    }
+  // 黑色遮罩：0 → 0.7
+  const hero = document.querySelector('.hero');
+  if (hero) {
+    hero.style.setProperty('--overlay-opacity', String(progress * 0.7));
+  }
 
-    // 黑色遮罩透明度
-    heroSection.style.setProperty('--overlay-opacity', progress * 0.7);
-
-    ticking = false;
+  ticking = false;
 }
 
         function requestTick() {
