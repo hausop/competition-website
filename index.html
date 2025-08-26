@@ -21,13 +21,15 @@
 
         /* ========== Hero 區塊 ========== */
         .hero {
-            position: relative;  /* 改為 relative，避免覆蓋整頁 */
+            position: fixed;         /* 固定鋪滿視窗 */
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100vh;
             color: white;
             text-align: center;
             overflow: hidden;
-            z-index: 0;
+            z-index: 0;              /* 不壓住下面內容（下面內容設 z-index:1） */
         }
 
         /* 背景圖片容器 */
@@ -52,17 +54,17 @@
 
         /* 深色遮罩層 */
         .hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,var(--overlay-opacity,0));
-    z-index: 1;
-    pointer-events: none;
-    transition: none;
-}
+            content: '';
+            position: absolute;   /* 只覆蓋 hero */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,var(--overlay-opacity,0));
+            z-index: 1;
+            pointer-events: none;
+            transition: none;
+        }
 
 
         /* 主體內容 - 優化版 */
@@ -89,21 +91,29 @@
 
 /* 遮罩改用變數驅動，避免整頁黑掉 */
 .hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,var(--overlay-opacity,0));
-    z-index: 1;
-    pointer-events: none;
-    transition: none;
-}
+            content: '';
+            position: absolute;   /* 只覆蓋 hero */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,var(--overlay-opacity,0));
+            z-index: 1;
+            pointer-events: none;
+            transition: none;
+        }
 
 /* 疊放層級，避免遮罩壓到下面內容 */
 .hero { z-index: 0; }
-.organizers { z-index: 1; }
+.organizers {
+            position: relative;
+            z-index: 1;
+            background: #0074D9;
+            color: white;
+            padding: 35px 20px;
+            text-align: center;
+            margin-top: 100vh;  /* 直接貼在 hero 之下 */
+        }
 
 
         /* Hero 背景動態模糊/縮放 */
@@ -1705,16 +1715,7 @@ if (optimalWidth > maxHeightBasedWidth && windowWidth <= 768) {
 }
 heroContent.style.maxWidth = optimalWidth + 'px';
 
-    // ===== 調整 organizers 的 margin-top =====
-    if (windowWidth <= 768) {
-        // 📱 手機版：下移一些（從 0.75 改為 0.85）
-     organizers.style.marginTop = (windowHeight * 0.87) + 'px';
-    } else {
-        // 💻 PC 版：再往上一點（從 -200 改為 -250）
-    organizers.style.marginTop = (windowHeight - 225) + 'px';
-    }
-
-    // ===== Hero 垂直置中（保留你的原本邏輯） =====
+        // ===== Hero 垂直置中（保留你的原本邏輯） =====
     if (windowWidth <= 768) {
         const topPosition = windowHeight <= 667 ? 15 : 18;
         heroContent.style.top = topPosition + '%';
@@ -1749,27 +1750,14 @@ heroContent.style.maxWidth = optimalWidth + 'px';
     bg.style.transform = `scale(${1 + progress * 0.1})`;
   }
 
-  // 主視覺：透明度 + 縮放 + 回彈
-const content = document.querySelector('.hero-main-content');
-if (content) {
-  const scale = 1 - progress * 0.08; // 基本縮放
-  content.style.opacity = String(1 - progress);
-
-  if (progress === 0) {
-    // 回到頂端時做彈性回彈
-    content.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
-    content.style.setProperty('--hero-scale', '1.05'); // 先放大一點
-    setTimeout(() => {
-      content.style.setProperty('--hero-scale', '1');
-    }, 50);
-  } else {
-    // 正常滾動狀態
-    content.style.transition = 'none';
-    content.style.setProperty('--hero-scale', String(scale));
+  // 主視覺：透明度 + 縮放（不覆蓋 translate）
+  const content = document.querySelector('.hero-main-content');
+  if (content) {
+    content.style.opacity = String(1 - progress);
+    content.style.setProperty('--hero-scale', String(1 - progress * 0.08));
   }
-}
 
-  // 遮罩透明度
+  // 遮罩透明度（只在 hero 內）
   const hero = document.querySelector('.hero');
   if (hero) {
     hero.style.setProperty('--overlay-opacity', String(progress * 0.7));
