@@ -517,39 +517,31 @@
   margin-top: 10px;  /* ← 這會讓上邊比下邊空 */
 }
 
-/* ✅ label 固定寬，冒號齊排 */
-.contact-row {
+/* Contact rows（統一版）— 直接覆蓋原本兩段 */
+.contact-row{
   display: grid;
-  grid-template-columns: 110px auto; /* 左固定寬，右自適應 */
+  grid-template-columns: 136px 1fr; /* ← 原本120px，改136px給瀏覽器足夠空間拉伸 */
+  gap: 8px 12px;
   align-items: start;
-  margin: 10px 0;
+  margin: 8px 0;
   line-height: 1.8;
 }
-
-/* 左欄固定寬，字在單行內平均分散（像你截圖那樣） */
-.contact-row { display: grid; grid-template-columns: 120px 1fr; gap: 8px 12px; } /* 120px 可改 */
-.contact-row .label {
-  display: inline-block;
-  width: 120px;                     /* 固定寬度，建議120px，可依實際調整 */
-  white-space: nowrap;              /* 保持單行 */
-  text-align: justify;              /* 左右齊 */
-  text-justify: inter-ideograph;    
-  text-align-last: justify;
+.contact-row .label{
+  display: block;                /* ← 原本 inline-block，改 block 以穩定 text-align-last */
+  width: 100%;
+  white-space: nowrap;           
+  text-align: justify;           
+  text-justify: inter-ideograph; 
+  text-align-last: justify;      
   font-weight: 600;
   color: #333;
 }
-.contact-row .label::after {
+.contact-row .label::after{
   content: "";
   display: inline-block;
-  width: 100%;
+  width: 100%;                   /* 單行也能左右齊（尾巴撐開） */
 }
-
-/* 欄位值 */
-.contact-row .value { color:#555; word-break: break-word; }
-
-
-.contact-row span:last-child {
-  color: #555;
+.contact-row .value{ color:#555; word-break: break-word; }
 }
 
 .contact-link {
