@@ -1749,12 +1749,25 @@ heroContent.style.maxWidth = optimalWidth + 'px';
     bg.style.transform = `scale(${1 + progress * 0.1})`;
   }
 
-  // 主視覺：透明度 + 縮放
-  const content = document.querySelector('.hero-main-content');
-  if (content) {
-    content.style.opacity = String(1 - progress);
-    content.style.setProperty('--hero-scale', String(1 - progress * 0.08));
+  // 主視覺：透明度 + 縮放 + 回彈
+const content = document.querySelector('.hero-main-content');
+if (content) {
+  const scale = 1 - progress * 0.08; // 基本縮放
+  content.style.opacity = String(1 - progress);
+
+  if (progress === 0) {
+    // 回到頂端時做彈性回彈
+    content.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    content.style.setProperty('--hero-scale', '1.05'); // 先放大一點
+    setTimeout(() => {
+      content.style.setProperty('--hero-scale', '1');
+    }, 50);
+  } else {
+    // 正常滾動狀態
+    content.style.transition = 'none';
+    content.style.setProperty('--hero-scale', String(scale));
   }
+}
 
   // 遮罩透明度
   const hero = document.querySelector('.hero');
