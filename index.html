@@ -282,14 +282,21 @@
     ul li::before { content: "▸ "; color: #0074D9; font-weight: bold; margin-right: 5px; }
     /* 統一縮小所有清單縮排 */
     ol, ul {
-      padding-left: 20px;   /* 比原本小，預設是 40px/20px */
+      padding-left: 16px;   /* 比原本小，預設是 40px/20px */
     }
     ol ol, ul ul {
-      padding-left: 18px;   /* 第二層再小一點 */
+      padding-left: 14px;   /* 第二層再小一點 */
     }
     .custom-list li {
-      padding-left: 1.4em;  /* 原本 2em，讓數字更靠近文字 */
+      padding-left: 1.6em;  /* 原本 2em，讓數字更靠近文字 */
     }
+
+@media (max-width:768px){
+  .custom-list li .school-name {
+    display: block;        /* 手機獨立一行 */
+    margin-left: 1.5em;    /* 保持和上行對齊 */
+  }
+}
 
     /* 手機隱藏內嵌地址；讓清單可點 */
 @media (max-width: 768px){
@@ -297,26 +304,30 @@
   .custom-list li{ cursor:pointer; }
 }
 
-/* 小窗樣式 */
-.popover {
+/* 小窗樣式（寬度隨內容） */
+.popover{
   position: fixed;
-  max-width: 80vw;
+  display: none;                /* 由 .show 控制顯示 */
   padding: 10px 12px;
   border-radius: 8px;
-  background: #1f2937;
-  color: #fff;
+  background: var(--popover-bg, #111827); /* ← 可用 CSS 變數改色 */
+  color: var(--popover-fg, #fff);
   font-size: 14px;
   line-height: 1.5;
   box-shadow: 0 8px 24px rgba(0,0,0,.18);
   z-index: 9999;
-  display: none;
+
+  /* 關鍵：寬度由內容撐開 */
+  white-space: nowrap;                 /* 不換行，寬度等於內容 */
+  max-width: calc(100vw - 24px);       /* 仍避免超出螢幕 */
 }
-.popover.show{ display:block; }
+.popover.show{ display: inline-block; } /* 讓寬度依內容 */
+
 .popover::after{
   content:"";
   position:absolute;
   width:10px; height:10px;
-  background:#1f2937;
+  background: var(--popover-bg, #111827); /* 箭頭同底色 */
   transform: rotate(45deg);
   top:-5px; left:16px;
 }
@@ -460,7 +471,7 @@
 
     /* 移除子層清單的預設樣式並重設計數器 */
     .custom-list { list-style-type: none; padding-left: 0; counter-reset: custom-counter; }
-    .custom-list li { position: relative; padding-left: 1.2em; }
+    .custom-list li { position: relative; padding-left: 1.6em; }
     .custom-list li::before { content: '(' counter(custom-counter) ') '; counter-increment: custom-counter; position: absolute; left: 0; }
 
     /* ========= 保險用覆蓋：dvh 優先（兼容舊版） ========= */
@@ -622,9 +633,27 @@
         <li>全國總決賽三區入圍隊伍數，依實際繳交報告隊伍數比例分配，總參賽隊伍為12隊。</li>
         <li>入圍公告暨優等組頒獎典禮地點及時間：</li>
         <ol class="custom-list">
-          <li>北區：2026/01/12（一）銘傳大學<span class="text-highlight text-size addr-pop"> (111台北市士林區基河路130號)</span></li>
-          <li>中區：2026/01/13（二）國立臺中科技大學<span class="text-highlight text-size addr-pop"> (404台中市北區三民路三段129號)</span></li>
-          <li>南區：2026/01/14（三）樹德科技大學<span class="text-highlight text-size addr-pop"> (824 高雄市燕巢區橫山路59號)</span></li>
+          <li>
+            北區：2026/01/12（一）
+            <span class="school-name">銘傳大學</span>
+            <span class="text-highlight text-size addr-pop" data-addr="111台北市士林區基河路130號">
+              (111台北市士林區基河路130號)
+            </span>
+          </li>
+          <li>
+            中區：2026/01/13（二）
+            <span class="school-name">國立臺中科技大學</span>
+            <span class="text-highlight text-size addr-pop" data-addr="404台中市北區三民路三段129號">
+              (404台中市北區三民路三段129號)
+            </span>
+          </li>
+          <li>
+            南區：2026/01/14（三）
+            <span class="school-name">樹德科技大學</span>
+            <span class="text-highlight text-size addr-pop" data-addr="824高雄市燕巢區橫山路59號">
+              (824高雄市燕巢區橫山路59號)
+            </span>
+          </li>
         </ol>
         <li>為鼓勵認真完成報告且完善者之隊伍，頒布佳作獎項。</li>
       </ol>
@@ -964,30 +993,47 @@ if (windowWidth <= 768) {
       document.body.appendChild(pop);
 
       function showPopover(text, clientX, clientY){
-        pop.textContent = text;  // 保留原括號樣式
-        const vw = window.innerWidth, vh = window.innerHeight;
-        const popW = Math.min(320, vw * 0.8);
-        const left = Math.min(vw - 12 - popW, Math.max(8, clientX - popW/2));
-        const top  = Math.min(vh - 12 - 60,  clientY + 12);
-        pop.style.left = left + 'px';
-        pop.style.top  = top  + 'px';
-        pop.style.width = popW + 'px';
-        pop.classList.add('show');
-      }
+  pop.textContent = text;
+
+  // 先顯示以取得實際尺寸（寬度由內容決定）
+  pop.classList.add('show');
+
+  const vw = window.innerWidth, vh = window.innerHeight;
+  const rect = pop.getBoundingClientRect();
+  const popW = rect.width, popH = rect.height;
+
+  // 置於點擊位置下方並避免超出視窗
+  const left = Math.min(vw - 12 - popW, Math.max(8, clientX - popW / 2));
+  const top  = Math.min(vh - 12 - popH - 8, clientY + 12);
+
+  pop.style.left = left + 'px';
+  pop.style.top  = top  + 'px';
+}
       function hidePopover(){ pop.classList.remove('show'); }
 
       // 只在 (七) 的自訂清單中啟用
-      document.querySelectorAll('ol.custom-list > li').forEach(li=>{
-        li.addEventListener('click', (e)=>{
-          if(!isMobile()) return;                  // 只在手機啟用
-          const addr = li.querySelector('.addr-pop');
-          if(!addr) return;
-          const text = addr.textContent.trim();
-          const pt = (e.touches && e.touches[0]) || e;
-          showPopover(text, pt.clientX, pt.clientY);
-          e.stopPropagation();
-        });
-      });
+const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+const lis = document.querySelectorAll('ol.custom-list > li');
+
+let touched = false; // 防止 touch 後又觸發 click
+
+function handleShow(e, li){
+  if(!isMobile()) return;
+  const addr = li.querySelector('.addr-pop');
+  if(!addr) return;
+  const text = addr.getAttribute('data-addr') || addr.textContent.trim();
+  const pt = (e.touches && e.touches[0]) || e;
+  showPopover(text, pt.clientX, pt.clientY);
+  e.stopPropagation();
+}
+
+lis.forEach(li=>{
+  li.addEventListener('touchstart', (e)=>{ touched = true; handleShow(e, li); }, {passive:true});
+  li.addEventListener('click', (e)=>{
+    if(touched){ touched = false; return; } // 已處理 touch，不再處理 click
+    handleShow(e, li);
+  });
+});
 
       // 點其他地方或捲動就關閉
       document.addEventListener('click', hidePopover);
