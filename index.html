@@ -284,34 +284,35 @@
     /* ========== 響應式設計 ========== */
 /* ===== 769px 以上：平板～PC 統一比例 ===== */
 @media (min-width: 769px) {
-  /* 讓主視覺容器在桌機確保置中（保險） */
-  .hero-main-content{ top:50%; transform:translate(-50%,-50%); }
+  /* 置中保險（確保跟背景中心對齊） */
+  .hero-main-content { top: 50%; transform: translate(-50%, -50%); }
 
   .banner-desktop{
     display:flex;
-    align-items:center;              /* 垂直置中，與背景視覺中心對齊 */
+    align-items:center;
     justify-content:center;
     gap: clamp(12px, 3vw, 28px);
-    width: min(1180px, 92vw);        /* 容器再放大一點點 */
-    margin: clamp(-100px, -11vw, -64px) auto 0;  /* ← 往上再多一點 */
+    width: min(1180px, 92vw);
+    /* 往上再多一點：三個值同步加大「負數」 */
+    margin: clamp(-120px, -12vw, -72px) auto 0;   /* ← 這行是整體上移關鍵 */
   }
 
-  /* 左圖縮小（比例 1） */
+  /* 讓 <img> 真的吃滿分配到的寬度 */
+  .banner-left,
+  .banner-right{ width:100%; min-width:0; display:block; }
+
+  /* 左圖明顯小、右圖明顯大（比例 1 : 5） */
   .banner-left{
-    flex: 1 1 0;                     /* ← 原本 2 改成 1，明顯更小 */
-    max-width:100%;
-    height:auto;
-    object-fit:contain;
-    max-height: min(58vh, 640px);    /* 視窗高 58% 或 640px 取小者 */
+    flex: 1 1 0;
+    /* 左圖高度上限更低 → 視覺上更小 */
+    max-height: min(48vh, 560px);
+    object-fit: contain;
   }
-
-  /* 右圖放大（比例 4） */
   .banner-right{
-    flex: 5 1 0;                     /* ← 原本 3 改成 4，更大 */
-    max-width:100%;
-    height:auto;
-    object-fit:contain;
-    max-height: min(58vh, 640px);
+    flex: 5 1 0;
+    /* 右圖高度上限更高 → 視覺上更大 */
+    max-height: min(62vh, 720px);
+    object-fit: contain;
   }
 
   .banner-mobile{ display:none; }
@@ -745,7 +746,7 @@
       let optimalWidth;
       if (windowWidth > 768) {
         // 桌機：左右兩張加上間距，目標總寬 ~ 1100px
-        optimalWidth = Math.min(1200, windowWidth * 0.80);
+        optimalWidth = Math.min(1280, windowWidth * 0.86);
       } else {
         // 手機：沿用你的原本邏輯
         if (windowWidth >= 1920)      optimalWidth = Math.min(650,  windowWidth * 0.35);
