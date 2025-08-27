@@ -275,25 +275,35 @@
     ul li::before { content: "▸ "; color: #0074D9; font-weight: bold; margin-right: 5px; }
 
     /* ========== 響應式設計 ========== */
-    /* 桌機：顯示雙圖，整體置中 */
-    @media (min-width: 769px) {
-  .banner-desktop {
+/* ===== 769px 以上：統一比例（平板～PC） ===== */
+@media (min-width: 769px) {
+  .banner-desktop{
     display: flex;
-    align-items: flex-start;   /* 原本 center 改成 flex-start */
+    align-items: center;          /* 圖垂直置中 */
     justify-content: center;
     gap: 24px;
-    margin-top: -40px;         /* 新增，數字可自行調整，例如 -30px / -50px */
+    width: min(1100px, 90vw);     /* 固定容器寬上限，避免比例跑掉 */
+    margin: -40px auto 0;         /* 要再高一點就改更負，例如 -56px */
   }
-  .banner-mobile { display: none; }
-  .banner-left  { width: clamp(360px, 30vw, 520px); }  /* banner左圖大小 */
-  .banner-right { width: clamp(400px, 45vw, 680px); }  /* banner右圖大小 */
-  .banner-left, .banner-right { max-height: min(70vh, 650px); }
+  .banner-mobile{ display: none; }
+
+  /* 固定左右比例：左 2，右 3（右邊較大） */
+  .banner-left{
+    flex: 2 1 0;                  /* ← 改這裡可以調整比例 */
+    max-width: 100%;
+    height: auto;
+    max-height: min(70vh, 650px);
+    object-fit: contain;
+  }
+  .banner-right{
+    flex: 3 1 0;                  /* ← 右邊較大 */
+    max-width: 100%;
+    height: auto;
+    max-height: min(70vh, 650px);
+    object-fit: contain;
+  }
 }
-    /* 超大螢幕：微調上限 */
-    @media (min-width: 1440px) {
-      .banner-left  { width: min(700px, 46vw); }
-      .banner-right { width: min(350px, 23vw); }
-    }
+
     /* 平板尺寸 */
     @media (min-width: 769px) and (max-width: 1024px) {
       .hero-main-content { width: 75%; max-width: 600px; }
