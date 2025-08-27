@@ -430,7 +430,7 @@
 
     /* 移除子層清單的預設樣式並重設計數器 */
     .custom-list { list-style-type: none; padding-left: 0; counter-reset: custom-counter; }
-    .custom-list li { position: relative; padding-left: 2em; }
+    .custom-list li { position: relative; padding-left: 1.2em; }
     .custom-list li::before { content: '(' counter(custom-counter) ') '; counter-increment: custom-counter; position: absolute; left: 0; }
 
     /* ========= 保險用覆蓋：dvh 優先（兼容舊版） ========= */
