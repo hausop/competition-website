@@ -290,24 +290,20 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    gap: clamp(12px, 3vw, 24px);   /* 距離稍微拉開 */
-    width: min(1400px, 95vw);      /* 容器更寬，接近滿版 */
-    margin: clamp(-100px, -8vw, -60px) auto 0; /* 更靠近垂直中心 */
+    gap: clamp(12px, 2.5vw, 24px);
+    width: min(1280px, 94vw);
+    margin: clamp(-110px, -9vw, -70px) auto 0;
   }
 
+  /* 兩圖一樣規則，等比縮放 */
   .banner-left,
-  .banner-right{ width:100%; min-width:0; display:block; }
-
-  /* 左圖：比例 2，右圖：比例 3 */
-  .banner-left{
-    flex: 2 1 0;
-    max-height: min(70vh, 800px);   /* 放寬高度限制，圖可再大 */
-    object-fit: contain;
-  }
   .banner-right{
-    flex: 3 1 0;
-    max-height: min(70vh, 800px);
+    width: auto;
+    height: clamp(340px, 50vh, 640px);  /* 統一高度規則 */
     object-fit: contain;
+    flex: 0 0 auto;                     /* 不讓 flex 分比例 */
+    min-width: 0;
+    display: block;
   }
 
   .banner-mobile{ display:none; }
@@ -741,7 +737,7 @@
       let optimalWidth;
       if (windowWidth > 768) {
         // 桌機：左右兩張加上間距，容器更寬（上限 1300px，佔螢幕寬 90%）
-        optimalWidth = Math.min(1500, windowWidth * 0.95);
+        optimalWidth = Math.min(1280, windowWidth * 0.94);
       } else {
         // 手機：沿用你的原本邏輯
         if (windowWidth >= 1920)      optimalWidth = Math.min(650,  windowWidth * 0.35);
