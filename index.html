@@ -293,7 +293,7 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    gap: clamp(4px, 1vw, 12px);   /* ← 減少兩圖間距，原本可能是 16~18px */
+    gap: clamp(0px, 0.6vw, 10px);  /* 數字越小→兩圖越近 */
     width: min(1280px, 94vw);
     margin: clamp(-110px, -9vw, -70px) auto 0;
   }
@@ -306,13 +306,17 @@
     flex: 0 0 auto;
     min-width: 0;
     display: block;
-    transform: translateX(-10px);   /* ← 向左移動 10px，可調整大小 */
   }
 
   /* 左圖單獨縮小到 80% */
   .banner-left {
     transform: scale(0.8);
     transform-origin: center center;
+  }
+
+  /* 只把右圖往左移一點，讓兩圖更靠近 */
+  .banner-right {
+    transform: translateX(-12px);  /* 想更近就 -16px / -20px */
   }
 
   .banner-mobile{ display:none; }
