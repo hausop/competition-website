@@ -16,6 +16,7 @@
     .hero {
       position: fixed; top: 0; left: 0; width: 100%;
       height: 100dvh;                 /* ← 改為 dvh，避免行動裝置網址列收合錯位 */
+      background: #0b3a82;            /* 初始藍色底 */
       color: white; text-align: center;
       overflow: hidden; z-index: -1;
     }
@@ -23,7 +24,7 @@
     /* 背景圖片容器 */
     .hero-background {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 0; transition: filter 0.5s ease, transform 0.5s ease;
+      z-index: 0; opacity: 0; transform: translateY(12vh) scale(1.02); transition: filter 0.5s ease, transform 0.5s ease; transition: opacity .5s ease, filter .5s ease, transform .6s ease; will-change: opacity, transform, filter;
     }
     .hero-bg-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
 
@@ -34,7 +35,7 @@
     }
 
     /* 滾動效果 */
-    .hero.scrolled .hero-background { filter: blur(5px); transform: scale(1.1); }
+    .hero.scrolled .hero-background { opacity: 1; filter: blur(5px); transform: scale(1.1); }
     .hero.scrolled::before { background: rgba(0, 0, 0, 0.7); }
 
     /* 主體內容 - 優化版 */
@@ -985,7 +986,7 @@ if (windowWidth <= 768) {
 
     // ==== 手機地點 Popover（點清單顯示地址）====
     (function(){
-      const isMobile = () => window.innerWidth <= 768;
+      const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
 
       // 建立唯一的小窗節點
       const pop = document.createElement('div');
@@ -1012,7 +1013,6 @@ if (windowWidth <= 768) {
       function hidePopover(){ pop.classList.remove('show'); }
 
       // 只在 (七) 的自訂清單中啟用
-const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
 const lis = document.querySelectorAll('ol.custom-list > li');
 
 let touched = false; // 防止 touch 後又觸發 click
