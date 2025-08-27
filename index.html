@@ -291,6 +291,36 @@
       padding-left: 1.4em;  /* 原本 2em，讓數字更靠近文字 */
     }
 
+    /* 手機隱藏內嵌地址；讓清單可點 */
+@media (max-width: 768px){
+  .addr-pop{ display:none; }
+  .custom-list li{ cursor:pointer; }
+}
+
+/* 小窗樣式 */
+.popover {
+  position: fixed;
+  max-width: 80vw;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #1f2937;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  z-index: 9999;
+  display: none;
+}
+.popover.show{ display:block; }
+.popover::after{
+  content:"";
+  position:absolute;
+  width:10px; height:10px;
+  background:#1f2937;
+  transform: rotate(45deg);
+  top:-5px; left:16px;
+}
+
     /* ========== 響應式設計 ========== */
 /* ===== 769px 以上：平板～PC 統一比例 ===== */
 @media (min-width: 769px) {
@@ -521,7 +551,7 @@
       <div class="organizer-item">
         <h4 style="margin-bottom: 2px;">｜ 協辦單位 ｜</h4>
         <p style="font-size: 0.85em; margin: 0 0 6px;">(依筆劃排序)</p>
-        <p>元大人壽｜友邦人壽｜台新人壽｜台灣人壽｜全球人壽｜安達人壽｜法國巴黎人壽｜第一金人壽｜凱基人壽｜新光人壽｜遠雄人壽｜中國信託產險｜安達產物｜兆豐保險｜明台產物保險｜法國巴黎產險｜泰安產物保險｜國泰產險｜富邦產險｜華南產險｜新光產物保險｜國立高雄科技大學-產學營運處｜</p>
+        <p>元大人壽⨯友邦人壽｜台新人壽｜台灣人壽｜全球人壽｜安達人壽｜法國巴黎人壽｜第一金人壽｜凱基人壽｜新光人壽｜遠雄人壽｜中國信託產險｜安達產物｜兆豐保險｜明台產物保險｜法國巴黎產險｜泰安產物保險｜國泰產險｜富邦產險｜華南產險｜新光產物保險｜國立高雄科技大學-產學營運處｜</p>
       </div>
     </div>
   </div>
@@ -584,7 +614,7 @@
       <p>拜訪家庭並進行家庭成員保單健診，每隊須取得同家庭至少三位以上被保險人的保單資料進行保單健診。針對受訪家庭保單健診結果，依其需求擬定完整的家庭保險建議書，進行保險商品查詢與比較，並就保險規劃之目的與方向簡述。本賽事不蒐集利用受訪家庭個資，比賽報告內要被保險人姓名皆以化名處理。</p>
 
       <h4>(五) 初賽報告收件：</h4>
-      <p>作品資料僅須註明隊伍名稱及學生姓名，不可揭露學校、系所、指導老師與業師等資訊，包含隊伍取名，並於初賽收件截止日2025年12月26日(五)12:00前將參賽保險規劃書以PDF檔格式自官網上傳給主辦單位，完成初賽程序。<span class="warning">初賽報告總頁數以50頁(含附件)為上限。</span></p>
+      <p>作品資料僅須註明隊伍名稱及學生姓名，不可揭露學校、系所、指導老師與業師等資訊，包含隊伍取名，並於初賽收件截止日2025年12月26日(五)12:00前將參賽保險規劃書以PDF檔格式自官網上傳給主辦單位，完成初賽程序。<span class="warning">初賽報告總頁數以50頁(含附件)為上限</span></p>
 
       <h4>(六) 初賽結果：</h4>
       <ol style="margin: 10px 0; padding-left: 40px;">
@@ -592,9 +622,9 @@
         <li>全國總決賽三區入圍隊伍數，依實際繳交報告隊伍數比例分配，總參賽隊伍為12隊。</li>
         <li>入圍公告暨優等組頒獎典禮地點及時間：</li>
         <ol class="custom-list">
-          <li>北區：2026/01/12（一）銘傳大學<span class="text-highlight text-size"> (111台北市士林區基河路130號)</span></li>
-          <li>中區：2026/01/13（二）國立臺中科技大學<span class="text-highlight text-size"> (404台中市北區三民路三段129號)</span></li>
-          <li>南區：2026/01/14（三）樹德科技大學<span class="text-highlight text-size"> (824 高雄市燕巢區橫山路59號)</span></li>
+          <li>北區：2026/01/12（一）銘傳大學<span class="text-highlight text-size addr-pop"> (111台北市士林區基河路130號)</span></li>
+          <li>中區：2026/01/13（二）國立臺中科技大學<span class="text-highlight text-size addr-pop"> (404台中市北區三民路三段129號)</span></li>
+          <li>南區：2026/01/14（三）樹德科技大學<span class="text-highlight text-size addr-pop"> (824 高雄市燕巢區橫山路59號)</span></li>
         </ol>
         <li>為鼓勵認真完成報告且完善者之隊伍，頒布佳作獎項。</li>
       </ol>
@@ -613,11 +643,11 @@
         </ol>
         <li>主辦單位報告規範：</li>
           <ol class="custom-list">
-          <li>健診報告須取得同家庭至少<span class="text-highlight">三位以上</span>被保險人的保單資料進行保單健診。</li>
-          <li>初賽報告總頁數以<span class="text-highlight">50頁(含附件)為上限</span>。</li>
-          <li>報告上傳檔案格式：<span class="text-highlight">PDF</span>。</li>
-          <li>簡報請將要被保險人姓名皆以<span class="text-highlight">化名處理</span>。</li>
-          <li>作品資料一律<span class="text-highlight">請勿揭露</span>學校、系所、指導老師與業師等資訊(含隊伍取名)。</li>
+          <li>健診報告須取得同家庭至少<span class="highlight">三位以上</span>被保險人的保單資料進行保單健診。</li>
+          <li>初賽報告總頁數以<span class="highlight">50頁(含附件)為上限</span>。</li>
+          <li>報告上傳檔案格式：<span class="highlight">PDF</span>。</li>
+          <li>簡報請將要被保險人姓名皆以<span class="highlight">化名處理</span>。</li>
+          <li>作品資料一律<span class="highlight">請勿揭露</span>學校、系所、指導老師與業師等資訊(含隊伍取名)。</li>
         </ol>
         <li>初賽評分標準：</li>
       </ol>
@@ -883,46 +913,87 @@ if (windowWidth <= 768) {
 
     // ========== 初始化 ==========
     document.addEventListener('DOMContentLoaded', function() {
-      // 初始化動態大小調整
-      adjustHeroSize();
+    // 初始化動態大小調整
+    adjustHeroSize();
 
-      // 點擊下滑指示器
-      const scrollIndicator = document.querySelector('.scroll-indicator');
-      if (scrollIndicator) {
-        scrollIndicator.addEventListener('click', function() {
-          const targetScroll = window.innerWidth <= 768
-            ? (window.visualViewport?.height || window.innerHeight)
-            : 600;
-          window.scrollTo({ top: targetScroll, behavior: 'smooth' });
-        });
+    // 點擊下滑指示器
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+      scrollIndicator.addEventListener('click', function() {
+        const targetScroll = window.innerWidth <= 768
+          ? (window.visualViewport?.height || window.innerHeight)
+          : 600;
+        window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+      });
+    }
+
+    // 平滑滾動到錨點
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // 元素進入視窗動畫
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -100px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.prize-item').forEach(item => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateY(20px)';
+      item.style.transition = 'all 0.6s ease';
+      observer.observe(item);
+    });
+
+    // ==== 手機地點 Popover（點清單顯示地址）====
+    (function(){
+      const isMobile = () => window.innerWidth <= 768;
+
+      // 建立唯一的小窗節點
+      const pop = document.createElement('div');
+      pop.className = 'popover';
+      document.body.appendChild(pop);
+
+      function showPopover(text, clientX, clientY){
+        pop.textContent = text;  // 保留原括號樣式
+        const vw = window.innerWidth, vh = window.innerHeight;
+        const popW = Math.min(320, vw * 0.8);
+        const left = Math.min(vw - 12 - popW, Math.max(8, clientX - popW/2));
+        const top  = Math.min(vh - 12 - 60,  clientY + 12);
+        pop.style.left = left + 'px';
+        pop.style.top  = top  + 'px';
+        pop.style.width = popW + 'px';
+        pop.classList.add('show');
       }
+      function hidePopover(){ pop.classList.remove('show'); }
 
-      // 平滑滾動到錨點
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
-          if (target) target.scrollIntoView({ behavior: 'smooth' });
+      // 只在 (七) 的自訂清單中啟用
+      document.querySelectorAll('ol.custom-list > li').forEach(li=>{
+        li.addEventListener('click', (e)=>{
+          if(!isMobile()) return;                  // 只在手機啟用
+          const addr = li.querySelector('.addr-pop');
+          if(!addr) return;
+          const text = addr.textContent.trim();
+          const pt = (e.touches && e.touches[0]) || e;
+          showPopover(text, pt.clientX, pt.clientY);
+          e.stopPropagation();
         });
       });
 
-      // 元素進入視窗動畫
-      const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -100px 0px' };
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-          }
-        });
-      }, observerOptions);
-
-      document.querySelectorAll('.prize-item').forEach(item => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(20px)';
-        item.style.transition = 'all 0.6s ease';
-        observer.observe(item);
-      });
+      // 點其他地方或捲動就關閉
+      document.addEventListener('click', hidePopover);
+      window.addEventListener('scroll', hidePopover, { passive:true });
+      window.addEventListener('resize', hidePopover);
+    })();
 
       /* ========== 內容保護 (選用，可移除) ========== */
       document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
