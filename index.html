@@ -53,6 +53,13 @@
     .banner-mobile  { display: block; } /* 手機沿用原本單圖 */
     .banner-left, .banner-right { display: block; height: auto; object-fit: contain; }
 
+    /* 圖片本體保護（全域覆蓋） */
+    .banner-left, .banner-right{
+       max-width: 100%;
+       height: auto;
+       object-fit: contain;
+     }
+    
     /* 超大螢幕限制 */
     @media (min-width: 1920px) { .hero-main-content { max-width: 650px; } }
     /* 4K 螢幕限制 */
@@ -275,33 +282,41 @@
     ul li::before { content: "▸ "; color: #0074D9; font-weight: bold; margin-right: 5px; }
 
     /* ========== 響應式設計 ========== */
-/* ===== 769px 以上：統一比例（平板～PC） ===== */
+/* ===== 769px 以上：平板～PC 統一比例 ===== */
 @media (min-width: 769px) {
   .banner-desktop{
     display: flex;
-    align-items: center;          /* 圖垂直置中 */
+    align-items: center;                 /* 圖不貼底、垂直置中 */
     justify-content: center;
-    gap: 24px;
-    width: min(1100px, 90vw);     /* 固定容器寬上限，避免比例跑掉 */
-    margin: -40px auto 0;         /* 要再高一點就改更負，例如 -56px */
+    gap: clamp(12px, 3vw, 24px);         /* 左右間距隨寬度調整 */
+    width: min(1100px, 92vw);            /* 固定上限 + 與視窗保留邊距 */
+    margin: clamp(-56px, -8vw, -32px) auto 0; /* 往上移，平板也生效 */
   }
   .banner-mobile{ display: none; }
 
-  /* 固定左右比例：左 2，右 3（右邊較大） */
+  /* 圖片比例：左 2、右 3（右邊較大）*/
   .banner-left{
-    flex: 2 1 0;                  /* ← 改這裡可以調整比例 */
-    max-width: 100%;
-    height: auto;
-    max-height: min(70vh, 650px);
-    object-fit: contain;
+    flex: 2 1 0;
+    max-width: 100%; height: auto; object-fit: contain;
+    max-height: min(60vh, 650px);
   }
   .banner-right{
-    flex: 3 1 0;                  /* ← 右邊較大 */
-    max-width: 100%;
-    height: auto;
-    max-height: min(70vh, 650px);
-    object-fit: contain;
+    flex: 3 1 0;
+    max-width: 100%; height: auto; object-fit: contain;
+    max-height: min(60vh, 650px);
   }
+}
+
+/* ===== 平板專用：避免藍色四卡被擠高，改 4 欄 → 2 欄 ===== */
+@media (min-width: 769px) and (max-width: 1199px) {
+  .organizers-grid,
+  .schools-grid{                         /* 你的 class 若是 schools-grid 也一起吃到 */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  .organizer-item,
+  .school-card{ padding: 18px 16px; }
 }
 
     /* 平板尺寸 */
@@ -737,12 +752,14 @@
       }
       heroContent.style.maxWidth = optimalWidth + 'px';
 
-      // ===== 調整 organizers 的 margin-top =====
-      if (windowWidth <= 768) {
-        organizers.style.marginTop = (windowHeight * 0.87) + 'px';
-      } else {
-        organizers.style.marginTop = (windowHeight - 225) + 'px';
-      }
+      // ===== 調整 organizers 的 margin-top（手機 / 平板 / PC）=====
+if (windowWidth <= 768) {
+  organizers.style.marginTop = (windowHeight * 0.87) + 'px';
+} else if (windowWidth <= 1199) {
+  organizers.style.marginTop = (windowHeight * 0.82) + 'px'; // 平板：留多一點空間
+} else {
+  organizers.style.marginTop = (windowHeight * 0.78) + 'px'; // PC：更貼近
+}
 
       // ===== Hero 垂直置中（保留你的原本邏輯） =====
       if (windowWidth <= 768) {
