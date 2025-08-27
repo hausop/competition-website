@@ -277,14 +277,18 @@
     /* ========== 響應式設計 ========== */
     /* 桌機：顯示雙圖，整體置中 */
     @media (min-width: 769px) {
-      .banner-desktop {
-        display: flex; align-items: center; justify-content: center; gap: 24px;
-      }
-      .banner-mobile { display: none; }
-      .banner-left  { width: clamp(420px, 45vw, 700px); }
-      .banner-right { width: clamp(210px, 22.5vw, 350px); }
-      .banner-left, .banner-right { max-height: min(70vh, 650px); }
-    }
+  .banner-desktop {
+    display: flex;
+    align-items: flex-start;   /* 原本 center 改成 flex-start */
+    justify-content: center;
+    gap: 24px;
+    margin-top: -40px;         /* 新增，數字可自行調整，例如 -30px / -50px */
+  }
+  .banner-mobile { display: none; }
+  .banner-left  { width: clamp(360px, 35vw, 600px); }
+  .banner-right { width: clamp(280px, 30vw, 420px); }
+  .banner-left, .banner-right { max-height: min(70vh, 650px); }
+}
     /* 超大螢幕：微調上限 */
     @media (min-width: 1440px) {
       .banner-left  { width: min(700px, 46vw); }
