@@ -290,24 +290,23 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    gap: clamp(8px, 2vw, 18px);   /* ← 減小左右距離 */
+    gap: clamp(8px, 2vw, 18px);   /* 減少左右距離 */
     width: min(1180px, 92vw);
-    margin: clamp(-160px, -14vw, -100px) auto 0; /* ← 再往上移整體 */
+    margin: clamp(-180px, -15vw, -120px) auto 0; /* 再往上移 */
   }
 
-  /* 圖片都要佔滿分配到的寬度 */
   .banner-left,
   .banner-right{ width:100%; min-width:0; display:block; }
 
-  /* 左圖放大一些（比例 2），右圖再大一些（比例 5） */
+  /* 左圖寬度 ≈ 右圖的一半（比例 2 : 4） */
   .banner-left{
     flex: 2 1 0;
-    max-height: min(55vh, 600px);  /* 左圖比現在高一點 */
+    max-height: min(55vh, 600px);
     object-fit: contain;
   }
   .banner-right{
-    flex: 5 1 0;
-    max-height: min(65vh, 720px);  /* 右圖再大一些 */
+    flex: 4 1 0;
+    max-height: min(65vh, 720px);
     object-fit: contain;
   }
 
@@ -741,8 +740,8 @@
       // ===== 主視覺最大寬度計算（雙圖友善版） =====
       let optimalWidth;
       if (windowWidth > 768) {
-        // 桌機：左右兩張加上間距，目標總寬 ~ 1100px
-        optimalWidth = Math.min(1280, windowWidth * 0.86);
+        // 桌機：左右兩張加上間距，容器更寬（上限 1300px，佔螢幕寬 90%）
+        optimalWidth = Math.min(1300, windowWidth * 0.90);
       } else {
         // 手機：沿用你的原本邏輯
         if (windowWidth >= 1920)      optimalWidth = Math.min(650,  windowWidth * 0.35);
