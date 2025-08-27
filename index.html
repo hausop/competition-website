@@ -284,34 +284,30 @@
     /* ========== 響應式設計 ========== */
 /* ===== 769px 以上：平板～PC 統一比例 ===== */
 @media (min-width: 769px) {
-  /* 置中保險（確保跟背景中心對齊） */
   .hero-main-content { top: 50%; transform: translate(-50%, -50%); }
 
   .banner-desktop{
     display:flex;
     align-items:center;
     justify-content:center;
-    gap: clamp(12px, 3vw, 28px);
+    gap: clamp(8px, 2vw, 18px);   /* ← 減小左右距離 */
     width: min(1180px, 92vw);
-    /* 往上再多一點：三個值同步加大「負數」 */
-    margin: clamp(-120px, -12vw, -72px) auto 0;   /* ← 這行是整體上移關鍵 */
+    margin: clamp(-160px, -14vw, -100px) auto 0; /* ← 再往上移整體 */
   }
 
-  /* 讓 <img> 真的吃滿分配到的寬度 */
+  /* 圖片都要佔滿分配到的寬度 */
   .banner-left,
   .banner-right{ width:100%; min-width:0; display:block; }
 
-  /* 左圖明顯小、右圖明顯大（比例 1 : 5） */
+  /* 左圖放大一些（比例 2），右圖再大一些（比例 5） */
   .banner-left{
-    flex: 4 1 0;
-    /* 左圖高度上限更低 → 視覺上更小 */
-    max-height: min(48vh, 560px);
+    flex: 2 1 0;
+    max-height: min(55vh, 600px);  /* 左圖比現在高一點 */
     object-fit: contain;
   }
   .banner-right{
     flex: 5 1 0;
-    /* 右圖高度上限更高 → 視覺上更大 */
-    max-height: min(62vh, 720px);
+    max-height: min(65vh, 720px);  /* 右圖再大一些 */
     object-fit: contain;
   }
 
