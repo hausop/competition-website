@@ -293,7 +293,7 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    gap: clamp(8px, 1.5vw, 16px);   /* ← 間距縮小一點 */
+    gap: clamp(4px, 1vw, 12px);   /* ← 減少兩圖間距，原本可能是 16~18px */
     width: min(1280px, 94vw);
     margin: clamp(-110px, -9vw, -70px) auto 0;
   }
@@ -306,6 +306,7 @@
     flex: 0 0 auto;
     min-width: 0;
     display: block;
+    transform: translateX(-10px);   /* ← 向左移動 10px，可調整大小 */
   }
 
   /* 左圖單獨縮小到 80% */
