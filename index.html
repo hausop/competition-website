@@ -284,26 +284,34 @@
     /* ========== 響應式設計 ========== */
 /* ===== 769px 以上：平板～PC 統一比例 ===== */
 @media (min-width: 769px) {
-  .hero-main-content { top: 50%; transform: translate(-50%, -50%); }
+  .hero-main-content { 
+    top: 50%; 
+    transform: translate(-50%, -50%); 
+  }
 
   .banner-desktop{
     display:flex;
     align-items:center;
     justify-content:center;
-    gap: clamp(12px, 2.5vw, 24px);
+    gap: clamp(8px, 1.5vw, 16px);   /* ← 間距縮小一點 */
     width: min(1280px, 94vw);
     margin: clamp(-110px, -9vw, -70px) auto 0;
   }
 
-  /* 兩圖一樣規則，等比縮放 */
   .banner-left,
   .banner-right{
     width: auto;
-    height: clamp(340px, 50vh, 640px);  /* 統一高度規則 */
+    height: clamp(340px, 50vh, 640px); /* 一體縮放 */
     object-fit: contain;
-    flex: 0 0 auto;                     /* 不讓 flex 分比例 */
+    flex: 0 0 auto;
     min-width: 0;
     display: block;
+  }
+
+  /* 左圖單獨縮小到 80% */
+  .banner-left {
+    transform: scale(0.8);
+    transform-origin: center center;
   }
 
   .banner-mobile{ display:none; }
