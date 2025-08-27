@@ -16,7 +16,6 @@
     .hero {
       position: fixed; top: 0; left: 0; width: 100%;
       height: 100dvh;                 /* ← 改為 dvh，避免行動裝置網址列收合錯位 */
-      background: #0b3a82;            /* 初始藍色底 */
       color: white; text-align: center;
       overflow: hidden; z-index: -1;
     }
@@ -24,7 +23,7 @@
     /* 背景圖片容器 */
     .hero-background {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 0; opacity: 0; transform: translateY(13vh) scale(1.02); transition: filter 0.5s ease, transform 0.5s ease; transition: opacity .5s ease, filter .5s ease, transform .6s ease; will-change: opacity, transform, filter;
+      z-index: 0; transition: filter 0.5s ease, transform 0.5s ease;
     }
     .hero-bg-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
 
