@@ -421,52 +421,66 @@
 
   .back-to-top { bottom: 20px; right: 20px; width: 45px; height: 45px; }
 
-  /* === 手機 FAQ：協辦學校/協辦單位（+ / − 開合，繼承原藍底白字）=== */
-  .m-faq details{
-    background: inherit;
-    border-radius: 12px;
-    margin: 12px 0;
-    box-shadow: none;
-    overflow: hidden;
-  }
-  .m-faq summary{
-    list-style: none;
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between;
-    gap: 10px; 
-    padding: 12px 0;
-    font-weight: inherit; 
-    color: inherit;
-  }
-  .m-faq summary::-webkit-details-marker{ display: none; }
+  /* === 手機 FAQ：協辦學校/協辦單位（+ / − 開合，帶淺色背景框）=== */
+.m-faq details{
+  background: rgba(255,255,255,0.1);   /* ✅ 淺白透明底，和 organizer-item 一致 */
+  border-radius: 12px;
+  margin: 12px 0;
+  box-shadow: none;
+  overflow: hidden;
+  backdrop-filter: blur(5px);          /* ✅ 跟 organizer-item 一樣毛玻璃效果 */
+}
+.m-faq summary{
+  list-style: none;
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between;
+  gap: 10px; 
+  padding: 14px 16px;                  /* ✅ padding 稍微加大一點，和卡片標題一致 */
+  font-weight: 600;                    /* ✅ 加粗，保持和 PC 區塊小標一樣感覺 */
+  color: #f2e84f;                      /* ✅ 小標文字黃字（和協辦標題一致） */
+}
+.m-faq summary::-webkit-details-marker{ display: none; }
 
-  .m-faq .sub{ 
-    font-weight: inherit; 
-    opacity: .8; 
-    margin-left: 6px; 
-    color: inherit; 
-  }
+.m-faq .sub{ 
+  font-weight: 400; 
+  opacity: .85; 
+  margin-left: 6px; 
+  color: rgba(255,255,255,.9);         /* ✅ 副標仍是白色，較弱化 */
+}
 
-  .m-faq summary::after{
-    content:"+"; 
-    font-size: 20px; 
-    font-weight: 900; 
-    line-height: 1; 
-    opacity:.9;
-    transition: transform .2s ease; 
-    color: inherit;
-  }
-  .m-faq details[open] summary::after{ content:"–"; }
+  /* 手機 FAQ：方框 +/− 動畫（唯一圖示） */
+.m-faq summary{ position: relative; } /* 讓圖示靠右對齊 */
+.m-faq .pm{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:20px; height:20px; margin-left:8px;
+  border:2px solid currentColor; border-radius:4px; /* 小方框 */
+  position:relative; flex:0 0 20px;
+  transition: transform .25s ease;
+}
+.m-faq .pm::before, .m-faq .pm::after{
+  content:""; position:absolute; background:currentColor;
+  width:12px; height:2px; border-radius:1px;
+  left:50%; top:50%; transform:translate(-50%,-50%);
+  transition: transform .25s ease, opacity .25s ease;
+}
+/* 橫線（－）置中 */
+.m-faq .pm::before{}
+/* 直線（｜）預設存在 → 表示 + */
+.m-faq .pm::after{ transform:translate(-50%,-50%) rotate(90deg); }
 
-  .m-faq .content{
-    padding: 8px 0 0 0;
-    border-top: 1px solid color-mix(in oklab, currentColor 35%, transparent);
-  }
-  .m-faq .row{ margin: 8px 0; line-height: 1.7; }
-  .m-faq .region-label, 
-  .m-faq .school-names{ color: inherit; }
+/* 展開：把直線縮成 0，視覺上 + → −，可加上方框旋轉 */
+.m-faq details[open] .pm{ transform: rotate(180deg); } /* 想低調可刪 */
+.m-faq details[open] .pm::after{ transform:translate(-50%,-50%) rotate(90deg) scaleX(0); opacity:0; }
 
+.m-faq .content{
+  padding: 10px 16px 16px 16px;        /* ✅ 內文 padding 和 organizer-item 相近 */
+  border-top: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,.9);         /* ✅ 內文字顏色白色半透明 */
+}
+.m-faq .row{ margin: 8px 0; line-height: 1.7; }
+.m-faq .region-label{ color:#f2e84f; font-weight:700; margin-right:6px; }
+.m-faq .school-names{ color:rgba(255,255,255,.9); }
   .organizers .m-faq{ max-width: 1200px; margin: 10px auto 0; }
 }
 
@@ -629,7 +643,9 @@
 <!-- 手機版：協辦學校（+ / − 開合，沿用藍底白字） -->
 <div class="mobile-only m-faq" style="max-width: 1200px; margin: 25px auto 0;">
   <details>
-    <summary>｜ 協辦學校 ｜ <span class="sub">(依筆劃排序)</span></summary>
+    <summary>｜ 協辦學校 ｜ <span class="sub">(依筆劃排序)</span>
+    <span class="pm" aria-hidden="true"></span>   <!-- 新增這行 -->
+    </summary>
     <div class="content">
       <div class="row"><span class="region-label">[北區]</span><span class="school-names">中國文化大學-財務金融學系｜致理科技大學-財務金融系｜淡江大學-風險管理與保險學系｜實踐大學-風險管理與保險學系｜德明財經科技大學-風險管理與財富規劃系｜龍華科技大學-財務金融系</span></div>
       <div class="row"><span class="region-label">[中區]</span><span class="school-names">南華大學-財務金融學系｜逢甲大學-風險管理與保險學系｜國立雲林科技大學-財務金融系｜僑光科技大學-財務金融系</span></div>
@@ -655,7 +671,9 @@
 <!-- 手機版：協辦單位（+ / − 開合，沿用藍底白字） -->
 <div class="mobile-only m-faq" style="max-width: 1200px; margin: 25px auto 0;">
   <details>
-    <summary>｜ 協辦單位 ｜ <span class="sub">(依筆劃排序)</span></summary>
+    <summary>｜ 協辦單位 ｜ <span class="sub">(依筆劃排序)</span>
+    <span class="pm" aria-hidden="true"></span>   <!-- 新增這行 -->
+    </summary>
     <div class="content">
       元大人壽⨯友邦人壽｜台新人壽｜台灣人壽｜全球人壽｜安達人壽｜法國巴黎人壽｜
       第一金人壽｜凱基人壽｜新光人壽｜遠雄人壽｜中國信託產險｜安達產物｜
