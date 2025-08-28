@@ -11,7 +11,17 @@
       font-family: -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", "微軟正黑體", sans-serif;
       line-height: 1.6; color: #333; background-color: #f5f5f5;
     }
-
+    /* 全站圖片 / SVG 自適應 */
+    img, svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    /* icon 類別若需與文字同行 */
+    .icon { 
+      display: inline-block; 
+      vertical-align: middle; 
+    }
     /* ========== Hero 區塊 ========== */
     .hero {
       position: fixed; top: 0; left: 0; width: 100%;
@@ -854,25 +864,25 @@
 
       <div class="prize-grid">
         <div class="prize-card">
-          <div class="prize-icon"><img src="ICON-01.png" alt="冠軍"></div>
+          <div class="prize-icon"><img src="ICON-01.svg" alt="冠軍"></div>
           <div class="prize-content"><div class="prize-amount">$30,000</div><div class="team-badge badge-gold">1 隊</div></div>
           <ul class="prize-benefits"><li>※冠軍20,000元+主辦單位太陽保經另加碼獎金新台幣10,000元</li><li>保險健診王軟體每位使用權限3年</li></ul>
         </div>
 
         <div class="prize-card">
-          <div class="prize-icon"><img src="ICON-02.png" alt="亞軍"></div>
+          <div class="prize-icon"><img src="ICON-02.svg" alt="亞軍"></div>
           <div class="prize-content"><div class="prize-amount">$10,000</div><div class="team-badge badge-silver">2 隊</div></div>
           <ul class="prize-benefits"><li>保險健診王軟體每位使用權限3年</li></ul>
         </div>
 
         <div class="prize-card">
-          <div class="prize-icon"><img src="ICON-03.png" alt="季軍"></div>
+          <div class="prize-icon"><img src="ICON-03.svg" alt="季軍"></div>
           <div class="prize-content"><div class="prize-amount">$8,000</div><div class="team-badge badge-bronze">3 隊</div></div>
           <ul class="prize-benefits"><li>保險健診王軟體每位使用權限3年</li></ul>
         </div>
 
         <div class="prize-card">
-          <div class="prize-icon"><img src="ICON-00.png" alt="特優"></div>
+          <div class="prize-icon"><img src="ICON-00.svg" alt="特優"></div>
           <div class="prize-content"><div class="prize-amount">$6,000</div><div class="team-badge badge-special">6 隊</div></div>
           <ul class="prize-benefits"><li>保險健診王軟體每位使用權限2年</li></ul>
         </div>
