@@ -464,8 +464,8 @@ img, svg { max-width:100%; height:auto; display:block; }
   list-style: none;
   display: flex; 
   align-items: center; 
-  justify-content: space-between;
-  gap: 10px; 
+  justify-content: flex-start;   /* 👈 改這裡，不用 space-between */
+  gap: 6px;                      /* 控制標題和副標之間距離 */
   padding: 14px 16px;
   font-weight: 600; 
   font-size: 1.1em;       /* ✅ 和 organizer-item h4 相同大小 */
@@ -486,7 +486,7 @@ img, svg { max-width:100%; height:auto; display:block; }
 .m-faq summary{ position: relative; } /* 讓圖示靠右對齊 */
 .m-faq .pm{
   display:inline-flex; align-items:center; justify-content:center;
-  width:20px; height:20px; margin-left:8px;
+  width:20px; height:20px; margin-left: auto;
   position:relative; flex:0 0 20px;
   transition: transform .25s ease;
 }
