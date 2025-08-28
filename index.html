@@ -57,13 +57,12 @@ img, svg { max-width:100%; height:auto; display:block; }
 
     /* 深色遮罩層 */
     .hero::before {
-      content: ''; position: absolute; inset: 0;
-      background: rgba(0, 0, 0, 0); z-index: 1; transition: background 0.5s ease;
-    }
-
-    /* 滾動效果 */
-    .hero.scrolled .hero-background { opacity: 1; filter: blur(5px); transform: scale(1.1); }
-    .hero.scrolled::before { background: rgba(0, 0, 0, 0.7); }
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(0, 0, 0, var(--overlay-opacity, 0));
+  z-index: 1;
+  transition: none; /* 不要固定 0.5s，讓 JS 控制 */
+}
 
     /* 主體內容 - 優化版 */
     .hero-main-content {
@@ -92,8 +91,6 @@ img, svg { max-width:100%; height:auto; display:block; }
     @media (min-width: 1920px) { .hero-main-content { max-width: 650px; } }
     /* 4K 螢幕限制 */
     @media (min-width: 2560px) { .hero-main-content { max-width: 700px; } }
-
-    .hero.scrolled .hero-main-content { opacity: 0; transform: translate(-50%, -60%); }
 
     /* 下滑指示器 */
     .scroll-indicator {
@@ -1049,21 +1046,40 @@ if (windowWidth <= 768) {
     }
 
     // ========== 滾動效果 ==========
-    const heroSection = document.querySelector('.hero');
-    let ticking = false;
-    function updateHeroEffect() {
-      const scrolled = window.pageYOffset;
-      if (scrolled > 50) heroSection.classList.add('scrolled');
-      else heroSection.classList.remove('scrolled');
-      ticking = false;
-    }
-    function requestTick() {
-      if (!ticking) {
-        window.requestAnimationFrame(updateHeroEffect);
-        ticking = true;
-      }
-    }
-    window.addEventListener('scroll', requestTick);
+const heroSection = document.querySelector('.hero');
+const heroBg = document.querySelector('.hero-background');
+const heroMain = document.querySelector('.hero-main-content');
+const heroOverlay = document.querySelector('.hero::before'); // 假的，需要用另一種方式控制
+
+let ticking = false;
+function updateHeroEffect() {
+  const scrolled = window.pageYOffset;
+  const windowHeight = window.innerHeight;
+
+  // 進度 0 ~ 1
+  const progress = Math.min(scrolled / windowHeight, 1);
+
+  // 背景圖：漸進放大 + 模糊
+  heroBg.style.transform = `scale(${1 + progress * 0.15}) translateY(${progress * -40}px)`;
+  heroBg.style.filter = `blur(${progress * 5}px)`;
+
+  // 主視覺：慢慢往上移、淡出
+  heroMain.style.transform = `translate(-50%, -${32 + progress * 28}%) scale(${1 - progress * 0.1})`;
+  heroMain.style.opacity = 1 - progress * 1.2;
+
+  // 黑色遮罩：漸進加深
+  heroSection.style.setProperty("--overlay-opacity", Math.min(progress * 0.7, 0.7));
+
+  ticking = false;
+}
+
+function requestTick() {
+  if (!ticking) {
+    window.requestAnimationFrame(updateHeroEffect);
+    ticking = true;
+  }
+}
+window.addEventListener('scroll', requestTick);
 
     // 返回頂部
     function scrollToTop() {
