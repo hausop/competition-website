@@ -51,7 +51,7 @@ img, svg { max-width:100%; height:auto; display:block; }
     /* 背景圖片容器 */
     .hero-background {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 0; transition: filter 0.5s ease, transform 0.5s ease;
+      z-index: 0; transition: none; will-change: transform, filter;
     }
     .hero-bg-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
 
@@ -70,7 +70,7 @@ img, svg { max-width:100%; height:auto; display:block; }
       transform: translate(-50%, -32%);
       z-index: 2; width: 85%; max-width: 600px; height: auto;
       display: flex; align-items: center; justify-content: center;
-      padding: 20px; transition: opacity 0.5s ease, transform 0.5s ease;
+      padding: 20px; transition: none;
       will-change: transform, top;
     }
     .hero-main-image { width: 100%; height: auto; object-fit: contain; }
@@ -1020,9 +1020,11 @@ if (windowWidth <= 768) {
         const topPosition = windowHeight <= 667 ? 15 : 18;
         heroContent.style.top = topPosition + '%';
         heroContent.style.transform = `translate(-50%, -${topPosition}%)`;
+        baseTopPercent = topPosition;   // ★ 新增
       } else {
         heroContent.style.top = '50%';
         heroContent.style.transform = 'translate(-50%, -50%)';
+        baseTopPercent = 50;            // ★ 新增
       }
     }
 
@@ -1034,16 +1036,21 @@ if (windowWidth <= 768) {
     });
 
     // 若支援 visualViewport，監聽其變化（手機網址列/鍵盤影響）
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(adjustHeroSize, 50);
-      });
-      window.visualViewport.addEventListener('scroll', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(adjustHeroSize, 50);
-      });
-    }
+if (window.visualViewport) {
+  // 保留 resize → 視窗高度或鍵盤影響時即時調整
+  window.visualViewport.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(adjustHeroSize, 50);
+  });
+
+  // 移除 scroll → 避免和滾動動畫打架，體驗更順
+  // window.visualViewport.addEventListener('scroll', () => {
+  //   clearTimeout(resizeTimer);
+  //   resizeTimer = setTimeout(adjustHeroSize, 50);
+  // });
+}
+
+    let baseTopPercent = 32; // 跟著 adjustHeroSize() 同步
 
     // ========== 滾動效果 ==========
 const heroSection = document.querySelector('.hero');
@@ -1063,9 +1070,11 @@ function updateHeroEffect() {
   heroBg.style.transform = `scale(${1 + progress * 0.15}) translateY(${progress * -40}px)`;
   heroBg.style.filter = `blur(${progress * 5}px)`;
 
-  // 主視覺：慢慢往上移、淡出
-  heroMain.style.transform = `translate(-50%, -${32 + progress * 28}%) scale(${1 - progress * 0.1})`;
-  heroMain.style.opacity = 1 - progress * 1.2;
+  // 主視覺：跟著基準 top% 上移 + 微縮 + 微模糊 + 漸隱
+const moveUp = window.innerWidth <= 768 ? 24 : 32;
+heroMain.style.transform = `translate(-50%, -${baseTopPercent + progress * moveUp}%) scale(${1 - progress * 0.08})`;
+heroMain.style.filter = `blur(${progress * 3}px)`;
+heroMain.style.opacity = Math.max(0, 1 - progress * 1.1);
 
   // 黑色遮罩：漸進加深
   heroSection.style.setProperty("--overlay-opacity", Math.min(progress * 0.7, 0.7));
@@ -1085,8 +1094,8 @@ window.addEventListener('scroll', requestTick);
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
-      // 回頂後強制重算（處理行動版 vh/dvh 變化）
-      const recalcBanner = () => window.dispatchEvent(new Event('resize'));
+      // 回頂後重算方式更精準（不丟假的 resize）
+      const recalcBanner = () => { adjustHeroSize(); updateHeroEffect(); };
 
       if ('onscrollend' in window) {
         window.addEventListener('scrollend', recalcBanner, { once: true });
