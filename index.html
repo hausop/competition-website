@@ -293,8 +293,10 @@
 
 @media (max-width:768px){
   .custom-list li .school-name {
-  display: inline;       /* 改回行內元素，不會自動換行 */
-  margin-left: 0.3em;    /* 視覺上留一點間距即可 */
+  display: block;           /* ✅ 換行顯示 */
+  margin-left: 0;           /* 清掉舊的 margin */
+  text-indent: -2.2em;      /* 負縮排，和「北區」開頭對齊 */
+  padding-left: 2.2em;      /* 推回縮排，保持整齊 */
 }
 }
 
