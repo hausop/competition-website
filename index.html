@@ -390,59 +390,86 @@
       .hero-main-content { width: 75%; max-width: 600px; }
     }
     /* 手機尺寸 */
-    @media (max-width: 768px) {
-      .hero-main-content {
-        width: 95%; max-width: 600px; padding: 5px;
-        top: 18%; transform: translate(-50%, -18%);
-      }
-      .organizers-grid { grid-template-columns: 1fr; gap: 15px; }
-      .desktop-only { display: none; }
-      .mobile-only { display: block; }
-      .co-schools .school-region { flex-direction: column; margin: 15px 0; }
-      .co-schools .region-label { margin-bottom: 5px; }
-      .timeline-table { font-size: 0.9em; }
-      .timeline-table th, .timeline-table td { padding: 10px; }
-      .scoring-table { display: none; }
-      .vertical-scoring-table { display: table; }
-      .contact-content { grid-template-columns: 1fr; }
-      .gallery-button-section { padding: 60px 20px; }
-      .gallery-button-section h2 { font-size: 2em; }
-      .gallery-button { padding: 15px 30px; font-size: 1em; }
-      .back-to-top { bottom: 20px; right: 20px; width: 45px; height: 45px; }
-/* === 手機 FAQ：協辦學校/協辦單位（+ / − 開合）— 繼承色彩版 === */
-.m-faq details{
-  background: inherit;           /* 不改底色 */
-  border-radius: 12px;
-  margin: 12px 0;
-  box-shadow: none;              /* 不加陰影，避免顏色視覺改變 */
-  overflow: hidden;
-}
-.m-faq summary{
-  list-style: none;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 10px; padding: 12px 0;
-  font-weight: inherit;          /* 繼承字重 */
-  color: inherit;                /* 繼承字色（維持藍底白字） */
-}
-.m-faq summary::-webkit-details-marker{ display:none; }
+@media (max-width: 768px) {
+  .hero-main-content {
+    width: 95%; 
+    max-width: 600px; 
+    padding: 5px;
+    top: 18%; 
+    transform: translate(-50%, -18%);
+  }
 
-.m-faq .sub{ font-weight: inherit; opacity: .8; margin-left: 6px; color: inherit; }
+  .organizers-grid { grid-template-columns: 1fr; gap: 15px; }
+  .desktop-only { display: none; }
+  .mobile-only { display: block; }
 
-/* + / − */
-.m-faq summary::after{
-  content:"+"; font-size: 20px; font-weight: 900; line-height: 1; opacity:.9;
-  transition: transform .2s ease; color: inherit;
-}
-.m-faq details[open] summary::after{ content:"–"; }
+  .co-schools .school-region { flex-direction: column; margin: 15px 0; }
+  .co-schools .region-label { margin-bottom: 5px; }
 
-/* 內容：只加分隔線，顏色用 currentColor 混透明，不另設字色/底色 */
-.m-faq .content{
-  padding: 8px 0 0 0;
-  border-top: 1px solid color-mix(in oklab, currentColor 35%, transparent);
+  .timeline-table { font-size: 0.9em; }
+  .timeline-table th, 
+  .timeline-table td { padding: 10px; }
+
+  .scoring-table { display: none; }
+  .vertical-scoring-table { display: table; }
+
+  .contact-content { grid-template-columns: 1fr; }
+
+  .gallery-button-section { padding: 60px 20px; }
+  .gallery-button-section h2 { font-size: 2em; }
+  .gallery-button { padding: 15px 30px; font-size: 1em; }
+
+  .back-to-top { bottom: 20px; right: 20px; width: 45px; height: 45px; }
+
+  /* === 手機 FAQ：協辦學校/協辦單位（+ / − 開合，繼承原藍底白字）=== */
+  .m-faq details{
+    background: inherit;
+    border-radius: 12px;
+    margin: 12px 0;
+    box-shadow: none;
+    overflow: hidden;
+  }
+  .m-faq summary{
+    list-style: none;
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+    gap: 10px; 
+    padding: 12px 0;
+    font-weight: inherit; 
+    color: inherit;
+  }
+  .m-faq summary::-webkit-details-marker{ display: none; }
+
+  .m-faq .sub{ 
+    font-weight: inherit; 
+    opacity: .8; 
+    margin-left: 6px; 
+    color: inherit; 
+  }
+
+  .m-faq summary::after{
+    content:"+"; 
+    font-size: 20px; 
+    font-weight: 900; 
+    line-height: 1; 
+    opacity:.9;
+    transition: transform .2s ease; 
+    color: inherit;
+  }
+  .m-faq details[open] summary::after{ content:"–"; }
+
+  .m-faq .content{
+    padding: 8px 0 0 0;
+    border-top: 1px solid color-mix(in oklab, currentColor 35%, transparent);
+  }
+  .m-faq .row{ margin: 8px 0; line-height: 1.7; }
+  .m-faq .region-label, 
+  .m-faq .school-names{ color: inherit; }
+
+  .organizers .m-faq{ max-width: 1200px; margin: 10px auto 0; }
 }
-.m-faq .row{ margin: 8px 0; line-height: 1.7; }
-      
-    
+
     /* 小手機調整 */
     @media (max-width: 480px) {
       .hero-main-content { width: 100%; max-width: 400px; top: 42%; transform: translate(-50%, -42%); }
@@ -577,20 +604,29 @@
       <div class="organizer-item"><h4>｜ 協辦廠商 ｜</h4><p>期靈旺決策科技有限公司</p></div>
     </div>
 
-    <!-- 協辦學校區塊（PC 保持原樣） -->
+    <!-- 協辦學校區塊（PC 版保留原樣） -->
 <div class="desktop-only" style="max-width: 1200px; margin: 25px auto 0;">
   <div class="organizer-item co-schools">
     <h4>｜ 協辦學校 ｜</h4>
     <p style="font-size: 0.85em; margin: 0 0 6px;">(依筆劃排序)</p>
     <div class="schools-list">
-      <div class="school-region"><span class="region-label">[北區]</span><span class="school-names">中國文化大學-財務金融學系｜致理科技大學-財務金融系｜淡江大學-風險管理與保險學系｜實踐大學-風險管理與保險學系｜德明財經科技大學-風險管理與財富規劃系｜龍華科技大學-財務金融系</span></div>
-      <div class="school-region"><span class="region-label">[中區]</span><span class="school-names">南華大學-財務金融學系｜逢甲大學-風險管理與保險學系｜國立雲林科技大學-財務金融系｜僑光科技大學-財務金融系</span></div>
-      <div class="school-region"><span class="region-label">[南區]</span><span class="school-names">正修科技大學-金融管理系｜國立屏東大學-財務金融學系｜國立高雄大學-應用經濟學系｜國立高雄科技大學-風險管理與保險系｜實踐大學(高雄校區)-金融管理學系</span></div>
+      <div class="school-region">
+        <span class="region-label">[北區]</span>
+        <span class="school-names">中國文化大學-財務金融學系｜致理科技大學-財務金融系｜淡江大學-風險管理與保險學系｜實踐大學-風險管理與保險學系｜德明財經科技大學-風險管理與財富規劃系｜龍華科技大學-財務金融系</span>
+      </div>
+      <div class="school-region">
+        <span class="region-label">[中區]</span>
+        <span class="school-names">南華大學-財務金融學系｜逢甲大學-風險管理與保險學系｜國立雲林科技大學-財務金融系｜僑光科技大學-財務金融系</span>
+      </div>
+      <div class="school-region">
+        <span class="region-label">[南區]</span>
+        <span class="school-names">正修科技大學-金融管理系｜國立屏東大學-財務金融學系｜國立高雄大學-應用經濟學系｜國立高雄科技大學-風險管理與保險系｜實踐大學(高雄校區)-金融管理學系</span>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- 手機版：協辦學校（+ / − 開合） -->
+<!-- 手機版：協辦學校（+ / − 開合，沿用藍底白字） -->
 <div class="mobile-only m-faq" style="max-width: 1200px; margin: 25px auto 0;">
   <details>
     <summary>｜ 協辦學校 ｜ <span class="sub">(依筆劃排序)</span></summary>
@@ -602,27 +638,33 @@
   </details>
 </div>
 
-   <!-- 協辦單位區塊（PC 保持原樣） -->
+    <!-- 協辦單位（PC 版保留原樣） -->
 <div class="desktop-only" style="max-width: 1200px; margin: 25px auto 0;">
   <div class="organizer-item">
     <h4 style="margin-bottom: 2px;">｜ 協辦單位 ｜</h4>
     <p style="font-size: 0.85em; margin: 0 0 6px;">(依筆劃排序)</p>
-    <p>｜元大人壽｜友邦人壽｜台新人壽｜台灣人壽｜全球人壽｜安達人壽｜法國巴黎人壽｜第一金人壽｜凱基人壽｜新光人壽｜遠雄人壽｜中國信託產險｜安達產物｜兆豐保險｜明台產物保險｜法國巴黎產險｜泰安產物保險｜國泰產險｜富邦產險｜華南產險｜新光產物保險｜國立高雄科技大學-產學營運處｜</p>
+    <p>
+      元大人壽⨯友邦人壽｜台新人壽｜台灣人壽｜全球人壽｜安達人壽｜法國巴黎人壽｜
+      第一金人壽｜凱基人壽｜新光人壽｜遠雄人壽｜中國信託產險｜安達產物｜
+      兆豐保險｜明台產物保險｜法國巴黎產險｜泰安產物保險｜國泰產險｜富邦產險｜
+      華南產險｜新光產物保險｜國立高雄科技大學-產學營運處｜
+    </p>
   </div>
 </div>
 
-<!-- 手機版：協辦單位（+ / − 開合） -->
+<!-- 手機版：協辦單位（+ / − 開合，沿用藍底白字） -->
 <div class="mobile-only m-faq" style="max-width: 1200px; margin: 25px auto 0;">
   <details>
     <summary>｜ 協辦單位 ｜ <span class="sub">(依筆劃排序)</span></summary>
     <div class="content">
-      ｜元大人壽｜友邦人壽｜台新人壽｜台灣人壽｜全球人壽｜安達人壽｜法國巴黎人壽｜
+      元大人壽⨯友邦人壽｜台新人壽｜台灣人壽｜全球人壽｜安達人壽｜法國巴黎人壽｜
       第一金人壽｜凱基人壽｜新光人壽｜遠雄人壽｜中國信託產險｜安達產物｜
       兆豐保險｜明台產物保險｜法國巴黎產險｜泰安產物保險｜國泰產險｜富邦產險｜
       華南產險｜新光產物保險｜國立高雄科技大學-產學營運處｜
     </div>
   </details>
 </div>
+  </div>
 
   <!-- Main Content -->
   <div class="content">
@@ -1039,6 +1081,57 @@ if (windowWidth <= 768) {
       item.style.transition = 'all 0.6s ease';
       observer.observe(item);
     });
+
+    // ==== 手機地點 Popover（點清單顯示地址）====
+    (function(){
+      const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+
+      // 建立唯一的小窗節點
+      const pop = document.createElement('div');
+      pop.className = 'popover';
+      document.body.appendChild(pop);
+
+      function showPopover(text, clientX, clientY){
+  pop.textContent = text;
+
+  // 先顯示以取得實際尺寸（寬度由內容決定）
+  pop.classList.add('show');
+
+  const vw = window.innerWidth, vh = window.innerHeight;
+  const rect = pop.getBoundingClientRect();
+  const popW = rect.width, popH = rect.height;
+
+  // 置於點擊位置下方並避免超出視窗
+  const left = Math.min(vw - 12 - popW, Math.max(8, clientX - popW / 2));
+  const top  = Math.min(vh - 12 - popH - 8, clientY + 12);
+
+  pop.style.left = left + 'px';
+  pop.style.top  = top  + 'px';
+}
+      function hidePopover(){ pop.classList.remove('show'); }
+
+      // 只在 (七) 的自訂清單中啟用
+const lis = document.querySelectorAll('ol.custom-list > li');
+
+let touched = false; // 防止 touch 後又觸發 click
+
+function handleShow(e, li){
+  if(!isMobile()) return;
+  const addr = li.querySelector('.addr-pop');
+  if(!addr) return;
+  const text = addr.getAttribute('data-addr') || addr.textContent.trim();
+  const pt = (e.touches && e.touches[0]) || e;
+  showPopover(text, pt.clientX, pt.clientY);
+  e.stopPropagation();
+}
+
+lis.forEach(li=>{
+  li.addEventListener('touchstart', (e)=>{ touched = true; handleShow(e, li); }, {passive:true});
+  li.addEventListener('click', (e)=>{
+    if(touched){ touched = false; return; } // 已處理 touch，不再處理 click
+    handleShow(e, li);
+  });
+});
 
       // 點其他地方或捲動就關閉
       document.addEventListener('click', hidePopover);
