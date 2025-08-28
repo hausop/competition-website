@@ -436,17 +436,20 @@
   align-items: center; 
   justify-content: space-between;
   gap: 10px; 
-  padding: 14px 16px;                  /* ✅ padding 稍微加大一點，和卡片標題一致 */
-  font-weight: 600;                    /* ✅ 加粗，保持和 PC 區塊小標一樣感覺 */
-  color: #f2e84f;                      /* ✅ 小標文字黃字（和協辦標題一致） */
+  padding: 14px 16px;
+  font-weight: 600; 
+  font-size: 1.1em;       /* ✅ 和 organizer-item h4 相同大小 */
+  color: #f2e84f;
+  position: relative;
 }
 .m-faq summary::-webkit-details-marker{ display: none; }
 
-.m-faq .sub{ 
+.m-faq .sub{
   font-weight: 400; 
+  font-size: 0.8em;       /* ✅ 縮小副標字 */
   opacity: .85; 
-  margin-left: 6px; 
-  color: rgba(255,255,255,.9);         /* ✅ 副標仍是白色，較弱化 */
+  margin-left: 8px;       /* ✅ 與標題有點距離 */
+  color: rgba(255,255,255,.9);
 }
 
   /* 手機 FAQ：方框 +/− 動畫（唯一圖示） */
@@ -454,10 +457,10 @@
 .m-faq .pm{
   display:inline-flex; align-items:center; justify-content:center;
   width:20px; height:20px; margin-left:8px;
-  border:2px solid currentColor; border-radius:4px; /* 小方框 */
   position:relative; flex:0 0 20px;
   transition: transform .25s ease;
 }
+
 .m-faq .pm::before, .m-faq .pm::after{
   content:""; position:absolute; background:currentColor;
   width:12px; height:2px; border-radius:1px;
@@ -643,7 +646,8 @@
 <!-- 手機版：協辦學校（+ / − 開合，沿用藍底白字） -->
 <div class="mobile-only m-faq" style="max-width: 1200px; margin: 25px auto 0;">
   <details>
-    <summary>｜ 協辦學校 ｜ <span class="sub">(依筆劃排序)</span>
+    <summary>
+      ｜ 協辦學校 ｜ <span class="sub">(依筆劃排序)</span>
     <span class="pm" aria-hidden="true"></span>   <!-- 新增這行 -->
     </summary>
     <div class="content">
@@ -671,7 +675,8 @@
 <!-- 手機版：協辦單位（+ / − 開合，沿用藍底白字） -->
 <div class="mobile-only m-faq" style="max-width: 1200px; margin: 25px auto 0;">
   <details>
-    <summary>｜ 協辦單位 ｜ <span class="sub">(依筆劃排序)</span>
+    <summary>
+      ｜ 協辦單位 ｜ <span class="sub">(依筆劃排序)</span>
     <span class="pm" aria-hidden="true"></span>   <!-- 新增這行 -->
     </summary>
     <div class="content">
