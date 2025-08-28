@@ -477,10 +477,11 @@
 .m-faq details[open] .pm::after{ transform:translate(-50%,-50%) rotate(90deg) scaleX(0); opacity:0; }
 
 .m-faq .content{
-  padding: 10px 16px 16px 16px;
+  padding: 10px 24px 16px 24px;   /* ✅ 左右 padding 加大 (原本 16px → 24px) */
   border-top: 1px solid rgba(255,255,255,0.2);
   color: rgba(255,255,255,.9);
-  text-align: left;              /* ✅ 新增這行，內文靠左 */
+  text-align: justify;            /* ✅ 兩端對齊 */
+  text-justify: inter-ideograph;  /* ✅ 中文優化對齊 */
 }
 .m-faq .row{ margin: 8px 0; line-height: 1.7; }
 .m-faq .region-label{ color:#f2e84f; font-weight:700; margin-right:6px; }
