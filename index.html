@@ -118,7 +118,7 @@ img, svg { max-width:100%; height:auto; display:block; }
 
     /* 網格系統 */
     .organizers-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
       max-width: 1200px; margin: 30px auto 25px;  /* ↑ 保留頂部 30px、不動；底部改 25px */
     }
     .organizer-item {
@@ -455,7 +455,7 @@ img, svg { max-width:100%; height:auto; display:block; }
 .m-faq details{
   background: rgba(255,255,255,0.1);   /* ✅ 淺白透明底，和 organizer-item 一致 */
   border-radius: 12px;
-  margin: 12px 0;
+  margin: 8px 0;
   box-shadow: none;
   overflow: hidden;
   backdrop-filter: blur(5px);          /* ✅ 跟 organizer-item 一樣毛玻璃效果 */
@@ -507,7 +507,7 @@ img, svg { max-width:100%; height:auto; display:block; }
 .m-faq details[open] .pm::after{ transform:translate(-50%,-50%) rotate(90deg) scaleX(0); opacity:0; }
 
 .m-faq .content{
-  padding: 10px 24px 16px 24px;   /* ✅ 左右 padding 加大 (原本 16px → 24px) */
+  padding: 6px 20px 10px 20px;   /* ✅ 左右 padding 加大 (原本 16px → 24px) */
   border-top: 1px solid rgba(255,255,255,0.2);
   color: rgba(255,255,255,.9);
   text-align: justify;            /* ✅ 兩端對齊 */
