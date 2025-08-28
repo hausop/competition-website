@@ -293,9 +293,9 @@
 
 @media (max-width:768px){
   .custom-list li .school-name {
-    display: block;        /* 手機獨立一行 */
-    margin-left: 1.5em;    /* 保持和上行對齊 */
-  }
+  display: inline;       /* 改回行內元素，不會自動換行 */
+  margin-left: 0.3em;    /* 視覺上留一點間距即可 */
+}
 }
 
     /* 手機隱藏內嵌地址；讓清單可點 */
@@ -477,9 +477,10 @@
 .m-faq details[open] .pm::after{ transform:translate(-50%,-50%) rotate(90deg) scaleX(0); opacity:0; }
 
 .m-faq .content{
-  padding: 10px 16px 16px 16px;        /* ✅ 內文 padding 和 organizer-item 相近 */
+  padding: 10px 16px 16px 16px;
   border-top: 1px solid rgba(255,255,255,0.2);
-  color: rgba(255,255,255,.9);         /* ✅ 內文字顏色白色半透明 */
+  color: rgba(255,255,255,.9);
+  text-align: left;              /* ✅ 新增這行，內文靠左 */
 }
 .m-faq .row{ margin: 8px 0; line-height: 1.7; }
 .m-faq .region-label{ color:#f2e84f; font-weight:700; margin-right:6px; }
@@ -1104,63 +1105,6 @@ if (windowWidth <= 768) {
       item.style.transition = 'all 0.6s ease';
       observer.observe(item);
     });
-
-    // ==== 手機地點 Popover（點清單顯示地址）====
-    (function(){
-      const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
-
-      // 建立唯一的小窗節點
-      const pop = document.createElement('div');
-      pop.className = 'popover';
-      document.body.appendChild(pop);
-
-      function showPopover(text, clientX, clientY){
-  pop.textContent = text;
-
-  // 先顯示以取得實際尺寸（寬度由內容決定）
-  pop.classList.add('show');
-
-  const vw = window.innerWidth, vh = window.innerHeight;
-  const rect = pop.getBoundingClientRect();
-  const popW = rect.width, popH = rect.height;
-
-  // 置於點擊位置下方並避免超出視窗
-  const left = Math.min(vw - 12 - popW, Math.max(8, clientX - popW / 2));
-  const top  = Math.min(vh - 12 - popH - 8, clientY + 12);
-
-  pop.style.left = left + 'px';
-  pop.style.top  = top  + 'px';
-}
-      function hidePopover(){ pop.classList.remove('show'); }
-
-      // 只在 (七) 的自訂清單中啟用
-const lis = document.querySelectorAll('ol.custom-list > li');
-
-let touched = false; // 防止 touch 後又觸發 click
-
-function handleShow(e, li){
-  if(!isMobile()) return;
-  const addr = li.querySelector('.addr-pop');
-  if(!addr) return;
-  const text = addr.getAttribute('data-addr') || addr.textContent.trim();
-  const pt = (e.touches && e.touches[0]) || e;
-  showPopover(text, pt.clientX, pt.clientY);
-  e.stopPropagation();
-}
-
-lis.forEach(li=>{
-  li.addEventListener('touchstart', (e)=>{ touched = true; handleShow(e, li); }, {passive:true});
-  li.addEventListener('click', (e)=>{
-    if(touched){ touched = false; return; } // 已處理 touch，不再處理 click
-    handleShow(e, li);
-  });
-});
-
-      // 點其他地方或捲動就關閉
-      document.addEventListener('click', hidePopover);
-      window.addEventListener('scroll', hidePopover, { passive:true });
-      window.addEventListener('resize', hidePopover);
-    })();
 
       /* ========== 內容保護 (選用，可移除) ========== */
       document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
