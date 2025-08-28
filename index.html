@@ -95,11 +95,11 @@ img, svg { max-width:100%; height:auto; display:block; }
     /* 下滑指示器 */
     .scroll-indicator {
   position: absolute; 
-  top: 80%;  /* 主視圖下五分之一 */
+  top: 85%;  /* 數值越小位置越上 */
   left: 50%; 
   transform: translateX(-50%);
   z-index: 9999;   /* 永遠在最上層 */
-  animation: bounce 2s infinite; 
+    animation: slideDown 2s infinite;
   cursor: pointer; 
   color: white; 
   transition: opacity 0.5s ease;
@@ -111,6 +111,11 @@ img, svg { max-width:100%; height:auto; display:block; }
       40% { transform: translateX(-50%) translateY(-10px); }
       60% { transform: translateX(-50%) translateY(-5px); }
     }
+    @keyframes slideDown {
+  0%   { transform: translateX(-50%) translateY(0); opacity: 1; }
+  70%  { transform: translateX(-50%) translateY(15px); opacity: 0; }
+  100% { transform: translateX(-50%) translateY(0); opacity: 0; }
+}
 
     /* PC & 預設 */
     .organizers {
@@ -618,10 +623,12 @@ img, svg { max-width:100%; height:auto; display:block; }
 
     <!-- 下滑提示 -->
     <div class="scroll-indicator">
-      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M12 5v14M19 12l-7 7-7-7"/>
-      </svg>
-    </div>
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M7 7l5 5 5-5"/>
+    <path d="M7 13l5 5 5-5"/>
+  </svg>
+</div>
+
   </div>
 
   <!-- Organizers -->
