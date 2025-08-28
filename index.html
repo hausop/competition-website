@@ -11,6 +11,24 @@
       font-family: -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", "微軟正黑體", sans-serif;
       line-height: 1.6; color: #333; background-color: #f5f5f5;
     }
+
+    /* 統一圖片/SVG 自適應 */
+img, svg { max-width:100%; height:auto; display:block; }
+
+/* 有些 SVG 檔內寫死 width/height，這裡一律覆蓋 */
+.prize-icon img,
+.prize-icon svg { width:94px !important; height:auto !important; object-fit:contain; }
+
+/* 文字行內的小圖示（獎勵清單那種） */
+.prize-item p img,
+.prize-item p svg { width:18px !important; height:auto !important; display:inline-block; vertical-align:-2px; }
+
+/* 若你還有更小/更大尺寸，可照這模式加級別 */
+.prize-icon--sm img,
+.prize-icon--sm svg { width:56px !important; }
+.prize-icon--lg img,
+.prize-icon--lg svg { width:120px !important; }
+
     /* 全站圖片 / SVG 自適應 */
     img, svg {
       max-width: 100%;
