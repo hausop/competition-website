@@ -94,9 +94,17 @@ img, svg { max-width:100%; height:auto; display:block; }
 
     /* 下滑指示器 */
     .scroll-indicator {
-      position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-      z-index: 10; animation: bounce 2s infinite; cursor: pointer; color: white; transition: opacity 0.5s ease;
-    }
+  position: absolute; 
+  top: 80%;  /* 主視圖下五分之一 */
+  left: 50%; 
+  transform: translateX(-50%);
+  z-index: 9999;   /* 永遠在最上層 */
+  animation: bounce 2s infinite; 
+  cursor: pointer; 
+  color: white; 
+  transition: opacity 0.5s ease;
+}
+
     .hero.scrolled .scroll-indicator { opacity: 0; }
     @keyframes bounce {
       0%,20%,50%,80%,100% { transform: translateX(-50%) translateY(0); }
