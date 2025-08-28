@@ -119,11 +119,11 @@ img, svg { max-width:100%; height:auto; display:block; }
     /* 網格系統 */
     .organizers-grid {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px;
-      max-width: 1200px; margin: 30px auto;
+      max-width: 1200px; margin: 30px auto 25px;  /* ↑ 保留頂部 30px、不動；底部改 25px */
     }
     .organizer-item {
       text-align: center; padding: 25px 20px; background: rgba(255,255,255,0.1);
-      border-radius: 12px; backdrop-filter: blur(5px); transition: all 0.3s ease;
+      border-radius: 12px; backdrop-filter: blur(5px); transition: all 0.3s ease; 
     }
     .organizer-item:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
     .organizer-item h4 {
