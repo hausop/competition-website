@@ -104,10 +104,6 @@ img, svg { max-width:100%; height:auto; display:block; }
   color: white; 
   transition: opacity 0.5s ease;
 }
-    .scroll-indicator.hide {
-  opacity: 0;
-  pointer-events: none;
-}
 
     .hero.scrolled .scroll-indicator { opacity: 0; }
     @keyframes bounce {
@@ -643,7 +639,7 @@ img, svg { max-width:100%; height:auto; display:block; }
   </div>
 
   <!-- Organizers -->
-  <div class="organizers" id="schools">
+  <div class="organizers">
     <h3><span style="color: #f2e84f;">主辦單位：</span>太陽保險經紀人股份有限公司</h3>
 
     <!-- 桌面版顯示 -->
@@ -1201,51 +1197,7 @@ window.addEventListener('scroll', requestTick);
           e.preventDefault(); return false;
         }
       });
-      
-      // 主辦學校出現時隱藏下滑箭頭
-      const arrow = document.querySelector('.scroll-indicator');
-      const schools = document.querySelector('#schools');
-      if (arrow && schools) {
-        const io = new IntersectionObserver(([entry]) => {
-          if (entry.isIntersecting) {
-            arrow.classList.add('hide');
-            io.disconnect(); // 一次性隱藏
-          }
-        }, { threshold: 0.1 });
-        io.observe(schools);
-      }
-
     });
   </script>
-  <script>
-(function () {
-  var arrow = document.querySelector('.scroll-indicator');
-  var schools = document.querySelector('#schools');
-  if (!arrow || !schools) return;
-
-  // 進入主辦學校區塊 → 淡出並停用，且不再出現
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function(entries){
-      var entry = entries[0];
-      if (entry && entry.isIntersecting) {
-        arrow.classList.add('hide');
-        io.disconnect();
-      }
-    }, { rootMargin: "0px 0px -25% 0px", threshold: 0 });
-    io.observe(schools);
-  } else {
-    // 後備：卷到主辦學校附近就隱藏
-    var onScroll = function(){
-      var top = schools.getBoundingClientRect().top;
-      if (top <= window.innerHeight * 0.9) {
-        arrow.classList.add('hide');
-        window.removeEventListener('scroll', onScroll);
-      }
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  }
-})();
-</script>
 </body>
 </html>
