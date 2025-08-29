@@ -45,7 +45,7 @@ img, svg { max-width:100%; height:auto; display:block; }
       position: fixed; top: 0; left: 0; width: 100%;
       height: 100dvh;                 /* ← 改為 dvh，避免行動裝置網址列收合錯位 */
       color: white; text-align: center;
-      overflow: hidden; z-index: 0;
+      overflow: hidden; z-index: -1;
     }
 
     /* 背景圖片容器 */
@@ -1078,15 +1078,6 @@ if (window.visualViewport) {
 const heroSection = document.querySelector('.hero');
 const heroBg = document.querySelector('.hero-background');
 const heroMain = document.querySelector('.hero-main-content');
-    // 先跑一次，並安全綁定監聽
-if (heroSection && heroBg && heroMain) {
-  updateHeroEffect(); // ← 一載入先套 transform/blur
-  window.addEventListener('scroll', requestTick, { passive: true });
-  document.addEventListener('scroll', requestTick, { passive: true }); // iOS 保險
-} else {
-  console.warn('Hero elements not found');
-}
-
 const heroOverlay = document.querySelector('.hero::before'); // 假的，需要用另一種方式控制
 
 let ticking = false;
@@ -1119,6 +1110,7 @@ function requestTick() {
     ticking = true;
   }
 }
+window.addEventListener('scroll', requestTick);
 
     // 返回頂部
     function scrollToTop() {
@@ -1153,8 +1145,6 @@ function requestTick() {
     document.addEventListener('DOMContentLoaded', function() {
     // 初始化動態大小調整
     adjustHeroSize();
-    updateHeroEffect();
-
 
     // 點擊下滑指示器
     const scrollIndicator = document.querySelector('.scroll-indicator');
@@ -1208,21 +1198,6 @@ function requestTick() {
         }
       });
     });
-    
-    /* 手機版：藍色區塊以下的背景改為 banner 圖 */
-@media (max-width: 768px) {
-  body {
-    background: url('banner-bg.jpg') center/cover fixed no-repeat;
-  }
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.45);  /* 微暗效果 */
-    backdrop-filter: blur(6px);    /* 模糊效果 */
-    z-index: -1;
-  }
-}
   </script>
 </body>
 </html>
