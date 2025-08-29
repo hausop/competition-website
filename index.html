@@ -1217,5 +1217,35 @@ window.addEventListener('scroll', requestTick);
 
     });
   </script>
+  <script>
+(function () {
+  var arrow = document.querySelector('.scroll-indicator');
+  var schools = document.querySelector('#schools');
+  if (!arrow || !schools) return;
+
+  // 進入主辦學校區塊 → 淡出並停用，且不再出現
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      var entry = entries[0];
+      if (entry && entry.isIntersecting) {
+        arrow.classList.add('hide');
+        io.disconnect();
+      }
+    }, { rootMargin: "0px 0px -25% 0px", threshold: 0 });
+    io.observe(schools);
+  } else {
+    // 後備：卷到主辦學校附近就隱藏
+    var onScroll = function(){
+      var top = schools.getBoundingClientRect().top;
+      if (top <= window.innerHeight * 0.9) {
+        arrow.classList.add('hide');
+        window.removeEventListener('scroll', onScroll);
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+})();
+</script>
 </body>
 </html>
