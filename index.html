@@ -1198,6 +1198,21 @@ window.addEventListener('scroll', requestTick);
         }
       });
     });
+    
+    /* 手機版：藍色區塊以下的背景改為 banner 圖 */
+@media (max-width: 768px) {
+  body {
+    background: url('banner-bg.jpg') center/cover fixed no-repeat;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);  /* 微暗效果 */
+    backdrop-filter: blur(6px);    /* 模糊效果 */
+    z-index: -1;
+  }
+}
   </script>
 </body>
 </html>
