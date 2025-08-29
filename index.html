@@ -104,6 +104,10 @@ img, svg { max-width:100%; height:auto; display:block; }
   color: white; 
   transition: opacity 0.5s ease;
 }
+    .scroll-indicator.hide {
+  opacity: 0;
+  pointer-events: none;
+}
 
     .hero.scrolled .scroll-indicator { opacity: 0; }
     @keyframes bounce {
@@ -639,7 +643,7 @@ img, svg { max-width:100%; height:auto; display:block; }
   </div>
 
   <!-- Organizers -->
-  <div class="organizers">
+  <div class="organizers" id="schools">
     <h3><span style="color: #f2e84f;">主辦單位：</span>太陽保險經紀人股份有限公司</h3>
 
     <!-- 桌面版顯示 -->
@@ -1197,6 +1201,20 @@ window.addEventListener('scroll', requestTick);
           e.preventDefault(); return false;
         }
       });
+      
+            // 主辦學校出現時隱藏下滑箭頭
+      const arrow = document.querySelector('.scroll-indicator');
+      const schools = document.querySelector('#schools');
+      if (arrow && schools) {
+        const io = new IntersectionObserver(([entry]) => {
+          if (entry.isIntersecting) {
+            arrow.classList.add('hide');
+            io.disconnect(); // 一次性隱藏
+          }
+        }, { threshold: 0.1 });
+        io.observe(schools);
+      }
+      
     });
   </script>
 </body>
