@@ -1,1833 +1,1203 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第十三屆全國大專保單健診暨保險規劃大賽簡章</title>
-    <style>
-        /* ========== 基礎重置與全域設定 ========== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", "微軟正黑體", sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f5f5f5;
-        }
-
-        /* ========== Hero 區塊 ========== */
-        .hero {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            color: white;
-            text-align: center;
-            overflow: hidden;
-            z-index: -1;
-        }
-
-        /* 背景圖片容器 */
-        .hero-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            transition: filter 0.5s ease, transform 0.5s ease;
-        }
-
-        .hero-bg-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* 深色遮罩層 */
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0);
-            z-index: 1;
-            transition: background 0.5s ease;
-        }
-
-        /* 滾動效果 */
-        .hero.scrolled .hero-background {
-            filter: blur(5px);
-            transform: scale(1.1);
-        }
-
-        .hero.scrolled::before {
-            background: rgba(0, 0, 0, 0.7);
-        }
-
-        /* 主體內容 - 優化版 */
-        .hero-main-content {
-            position: absolute;
-            top: 38%; /* top越小，主視覺越往上 */
-            left: 50%;
-            transform: translate(-50%, -38%); /* translateY是用來校正垂直置中 */
-            z-index: 2;
-            width: 85%;
-            max-width: 600px; /* 進一步縮小 PC 版 */
-            height: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .hero-main-image {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-        }
-
-        /* ====== 主視覺：雙圖容器（基礎：手機優先） ====== */
-.banner-desktop { display: none; } /* 手機預設隱藏雙圖 */
-.banner-mobile  { display: block; } /* 手機沿用原本單圖 */
-
-.banner-left,
-.banner-right {
-  display: block;
-  height: auto;
-  object-fit: contain;
-}
-
-        /* 超大螢幕限制 */
-        @media (min-width: 1920px) {
-            .hero-main-content {
-                max-width: 650px;
-            }
-        }
-
-        /* 4K 螢幕限制 */
-        @media (min-width: 2560px) {
-            .hero-main-content {
-                max-width: 700px;
-            }
-        }
-
-        .hero.scrolled .hero-main-content {
-            opacity: 0;
-            transform: translate(-50%, -60%);
-        }
-
-        /* 下滑指示器 */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10; /* 下滑箭頭位置 */
-            animation: bounce 2s infinite;
-            cursor: pointer;
-            color: white;
-            transition: opacity 0.5s ease;
-        }
-
-        .hero.scrolled .scroll-indicator {
-            opacity: 0;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-5px);
-            }
-        }
-
-        /* PC & 預設 */
-        .organizers {
-            position: relative;
-            z-index: 1;
-            background: #0074D9;
-            color: white;
-            padding: 35px 20px;  /* PC 版 padding */
-            text-align: center;
-            margin-top: 100vh;  /* JS 會動態覆蓋 */
-            transition: margin-top 0.3s ease;
-        }
-
-        .organizers h3 {
-            margin-top: -3px;  /* PC 版微調上移 */
-            margin-bottom: 20px;
-        }
-
-        /* 網格系統 */
-        .organizers-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-            max-width: 1200px;
-            margin: 30px auto;
-        }
-
-        .organizer-item {
-            text-align: center;
-            padding: 25px 20px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 12px;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-        }
-
-        .organizer-item:hover {
-            background: rgba(255,255,255,0.15);
-            transform: translateY(-2px);
-        }
-
-        .organizer-item h4 {
-            font-size: 1.1em;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #f2e84f;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .organizer-item p {
-            font-size: 0.95em;
-            color: rgba(255,255,255,0.9);
-            line-height: 1.5;
-        }
-
-        /* 區域標籤 */
-        .region-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: white;
-            color: #0074D9;
-            font-weight: bold;
-            font-size: 0.75em;
-        }
-
-        /* 協辦學校特殊樣式 */
-        .co-schools .schools-list {
-            text-align: left;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .co-schools .school-region {
-            display: flex;
-            margin: 12px 0;
-            line-height: 1.6;
-        }
-
-        .co-schools .region-label {
-            color: #f2e84f;
-            font-weight: bold;
-            min-width: 50px;
-            flex-shrink: 0;
-            margin-right: 10px;
-        }
-
-        .co-schools .school-names {
-            color: rgba(255,255,255,0.9);
-            font-size: 0.95em;
-        }
-
-        /* 手機版學校列表 */
-        .mobile-schools-list {
-            text-align: left;
-            margin-top: 10px;
-            max-width: 280px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .mobile-school-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 8px 0;
-            color: rgba(255,255,255,0.9);
-            padding-left: 10px;
-        }
-
-        .mobile-school-item .region-badge {
-            flex-shrink: 0;
-        }
-
-        /* 顯示控制 */
-        .desktop-only {
-            display: block;
-        }
-
-        .mobile-only {
-            display: none;
-        }
-
-        /* ========== 內容區塊 ========== */
-        .content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .section {
-            background: white;
-            margin: 20px 0;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .section-title {
-            font-size: 1.8em;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #ffd700;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        /* ========== 表格樣式 ========== */
-        .timeline-table,
-        .scoring-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        .timeline-table th,
-        .timeline-table td,
-        .scoring-table th,
-        .scoring-table td {
-            padding: 15px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-
-        .timeline-table th {
-            background: #2c3e50;
-            color: white;
-            font-weight: 600;
-        }
-
-        .timeline-table tr:nth-child(even) {
-            background: #f9f9f9;
-        }
-
-        .scoring-table th,
-        .scoring-table td {
-            text-align: center;
-        }
-
-        .scoring-table thead {
-            background: #2c3e50;
-            color: white;
-        }
-
-        .scoring-table .category {
-            background: #0074D9;
-            color: white;
-            font-weight: bold;
-            writing-mode: vertical-rl;
-        }
-
-        /* 手機版評分表格 */
-.vertical-scoring-table {
-  display: none;
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  table-layout: fixed; /* 固定兩欄比例 */
-}
-
-.vertical-scoring-table thead {
-  background: #0074D9;
-  color: #fff;
-}
-
-.vertical-scoring-table th {
-  padding: 12px;
-  text-align: center;
-  font-weight: 600;
-  border-bottom: 2px solid #e5e7eb; /* 表頭底線補上 */
-}
-.vertical-scoring-table th:nth-child(1){ width:64%; border-right:2px solid rgba(255,255,255,.7); }
-.vertical-scoring-table th:nth-child(2){ width:36%; }
-        
-/* 左欄：A/B/C 標題 */
-.category-header-left{
-  background:#f8f9fa;
-  font-weight:bold;
-  padding:10px 15px;
-  text-align:left;
-  border-top:2px solid #e5e7eb;
-  border-right:1px solid #e5e7eb;
-  width:64%;
-}
-
-/* 左欄：內文 */
-.vertical-scoring-table .item-cell{
-  padding:15px;
-  line-height:1.6;
-  border-right:1px solid #e5e7eb;
-  white-space:nowrap;                   /* 單行 */
-  font-size:clamp(14px,3.6vw,16px);     /* 自適應字體 */
-  width:64%;
-}
-
-/* 右欄：百分比（與左欄兩列對齊，直向置中） */
-.vertical-scoring-table .score-cell{
-  text-align:center;
-  vertical-align:middle;
-  font-weight:bold;
-  font-size:clamp(18px,5.2vw,22px);
-  padding:15px;
-  background:#fde8d4;
-  border-left:2px solid #e5e7eb;        /* 與左欄的分隔線 */
-  border-top:2px solid #e5e7eb;         /* 右欄頂線 */
-  border-bottom:2px solid #e5e7eb;      /* 右欄底線（預設） */
-  width:36%;
-}
-
-/* ===== 指定每組百分比下邊線樣式（你要的效果） ===== */
-/* A 的 20%（tbody 第1列）與 B 的 30%（tbody 第3列）底線改白色 */
-.vertical-scoring-table tbody tr:nth-of-type(1) .score-cell,
-.vertical-scoring-table tbody tr:nth-of-type(3) .score-cell{
-  border-bottom:2px solid #fff;
-}
-
-/* C 的 50%（tbody 第5列）底線移除 */
-.vertical-scoring-table tbody tr:nth-of-type(5) .score-cell{
-  border-bottom:none;
-}
-
-        /* ========== 獎項區塊 ========== */
-        .prizes {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin: 30px 0;
-            text-align: center;
-        }
-
-        .prize-item {
-            padding: 20px;
-            border-radius: 15px;
-            transition: transform 0.3s ease;
-        }
-
-        .prize-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .prize-gold {
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-            color: #333;
-        }
-
-        .prize-silver {
-            background: linear-gradient(135deg, #C0C0C0, #808080);
-            color: white;
-        }
-
-        .prize-bronze {
-            background: linear-gradient(135deg, #CD7F32, #8B4513);
-            color: white;
-        }
-
-        .prize-item h3 {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        .prize-amount {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        /* ========== 聯絡區塊 ========== */
-        .contact-section {
-            background: #f8f9fa;
-            padding: 60px 20px;
-        }
-
-        .contact-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin: 40px 0;
-        }
-
-        .contact-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .contact-header .divider {
-            width: 4px;
-            height: 24px;
-            background: #0074D9;
-            margin-right: 10px;
-        }
-
-        .contact-header h3 {
-            color: #2c3e50;
-            font-size: 1.3em;
-        }
-
-        .contact-info {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-        }
-
-        .contact-details {
-            margin-top: 20px;
-        }
-
-        .contact-row {
-            display: flex;
-            margin: 10px 0;
-            line-height: 1.8;
-        }
-
-        .contact-row span:first-child {
-            color: #666;
-            min-width: 80px;
-            flex-shrink: 0;
-            margin-right: 5px;
-        }
-
-        .contact-link {
-            color: #0074D9;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .contact-link:hover {
-            color: #005ba7;
-            text-decoration: underline;
-        }
-
-        .contact-link.large {
-            font-size: 1.3em;
-            font-weight: bold;
-        }
-
-        .contact-phone-box {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .phone-icon {
-            font-size: 1.5em;
-            margin-right: 10px;
-        }
-
-        .qr-section {
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .qr-code-box {
-            background: #f0f0f0;
-            padding: 20px;
-            border-radius: 10px;
-            display: inline-block;
-            border: 2px dashed #ddd;
-        }
-
-        .disclaimer {
-            text-align: center;
-            color: #ff6b6b;
-            font-weight: bold;
-            margin-top: 40px;
-        }
-
-        /* ========== 賽事回顧按鈕 ========== */
-        .gallery-button-section {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            padding: 80px 20px;
-            text-align: center;
-        }
-
-        .gallery-button-container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .gallery-button-section h2 {
-            font-size: 2.5em;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .gallery-button-section p {
-            color: #6c757d;
-            font-size: 1.1em;
-            margin-bottom: 35px;
-        }
-
-        .gallery-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #0074D9;
-            color: white;
-            padding: 18px 40px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-size: 1.1em;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 116, 217, 0.3);
-            margin: 10px;
-        }
-
-        .gallery-button:hover {
-            background: #005ba7;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(0, 116, 217, 0.4);
-        }
-
-        .gallery-button svg {
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-button:hover svg {
-            transform: translate(3px, -3px);
-        }
-
-        /* ========== 返回頂部按鈕 ========== */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: #0074D9;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,116,217,0.3);
-            z-index: 1000;
-            border: none;
-        }
-
-        .back-to-top:hover {
-            background: #005ba7;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,116,217,0.4);
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .back-to-top svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        /* ========== 頁尾 ========== */
-        footer {
-            background: #1a1a1a;
-            color: #888;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .footer-text {
-            margin: 0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* ========== 輔助類別 ========== */
-        .highlight {
-            color: #ff6b6b;
-            font-weight: bold;
-        }
-
-        .warning {
-            background: #ff6b6b;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.9em;
-            display: inline-block;
-        }
-
-        .text-highlight {
-            color: red;      /* 顏色變為紅色 */
-        }
-        
-        .text-size {
-            font-size: 0.8em; /* 字體大小變大 */
-        }
-
-        .badge {
-            display: inline-block;
-            background: #ff6b6b;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            margin-bottom: 20px;
-        }
-
-        /* 列表樣式 */
-        ul {
-            list-style: none;
-            padding-left: 20px;
-        }
-
-        ul li::before {
-            content: "▸ ";
-            color: #0074D9;
-            font-weight: bold;
-            margin-right: 5px;
-        }
-
-        /* ========== 響應式設計 ========== */
-        /* ====== 桌機版（≥769px）：顯示雙圖，整體置中 ====== */
-@media (min-width: 769px) {
-  .banner-desktop { 
-    display: flex;
-    align-items: center;      /* 垂直對齊（要底對齊就改成 flex-end） */
-    justify-content: center;  /* 整體置中 */
-    gap: 24px;                /* 左右圖間距 */
-  }
-  .banner-mobile { display: none; } /* 桌機隱藏單圖容器 */
-
-  /* 左右兩張圖的寬度控制（以 700 與 350 為基準） */
-  .banner-left  { width: clamp(420px, 45vw, 700px); }
-  .banner-right { width: clamp(210px, 22.5vw, 350px); }
-
-  /* 高度保護，避免太高超出台高 */
-  .banner-left,
-  .banner-right {
-    max-height: min(70vh, 650px);
-  }
-}
-
-/* 超大螢幕：微調上限，可依喜好調整 */
-@media (min-width: 1440px) {
-  .banner-left  { width: min(700px, 46vw); }
-  .banner-right { width: min(350px, 23vw); }
-}
-        /* 平板尺寸 */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .hero-main-content {
-                width: 75%;
-                max-width: 600px;
-            }
-        }
-
-        /* 手機尺寸 */
-        @media (max-width: 768px) {           
-            .hero-main-content {
-                width: 95%;
-                max-width: 600px;  /* 放大主視覺 */
-                padding: 5px;
-                top: 18%;          /* 往上 */
-                transform: translate(-50%, -18%);
-            }
-
-            /* 主辦單位網格 */
-            .organizers-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            /* 顯示控制 */
-            .desktop-only {
-                display: none;
-            }
-
-            .mobile-only {
-                display: block;
-            }
-
-            /* 協辦學校手機版 */
-            .co-schools .school-region {
-                flex-direction: column;
-                margin: 15px 0;
-            }
-
-            .co-schools .region-label {
-                margin-bottom: 5px;
-            }
-
-            /* 表格調整 */
-            .timeline-table {
-                font-size: 0.9em;
-            }
-
-            .timeline-table th,
-            .timeline-table td {
-                padding: 10px;
-            }
-
-            /* 評分表格切換 */
-            .scoring-table {
-                display: none;
-            }
-
-            .vertical-scoring-table {
-                display: table;
-            }
-
-            /* 聯絡區塊 */
-            .contact-content {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-row span:first-child {
-                min-width: auto;
-                white-space: nowrap;
-            }
-
-            /* 賽事回顧 */
-            .gallery-button-section {
-                padding: 60px 20px;
-            }
-
-            .gallery-button-section h2 {
-                font-size: 2em;
-            }
-
-            .gallery-button {
-                padding: 15px 30px;
-                font-size: 1em;
-            }
-
-            /* 返回頂部按鈕 */
-            .back-to-top {
-                bottom: 20px;
-                right: 20px;
-                width: 45px;
-                height: 45px;
-            }
-        }
-
-        /* 小手機調整 */
-        @media (max-width: 480px) {
-            .hero-main-content {
-                width: 100%;
-                max-width: 400px;
-                top: 42%; /* 再稍微上移 */
-                transform: translate(-50%, -42%);
-            }
-
-            .footer-text {
-                font-size: clamp(0.7rem, 3.5vw, 0.9rem);
-            }
-        }
-
-        @media (max-width: 375px) {
-            .hero-main-content {
-                width: 100%;
-                max-width: 350px;
-                padding: 5px;
-                top: 40%; /* 小螢幕再上移一點 */
-                transform: translate(-50%, -40%);
-            }
-
-            .footer-text {
-                font-size: clamp(0.6rem, 3vw, 0.8rem);
-            }
-        }
-
-        /* 橫向模式優化 */
-        @media (orientation: landscape) and (max-height: 600px) {
-            .hero-main-content {
-                max-width: 500px;
-                top: 50%;
-                transform: translate(-50%, -50%);
-            }
-        }
-
-        @media (orientation: landscape) and (max-height: 500px) {
-            .hero-main-content {
-                max-width: 400px;
-                padding: 5px;
-            }
-        }
-
-        /* ========== 內容保護 (選用) ========== */
-        img {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-user-drag: none;
-            user-drag: none;
-        }
-
-        .protected-content {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        /* PC 版 - 4個並排卡片，內容置中 */
-        .prize-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .prize-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            padding: 30px 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            min-height: 280px;
-        }
-
-        .prize-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-        }
-
-        .prize-icon {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .prize-icon img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-        }
-
-        .prize-title {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .prize-amount {
-            font-size: 2em;
-            font-weight: bold;
-            color: #0074D9;
-            margin-bottom: 15px;
-        }
-
-        .prize-benefits {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            font-size: 0.9em;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        .prize-benefits li {
-            margin: 5px 0;
-            position: relative;
-            padding-left: 1.2em;
-        }
-
-        .prize-benefits li::before {
-            content: "✓";
-            color: #0074D9;
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-
-        /* 手機版 - 維持原有橫向卡片設計 */
-        @media (max-width: 768px) {
-  /* 一列一張卡 */
-  .prize-grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-
-  /* 卡片外觀：大圓角 + 柔和陰影（對齊你給的圖） */
-  .prize-card {
-    display: grid;
-    grid-template-columns: 108px 1fr;   /* 左 icon、右內容 */
-    align-items: center;
-    gap: 12px;
-    background: #ffffff;
-    border-radius: 24px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-    padding: 18px;
-    min-height: auto;
-  }
-
-  /* 左側圖塊：淡黃到白的漸層背景、內部 icon 置中 */
-  .prize-icon {
-    width: 108px;
-    height: 108px;
-    margin: 0;
-    border-radius: 20px;
-    background: linear-gradient(90deg, #faefc8 0%, #ffffff 100%);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .prize-icon img {
-    width: 84px; height: auto; object-fit: contain;
-    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.12));
-  }
-
-  /* 右側：標題、金額、權益 */
-  .prize-content { padding: 0 0 0 4px; }
-
-  .prize-title {
-    margin: 0 0 6px 0;
-    font-size: 28px;            /* 黑色大字：冠軍/亞軍/季軍/特優 */
-    font-weight: 900;
-    color: #111827;             /* 近黑 */
-    letter-spacing: .5px;
-  }
-
-  .prize-amount {
-    margin: 0 0 10px 0;
-    font-size: 30px;            /* 藍色大金額 */
-    font-weight: 900;
-    color: #0b72e7;
-    line-height: 1.1;
-  }
-
-  .prize-benefits {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    font-size: 18px;            /* 右側兩行說明 */
-    color: #6b7280;
-  }
-  .prize-benefits li {
-    display: flex; align-items: center;
-    gap: 10px;
-    margin: 8px 0;
-    padding: 0;
-    position: relative;
-  }
-  /* 藍色打勾符號 */
-  .prize-benefits li::before {
-    content: "✓";
-    color: #0b72e7;
-    font-weight: 800;
-    font-size: 18px;
-    line-height: 1;
-  }
-}
-        
-        /* 移除子層清單的預設樣式並重設計數器 */
-.custom-list {
-  list-style-type: none;
-  padding-left: 0;
-  counter-reset: custom-counter; /* **重要：在這裡重設計數器** */
-}
-
-/* 讓列表項目有相對定位，以便偽元素定位 */
-.custom-list li {
-  position: relative;
-  padding-left: 2em; /* 調整文字與編號的距離 */
-}
-
-/* 使用 ::before 偽元素來自訂子層編號 (1), (2)... */
-.custom-list li::before {
-  content: '(' counter(custom-counter) ') '; /* 產生 (1), (2) 的編號 */
-  counter-increment: custom-counter; /* 增加計數器 */
-  position: absolute;
-  left: 0;
-}
-        
-    </style>
-</head>
-<body>
-    <!-- Hero Section -->
-    <div class="hero">
-        <!-- 背景圖片容器 -->
-        <div class="hero-background">
-            <img src="banner-bg.jpg" alt="Background" class="hero-bg-image">
-        </div>
-        
-        <!-- 主體內容容器 -->
-        <div class="hero-main-content">
-  <!-- 桌機版：左右兩張圖 -->
-  <div class="banner-desktop">
-    <img src="banner-left.png" alt="左圖" class="banner-left">
-    <img src="banner-right.png" alt="右圖" class="banner-right">
-  </div>
-
-  <!-- 手機版：沿用原本單張主視覺 -->
-  <div class="banner-mobile">
-    <img src="banner-main.png" alt="第十三屆全國大專保單健診暨保險規劃大賽" class="hero-main-image">
-  </div>
-</div>
-
-        
-        <!-- 下滑提示 -->
-        <div class="scroll-indicator">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 5v14M19 12l-7 7-7-7"/>
-            </svg>
-        </div>
-    </div>
-    
-    <!-- Organizers -->
-    <div class="organizers">
-        <h3><span style="color: #f2e84f;">主辦單位：</span>太陽保險經紀人股份有限公司</h3>
-        
-        <!-- 桌面版顯示 -->
-        <div class="desktop-only">
-            <div class="organizers-grid">
-                <!-- 全國總決賽 -->
-                <div class="organizer-item">
-                    <h4>全國總決賽 主辦學校</h4>
-                    <p>朝陽科技大學-保險金融管理系</p>
-                </div>
-                
-                <!-- 北區 -->
-                <div class="organizer-item">
-                    <h4><span class="region-badge">北</span> 主辦學校</h4>
-                    <p>銘傳大學-資訊應用與金融保險學系</p>
-                </div>
-                
-                <!-- 中區 -->
-                <div class="organizer-item">
-                    <h4><span class="region-badge">中</span> 主辦學校</h4>
-                    <p>國立臺中科技大學-保險金融管理系</p>
-                </div>
-                
-                <!-- 南區 -->
-                <div class="organizer-item">
-                    <h4><span class="region-badge">南</span> 主辦學校</h4>
-                    <p>樹德科技大學-金融管理系</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 手機版顯示 -->
-        <div class="mobile-only">
-            <div class="organizers-grid">
-                <!-- 全國總決賽 -->
-                <div class="organizer-item">
-                    <h4>全國總決賽 主辦學校</h4>
-                    <p>朝陽科技大學-保險金融管理系</p>
-                </div>
-                
-                <!-- 合併的主辦學校 -->
-                <div class="organizer-item">
-                    <h4>主辦學校</h4>
-                    <div class="mobile-schools-list">
-                        <div class="mobile-school-item">
-                            <span class="region-badge">北</span>
-                            <span>銘傳大學-資訊應用與金融保險學系</span>
-                        </div>
-                        <div class="mobile-school-item">
-                            <span class="region-badge">中</span>
-                            <span>國立臺中科技大學-保險金融管理系</span>
-                        </div>
-                        <div class="mobile-school-item">
-                            <span class="region-badge">南</span>
-                            <span>樹德科技大學-金融管理系</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 協辦廠商區塊 -->
-        <div style="max-width: 1200px; margin: 25px auto 0;">
-            <div class="organizer-item">
-                <h4>｜ 協辦廠商 ｜</h4>
-                <p>期靈旺決策科技有限公司</p>
-            </div>
-        </div>
-        
-        <!-- 協辦學校區塊 -->
-        <div style="max-width: 1200px; margin: 25px auto 0;">
-            <div class="organizer-item co-schools">
-                <h4>｜ 協辦學校 ｜</h4>
-                <div class="schools-list">
-                    <div class="school-region">
-                        <span class="region-label">[北區]</span>
-                        <span class="school-names">中國文化大學-財務金融學系｜致理科技大學-財務金融系｜淡江大學-風險管理與保險學系｜實踐大學-風險管理與保險學系｜德明財經科技大學-風險管理與財富規劃系｜龍華科技大學-財務金融系</span>
-                    </div>
-                    <div class="school-region">
-                        <span class="region-label">[中區]</span>
-                        <span class="school-names">南華大學-財務金融學系｜逢甲大學-風險管理與保險學系｜國立雲林科技大學-財務金融系｜僑光科技大學-財務金融系</span>
-                    </div>
-                    <div class="school-region">
-                        <span class="region-label">[南區]</span>
-                        <span class="school-names">正修科技大學-金融管理系｜國立屏東大學-財務金融學系｜國立高雄大學-應用經濟學系｜國立高雄科技大學-風險管理與保險系｜實踐大學(高雄校區)-金融管理學系</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 協辦單位區塊 -->
-        <div style="max-width: 1200px; margin: 25px auto 0;">
-            <div class="organizer-item">
-                <h4 style="margin-bottom: 2px;">｜ 協辦單位 ｜</h4>
-                <p style="font-size: 0.85em; margin-top: 0; margin-bottom: 6px;">(依筆劃排序)</p>
-                <p>友邦人壽｜台新人壽｜台灣人壽｜全球人壽｜安達人壽｜法國巴黎人壽｜第一金人壽｜凱基人壽｜新光人壽｜遠雄人壽｜中國信託產險｜安達產物｜兆豐保險｜明台產物保險｜法國巴黎產險｜泰安產物保險｜國泰產險｜富邦產險｜華南產險｜新光產物保險｜國立高雄科技大學-產學營運處｜</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Main Content -->
-    <div class="content">
-        <!-- Schedule Section -->
-        <div class="section">
-            <h2 class="section-title">- 大賽重要時程表 -</h2>
-            <table class="timeline-table">
-                <thead>
-                    <tr>
-                        <th>日期</th>
-                        <th>內容</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>114/12/26 (五) 12:00</td>
-                        <td>比賽報名暨初賽收件截止</td>
-                    </tr>
-                    <tr>
-                        <td>114/12/27 (六) ~ 115/01/02 (五)</td>
-                        <td>入圍審核</td>
-                    </tr>
-                    <tr>
-                        <td>115/01/05 (五) 17:00</td>
-                        <td>入圍暨優等組公告</td>
-                    </tr>
-                    <tr>
-                        <td>115/01/12 (一)</td>
-                        <td>北區入圍公告暨優等組頒獎典禮</td>
-                    </tr>
-                    <tr>
-                        <td>115/01/13 (二)</td>
-                        <td>中區入圍公告暨優等組頒獎典禮</td>
-                    </tr>
-                    <tr>
-                        <td>115/01/14 (三)</td>
-                        <td>南區入圍公告暨優等組頒獎典禮</td>
-                    </tr>
-                    <tr>
-                        <td>115/03/05 (四)</td>
-                        <td>全國總決賽</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        
-        <!-- Registration Process -->
-        <div class="section">
-            <h2 class="section-title">- 報名程序說明 -</h2>
-            
-            <h4>(一) 報名資格：</h4>
-            <p>全國各大專院校金融、財金、保險相關科系或對於保險規劃有興趣之在校學生皆可組隊參與，初賽參與各團隊人數3人以上，最多6人。</p>
-            
-            <h4>(二) 報名方式：</h4>
-            <p>自大賽官網下載或大賽簡章中填寫約定書，於報名截止日前完成線上報名程序且<a href="https://www.taiyung.com.tw/competition/register.aspx" target="_blank" class="highlight">將約定書上傳官網</a>，完成報名程序。</p>
-            
-            <h4>(三) 說明會、比賽報名日期：</h4>
-            <p>114年09月08日(一)起至114年12月26日(五)。</p>
-            
-            <h4>(四) 收件截止日期：</h4>
-            <p class="highlight">114年12月26日(五) 12:00 止。</p>
-            
-            <h4>(五) 完成線上報名程序且約定書得隨同初賽資料傳送至主辦單位，視同報名完成。</h4>
-            
-            <h4>(六) 報名費用：無需費用。</h4>
-        </div>
-        
-        <!-- Initial Competition Process -->
-        <div class="section">
-            <h2 class="section-title">- 初賽程序 -</h2>
-            <h4>(一) 業界老師提供參賽隊伍諮商與輔導並協助進行初賽報告。</h4>
-            <ol style="margin: 20px 0; padding-left: 40px;">
-                <li>可向主辦單位申請業界老師。</li>
-                <li>可自行尋找曾經參與比賽之在校或畢業的學長姐擔任業界老師。</li>
-                <li>自行尋找現職保險業務人員擔任業界老師。</li>
-                <li>健診軟體可由參賽隊伍自由選擇使用。</li>
-            </ol>
-            
-            <h4>(二) 比賽內容：</h4>
-            <p style="margin: 10px 0;">依據拜訪的家庭狀況進行保單健診並規劃保單，規劃時需詳述被保險人家庭狀況，包含以下：</p>
-            <ol style="margin: 10px 0; padding-left: 40px;">
-                <li>成員</li>
-                <li>收支</li>
-                <li>情境</li>
-                <li>目前保單狀況</li>
-                <li>未來保單規劃</li>
-                <li>規劃目的與方向總結</li>
-            </ol>
-            
-            <h4>(三) 保險規劃書範本：</h4>
-            <p>報名隊伍可自官網下載保險規劃書範本，範本僅供參考非初賽作品必備形式。</p>
-            
-            <h4>(四) 保單健診報告：</h4>
-            <p>拜訪家庭並進行家庭成員保單健診，每隊須取得同家庭至少三位以上被保險人的保單資料進行保單健診。</p>
-            
-            <h4>(五) 保險規劃報告：</h4>
-            <p>針對受訪家庭保單健診結果，依其需求擬定完整的家庭保險建議書，進行保險商品查詢與比較，並就保險規劃之目的與方向簡述。<span class="warning">初賽報告總頁數以50頁(含附件)為上限。</span></p>
-            
-            <h4>(六) 初賽報告收件：</h4>
-            <p>於初賽收件截止日2025年12月26日(五)12:00前將參賽保險規劃書以PDF檔格式自官網上傳給主辦單位，完成初賽程序。</p>
-            
-            <h4>(七) 初賽結果：</h4>
-            <p>入圍公告，各區依初審結果取前十名隊伍公告為優等隊伍，且取前名隊伍入圍參賽全國總決賽，惟參賽隊伍代表需簽回【參與總決賽確認函】，若無回覆、取消參賽資格，由次一名次隊伍依序遞補入圍。</p>
-            <ol style="margin: 10px 0; padding-left: 40px;">
-                <li>入圍公告，各區依初審結果取前十名隊伍公告為優等隊伍，且取數名隊伍入圍參賽全國總決賽，惟參賽隊伍代表需簽回【參與總決賽確認函】，若無回覆，取消參賽資格，由次一名次隊伍依序遞補入圍。優等獎之獲獎隊伍數，依參賽隊伍數酌與調整之。</li>
-                <li>全國總決賽三區入圍隊伍數，依實際繳交報告隊伍數比例分配，總參賽隊伍為12隊。</li>
-                <li>入圍公告暨優等組頒獎典禮地點及時間：</li>
-                <ol class="custom-list">
-                    <li>北區：2026/01/12（一）銘傳大學 (111台北市士林區基河路130號)</li>
-                    <li>中區：2026/01/13（二）國立臺中科技大學 (404台中市北區三民路三段129號)</li>
-                    <li>南區：2026/01/14（三）樹德科技大學<span class="text-highlight text-size">(824 高雄市燕巢區橫山路59號)</span></li>
-                </ol>
-            </ol>
-            
-            <h4>(八) 初賽評分標準：</h4>
-            <!-- 桌面版橫式表格 -->
-            <div class="desktop-only">
-                <table class="scoring-table">
-                    <tbody>
-                        <tr>
-                            <td class="category" rowspan="2">評分項目</td>
-                            <td style="font-weight: bold; background: #e8e8e8;">A 簡報內容方式</td>
-                            <td style="font-weight: bold; background: #e8e8e8;">B 家庭健診資料彙整</td>
-                            <td style="font-weight: bold; background: #e8e8e8;">C 保單規劃與建議</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                A-1 提綱簡明扼要<br>
-                                A-2 內容編輯美觀<br>
-                                A-3 符合主辦單位報告規範
-                            </td>
-                            <td>
-                                B-1 家庭既有保單項目<br>
-                                B-2 家庭財務收支狀況<br>
-                                B-3 家庭保障需求順位
-                            </td>
-                            <td>
-                                C-1 保單建議內容完整性<br>
-                                C-2 保費預算安排合理性<br>
-                                C-3 長期生涯規劃適合性
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="category">評分比重</td>
-                            <td style="font-size: 1.5em; font-weight: bold; background: #fde8d4;">20%</td>
-                            <td style="font-size: 1.5em; font-weight: bold; background: #fde8d4;">30%</td>
-                            <td style="font-size: 1.5em; font-weight: bold; background: #fde8d4;">50%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- 手機版直式表格 -->
-            <div class="mobile-only">
-                <table class="vertical-scoring-table">
-                    <thead>
-                        <tr>
-                            <th>評分項目</th>
-                            <th>評分比重</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-  <!-- A 區 -->
-  <tr>
-    <td class="category-header-left">A 簡報內容方式</td>
-    <td class="score-cell" rowspan="2">20%</td>
-  </tr>
-  <tr>
-    <td class="item-cell">
-      A-1 提綱簡明扼要<br>
-      A-2 內容編輯美觀<br>
-      A-3 符合主辦單位報告規範
-    </td>
-  </tr>
-
-  <!-- B 區 -->
-  <tr>
-    <td class="category-header-left">B 家庭健診資料彙整</td>
-    <td class="score-cell" rowspan="2">30%</td>
-  </tr>
-  <tr>
-    <td class="item-cell">
-      B-1 家庭既有保單項目<br>
-      B-2 家庭財務收支狀況<br>
-      B-3 家庭保障需求順位
-    </td>
-  </tr>
-
-  <!-- C 區 -->
-  <tr>
-    <td class="category-header-left">C 保單規劃與建議</td>
-    <td class="score-cell" rowspan="2">50%</td>
-  </tr>
-  <tr>
-    <td class="item-cell">
-      C-1 保單建議內容完整性<br>
-      C-2 保費預算安排合理性<br>
-      C-3 長期生涯規劃適合性
-    </td>
-  </tr>
-</tbody>
-                </table>
-            </div>
-        </div>
-        
-        <!-- 獎項區塊 Prize Section -->
-        <div class="section">
-            <h2 class="section-title">- 總決賽獎勵 -</h2>
-            <p style="text-align: center; margin: 20px 0 30px 0;">
-        每人獎狀乙張 每隊錦旗一面
-    </p>
-        <div class="prize-grid">
-    <div class="prize-card">
-        <div class="prize-icon">
-            <img src="ICON-01.png" alt="冠軍">
-        </div>
-        <div class="prize-content">
-            <div class="prize-title">冠軍</div>
-            <div class="prize-amount">$30,000</div>
-            <ul class="prize-benefits">
-                <li>※冠軍20,000+主辦單位太陽保險經紀人另加碼獎金新台幣10,000元</li>
-                <li>軟體使用權限 3 年</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="prize-card">
-        <div class="prize-icon">
-            <img src="ICON-02.png" alt="亞軍">
-        </div>
-        <div class="prize-content">
-            <div class="prize-title">亞軍</div>
-            <div class="prize-amount">$10,000</div>
-            <ul class="prize-benefits">
-                <li>軟體使用權限 3 年</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="prize-card">
-        <div class="prize-icon">
-            <img src="ICON-03.png" alt="季軍">
-        </div>
-        <div class="prize-content">
-            <div class="prize-title">季軍</div>
-            <div class="prize-amount">$8,000</div>
-            <ul class="prize-benefits">
-                <li>軟體使用權限 3 年</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="prize-card">
-        <div class="prize-icon">
-            <img src="ICON-00.png" alt="特優">
-        </div>
-        <div class="prize-content">
-            <div class="prize-title">特優</div>
-            <div class="prize-amount">$6,000</div>
-            <ul class="prize-benefits">
-                <li>軟體使用權限 2 年</li>
-            </ul>
-        </div>
-    </div>
-</div>
-            <p style="text-align: center; margin-top: 20px;">
-                ※保險健診主軟體使用權限於大賽總決賽日翌日起一個月內申請完單，如逾期視為放棄資格※
-            </p>
-            
-            <h4>(七) 頒獎與發表：</h4>
-            <p>總決賽現場進行頒獎儀式，得獎隊伍將於活動官方網站及相關報章媒體刊出。</p>
-</div>
-        
-        <!-- Important Notes -->
-        <div class="section">
-            <h2 class="section-title">- 注意事項 -</h2>
-            <ul>
-                <li>本人之參賽作品須符合未曾參加國內各公開競賽之得獎文章，或已於其他刊物、網路或媒體(含保險公司內部刊物、保戶刊物及網站等)發表過以及由他人代筆等。</li>
-                <li>前揭作品若有任何著作權或其他相關權利糾紛之情形，經檢舉且查證屬實，除自行負法律責任外且與主辦單位無涉，將取消得獎資格並追回相關獎勵。</li>
-                <li>得獎金額依所得稅法規定，將依得獎獎金之給付全額代扣10%所得稅，惟扣繳之所得稅額未滿2000元者，可免予扣繳。</li>
-                <li>凡報名參賽者，即認同本活動一切規定，競賽辦法如有未盡事宜，主辦單位得視實際需要隨時修訂之，詳情請參考活動網址。</li>
-                <li>主辦單位享有參賽學生供參加本次活動之全部相關資料的著作財產權及所有權，參賽學生享有著作人格權。</li>
-                <li>保險健診主軟體使用權限於大賽總決賽日翌日起一個月內申請完單，如逾期視為放棄資格。</li>
-            </ul>
-        </div>
-        </div>
-    
-    <!-- Contact Section -->
-    <div class="contact-section">
-        <div class="contact-container">
-            <h2 class="section-title" style="color: #2c3e50;">- 聯絡我們 -</h2>
-            
-            <div class="contact-content">
-                <div class="contact-main">
-                    <div class="contact-header">
-                        <div class="divider"></div>
-                        <h3>活動相關：</h3>
-                    </div>
-                    <div class="contact-info">
-                        <p><strong>太陽保險經紀人股份有限公司</strong></p>
-                        <div class="contact-details">
-                            <div class="contact-row">
-                                <span>聯絡人：</span>保單大賽工作團隊
-                            </div>
-                            <div class="contact-row">
-                                <span>手機號碼：</span><a href="tel:0924-120-288" class="contact-link">0924-120-288</a>
-                            </div>
-                            <div class="contact-row">
-                                <span>傳真：</span><a href="tel:0719728818" class="contact-link">(07)972-8818</a>
-                            </div>
-                            <div class="contact-row">
-                                <span>Line ID：</span><a href="https://line.me/ti/p/~0924120288" class="contact-link" target="_blank" rel="noopener noreferrer">0924120288▸點我加Line</a>
-                            </div>
-                            <div class="contact-row">
-                                <span>聯絡電話：</span><a href="tel:0719728898" class="contact-link">(07)972-8898</a>
-                            </div>
-                            <div class="contact-row">
-                                <span>電子郵件：</span><a href="mailto:999@taiyung.com.tw" class="contact-link">999@taiyung.com.tw</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="contact-secondary">
-                    <div class="contact-header">
-                        <div class="divider"></div>
-                        <h3>保單健診系統諮詢專線</h3>
-                    </div>
-                    <div class="contact-info">
-                        <div class="contact-phone-box">
-                            <span class="phone-icon">📞</span>
-                            <span>客服電話：</span>
-                            <a href="tel:07-2211987" class="contact-link large">07-2211987</a>
-                        </div>
-                        <div class="contact-line-box">
-                            <span>Line 客服：</span><a href="https://line.me/ti/p/@osa0846b" class="contact-link" target="_blank" rel="noopener noreferrer">@osa0846b</a>
-                        </div>
-                        
-                        <div class="qr-section">
-                            <div class="qr-code-box">
-                                <span style="font-size: 3em;">📱</span>
-                                <p>點我開啟</p>
-                                <p style="color: #0074D9; font-size: 0.9em;">👥 聯繫方式</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="disclaimer">
-                <p>※大賽期間提供保單健診系統免費使用，詳見本大賽官方網站※</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Gallery Section -->
-    <div class="gallery-button-section">
-        <div class="gallery-button-container">
-            <h2>大賽精彩回顧</h2>
-            <p>觀看歷屆競賽的精彩片段與得獎團隊分享</p>
-            
-            <a href="https://www.taiyung.com.tw/game_photo.aspx" target="_blank" class="gallery-button">
-                <span>賽事櫥窗</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
-                </svg>
-            </a>
-            
-            <a href="https://youtu.be/xi_e3IFrOmo?si=1ziexS7_P8hQGMcO" target="_blank" class="gallery-button">
-                <span>總決賽回顧</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
-                </svg>
-            </a>
-        </div>
-    </div>
-    
-    <!-- Back to Top Button -->
-    <button class="back-to-top" onclick="scrollToTop()">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-        </svg>
-    </button>
-    
-    <!-- Footer -->
-    <footer>
-        <p class="footer-text">-大賽相關日期與地點如有更動，以主辦單位最新公告為準-</p>
-    </footer>
-    
-    <script>
-        // ========== 動態視窗大小調整 ==========
-        function adjustHeroSize() {
-    const heroContent = document.querySelector('.hero-main-content');
-    const organizers = document.querySelector('.organizers');
-    if (!heroContent || !organizers) return;
-
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-
-    // ===== 主示圖最大寬度計算（雙圖友善版） =====
-let optimalWidth;
-if (windowWidth > 768) {
-  // 桌機：左右兩張加上間距，目標總寬 ~ 700 + 350 + gap ≈ 1100px
-  optimalWidth = Math.min(1100, windowWidth * 0.75);
-} else {
-  // 手機：維持你原來的寫法（單圖）
-  if (windowWidth >= 1920) {
-      optimalWidth = Math.min(650, windowWidth * 0.35);
-  } else if (windowWidth >= 1440) {
-      optimalWidth = Math.min(600, windowWidth * 0.4);
-  } else if (windowWidth >= 1024) {
-      optimalWidth = Math.min(550, windowWidth * 0.45);
-  } else if (windowWidth >= 768) {
-      optimalWidth = Math.min(500, windowWidth * 0.6);
-  } else {
-      optimalWidth = Math.min(windowWidth * 0.95, 600);
-  }
-}
-
-// 不超過視窗高度 80%
-const maxHeightBasedWidth = windowHeight * 0.8;
-if (optimalWidth > maxHeightBasedWidth && windowWidth <= 768) {
-  // 只有手機需要用高度限制去壓寬度；桌機交由各圖自己的 max-height 控制即可
-  optimalWidth = maxHeightBasedWidth;
-}
-heroContent.style.maxWidth = optimalWidth + 'px';
-
-    // ===== 調整 organizers 的 margin-top =====
-    if (windowWidth <= 768) {
-        // 📱 手機版：下移一些（從 0.75 改為 0.85）
-     organizers.style.marginTop = (windowHeight * 0.87) + 'px';
-    } else {
-        // 💻 PC 版：再往上一點（從 -200 改為 -250）
-    organizers.style.marginTop = (windowHeight - 225) + 'px';
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第十三屆全國大專保單健診暨保險規劃大賽簡章</title>
+  <style>
+    /* ========== 基礎重置與全域設定 ========== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", "微軟正黑體", sans-serif;
+      line-height: 1.6; color: #333; background-color: #f5f5f5;
     }
 
-    // ===== Hero 垂直置中（保留你的原本邏輯） =====
-    if (windowWidth <= 768) {
+    /* 統一圖片/SVG 自適應 */
+img, svg { max-width:100%; height:auto; display:block; }
+
+/* 有些 SVG 檔內寫死 width/height，這裡一律覆蓋 */
+.prize-icon img,
+.prize-icon svg { width:94px !important; height:auto !important; object-fit:contain; }
+
+/* 文字行內的小圖示（獎勵清單那種） */
+.prize-item p img,
+.prize-item p svg { width:18px !important; height:auto !important; display:inline-block; vertical-align:-2px; }
+
+/* 若你還有更小/更大尺寸，可照這模式加級別 */
+.prize-icon--sm img,
+.prize-icon--sm svg { width:56px !important; }
+.prize-icon--lg img,
+.prize-icon--lg svg { width:120px !important; }
+
+    /* 全站圖片 / SVG 自適應 */
+    img, svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    /* icon 類別若需與文字同行 */
+    .icon { 
+      display: inline-block; 
+      vertical-align: middle; 
+    }
+    /* ========== Hero 區塊 ========== */
+    .hero {
+      position: fixed; top: 0; left: 0; width: 100%;
+      height: 100dvh;                 /* ← 改為 dvh，避免行動裝置網址列收合錯位 */
+      color: white; text-align: center;
+      overflow: hidden; z-index: -1;
+    }
+
+    /* 背景圖片容器 */
+    .hero-background {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0; transition: none; will-change: transform, filter;
+    }
+    .hero-bg-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+
+    /* 深色遮罩層 */
+    .hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(0, 0, 0, var(--overlay-opacity, 0));
+  z-index: 1;
+  transition: none; /* 不要固定 0.5s，讓 JS 控制 */
+}
+
+    /* 主體內容 - 優化版 */
+    .hero-main-content {
+      position: absolute; top: 32%; left: 50%;
+      transform: translate(-50%, -32%);
+      z-index: 2; width: 85%; max-width: 600px; height: auto;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; transition: none;
+      will-change: transform, top;
+    }
+    .hero-main-image { width: 100%; height: auto; object-fit: contain; }
+
+    /* ====== 主視覺：雙圖容器（基礎：手機優先） ====== */
+    .banner-desktop { display: none; } /* 手機預設隱藏雙圖 */
+    .banner-mobile  { display: block; } /* 手機沿用原本單圖 */
+    .banner-left, .banner-right { display: block; height: auto; object-fit: contain; }
+
+    /* 圖片本體保護（全域覆蓋） */
+    .banner-left, .banner-right{
+       max-width: 100%;
+       height: auto;
+       object-fit: contain;
+     }
+    
+    /* 超大螢幕限制 */
+    @media (min-width: 1920px) { .hero-main-content { max-width: 650px; } }
+    /* 4K 螢幕限制 */
+    @media (min-width: 2560px) { .hero-main-content { max-width: 700px; } }
+
+    /* 下滑指示器 */
+    .scroll-indicator {
+  position: absolute; 
+  top: 75%;  /* 數值越小位置越上 */
+  left: 50%; 
+  transform: translateX(-50%);
+  z-index: 9999;   /* 永遠在最上層 */
+    animation: slideDown 2s infinite;
+  cursor: pointer; 
+  color: white; 
+  transition: opacity 0.5s ease;
+}
+
+    .hero.scrolled .scroll-indicator { opacity: 0; }
+    @keyframes bounce {
+      0%,20%,50%,80%,100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-10px); }
+      60% { transform: translateX(-50%) translateY(-5px); }
+    }
+    @keyframes slideDown {
+  0%   { transform: translateX(-50%) translateY(0); opacity: 1; }
+  70%  { transform: translateX(-50%) translateY(15px); opacity: 0; }
+  100% { transform: translateX(-50%) translateY(0); opacity: 0; }
+}
+
+    /* PC & 預設 */
+    .organizers {
+      position: relative; z-index: 1; background: #0074D9; color: white;
+      padding: 35px 20px; text-align: center;
+      margin-top: 100dvh;             /* ← 改為 dvh；初始化避免閃爍，實際仍由 JS 覆蓋 */
+      transition: margin-top 0.3s ease;
+    }
+    .organizers h3 { margin-top: -3px; margin-bottom: 20px; }
+
+    /* 網格系統 */
+    .organizers-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px;
+      max-width: 1200px; margin: 30px auto 25px;  /* ↑ 保留頂部 30px、不動；底部改 25px */
+    }
+    .organizer-item {
+      text-align: center; padding: 25px 20px; background: rgba(255,255,255,0.1);
+      border-radius: 12px; backdrop-filter: blur(5px); transition: all 0.3s ease; 
+    }
+    .organizer-item:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
+    .organizer-item h4 {
+      font-size: 1.1em; font-weight: 600; margin-bottom: 10px; color: #f2e84f;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .organizer-item p { font-size: 0.95em; color: rgba(255,255,255,0.9); line-height: 1.5; }
+
+    /* 區域標籤 */
+    .region-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: white; color: #0074D9; font-weight: bold; font-size: 0.75em;
+    }
+
+    /* 協辦學校特殊樣式 */
+    .co-schools .schools-list { text-align: left; margin: 0 auto; padding: 0 20px; }
+    .co-schools .school-region { display: flex; margin: 12px 0; line-height: 1.6; }
+    .co-schools .region-label { color: #f2e84f; font-weight: bold; min-width: 50px; flex-shrink: 0; margin-right: 10px; }
+    .co-schools .school-names { color: rgba(255,255,255,0.9); font-size: 0.95em; }
+
+    /* 手機版學校列表 */
+    .mobile-schools-list { text-align: left; margin: 10px auto 0; max-width: 280px; }
+    .mobile-school-item { display: flex; align-items: center; gap: 10px; margin: 8px 0; color: rgba(255,255,255,0.9); padding-left: 10px; }
+    .mobile-school-item .region-badge { flex-shrink: 0; }
+
+    /* 顯示控制 */
+    .desktop-only { display: block; }
+    .mobile-only { display: none; }
+
+    /* ========== 內容區塊 ========== */
+    .content { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    .section {
+      background: white; margin: 20px 0; padding: 30px; border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .section-title {
+      font-size: 1.8em; color: #2c3e50; margin-bottom: 20px; padding-bottom: 10px;
+      border-bottom: 3px solid #ffd700; text-align: center; font-weight: bold;
+    }
+
+    /* ========== 表格樣式 ========== */
+    .timeline-table, .scoring-table {
+      width: 100%; border-collapse: collapse; margin: 20px 0;
+    }
+    .timeline-table th, .timeline-table td, .scoring-table th, .scoring-table td {
+      padding: 15px; text-align: left; border: 1px solid #ddd;
+    }
+    .timeline-table th { background: #2c3e50; color: white; font-weight: 600; }
+    .timeline-table tr:nth-child(even) { background: #f9f9f9; }
+
+    .scoring-table th, .scoring-table td { text-align: center; }
+    .scoring-table thead { background: #2c3e50; color: white; }
+    .scoring-table .category { background: #0074D9; color: white; font-weight: bold; writing-mode: vertical-rl; }
+
+    /* 手機版評分表格 */
+    .vertical-scoring-table {
+      display: none; width: 100%; border-collapse: collapse; background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1); table-layout: fixed;
+    }
+    .vertical-scoring-table thead { background: #0074D9; color: #fff; }
+    .vertical-scoring-table th {
+      padding: 12px; text-align: center; font-weight: 600; border-bottom: 2px solid #e5e7eb;
+    }
+    .vertical-scoring-table th:nth-child(1){ width:64%; border-right:2px solid rgba(255,255,255,.7); }
+    .vertical-scoring-table th:nth-child(2){ width:36%; }
+
+    .category-header-left{
+      background:#f8f9fa; font-weight:bold; padding:10px 15px; text-align:left;
+      border-top:2px solid #e5e7eb; border-right:1px solid #e5e7eb; width:64%;
+    }
+    .vertical-scoring-table .item-cell{
+      padding:15px; line-height:1.6; border-right:1px solid #e5e7eb; white-space:nowrap;
+      font-size:clamp(14px,3.6vw,16px); width:64%;
+    }
+    .vertical-scoring-table .score-cell{
+      text-align:center; vertical-align:middle; font-weight:bold; font-size:clamp(18px,5.2vw,22px);
+      padding:15px; background:#fde8d4; border-left:2px solid #e5e7eb; border-top:2px solid #e5e7eb; border-bottom:2px solid #e5e7eb; width:36%;
+    }
+    /* A 的 20% 與 B 的 30% 底線改白色 */
+    .vertical-scoring-table tbody tr:nth-of-type(1) .score-cell,
+    .vertical-scoring-table tbody tr:nth-of-type(3) .score-cell{ border-bottom:2px solid #fff; }
+    /* C 的 50% 底線移除 */
+    .vertical-scoring-table tbody tr:nth-of-type(5) .score-cell{ border-bottom:none; }
+
+    /* ========== 獎項區塊 ========== */
+    .prizes {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px; margin: 30px 0; text-align: center;
+    }
+    .prize-item { padding: 20px; border-radius: 15px; transition: transform 0.3s ease; }
+    .prize-item:hover { transform: translateY(-5px); }
+    .prize-gold   { background: linear-gradient(135deg, #FFD700, #FFA500); color: #333; }
+    .prize-silver { background: linear-gradient(135deg, #C0C0C0, #808080); color: white; }
+    .prize-bronze { background: linear-gradient(135deg, #CD7F32, #8B4513); color: white; }
+    .prize-item h3 { font-size: 2em; margin-bottom: 10px; }
+    .prize-amount { font-size: 1.5em; font-weight: bold; margin: 10px 0; }
+
+    /* ========== 聯絡區塊 ========== */
+    .contact-section { background: #f8f9fa; padding: 35px 20px; }
+    .contact-container { max-width: 1200px; margin: 0 auto; }
+    .contact-content { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 40px 0; }
+    .contact-header { display: flex; align-items: center; margin-bottom: 20px; }
+    .contact-header .divider { width: 4px; height: 24px; background: #0074D9; margin-right: 10px; }
+    .contact-header h3 { color: #2c3e50; font-size: 1.3em; }
+
+    .contact-info {
+      background: white; padding: 18px 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    .contact-details { margin-top: 10px; }
+
+    /* Contact rows（統一版） */
+    .contact-row{
+      display: grid; grid-template-columns: 80px 1fr; gap: 8px 12px; align-items: start;
+      margin: 8px 0; line-height: 1.8; padding-left: 6px;  /* 右欄 可調，數字越大越往左 */
+    }
+    .contact-row .label{
+      display: block; width: 100%; white-space: nowrap;
+      text-align: justify; text-justify: inter-ideograph; text-align-last: justify;
+      font-weight: 600; color: #333; padding-left: 8px; /* 左欄 可調，越大越往右 */
+    }
+    .contact-row .label::after{ content: ""; display: inline-block; width: 100%; }
+    .contact-row .value{ color:#555; word-break: break-word; }
+    .contact-row .value a{
+  display: inline-flex; 
+  align-items: center; 
+  white-space: nowrap; /* 不換行 */
+}
+.contact-row .value svg{
+  flex-shrink: 0; 
+}
+    .contact-link { color: #0074D9; text-decoration: none; transition: all 0.3s ease; }
+    .contact-link:hover { color: #005ba7; text-decoration: underline; }
+    .contact-link.large { font-size: 1.3em; font-weight: bold; }
+
+    .contact-phone-box { display: flex; align-items: center; margin-bottom: 15px; }
+    .phone-icon { font-size: 1.5em; margin-right: 10px; }
+    .qr-section { margin-top: 30px; text-align: center; }
+    .qr-code-box {
+      background: #f0f0f0; padding: 20px; border-radius: 10px; display: inline-block; border: 2px dashed #ddd;
+    }
+
+    .disclaimer {
+      text-align: center; color: #ff6b6b; font-weight: bold;
+      margin-top: 10px; margin-bottom: 0; padding: 0 4px;
+      font-size: clamp(14px, 2.5vw, 18px); white-space: normal; line-height: 1.6;
+    }
+    .disclaimer p { margin: 2px 0; }
+
+    /* ========== 賽事回顧按鈕 ========== */
+    .gallery-button-section {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 80px 20px; text-align: center;
+    }
+    .gallery-button-container { max-width: 600px; margin: 0 auto; }
+    .gallery-button-section h2 { font-size: 2.5em; color: #2c3e50; margin-bottom: 15px; font-weight: 700; }
+    .gallery-button-section p { color: #6c757d; font-size: 1.1em; margin-bottom: 35px; }
+    .gallery-button {
+      display: inline-flex; align-items: center; gap: 10px; background: #0074D9; color: white;
+      padding: 18px 40px; border-radius: 10px; text-decoration: none; font-size: 1.1em; font-weight: 600;
+      transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 116, 217, 0.3); margin: 10px;
+    }
+    .gallery-button:hover { background: #005ba7; transform: translateY(-2px); box-shadow: 0 6px 25px rgba(0, 116, 217, 0.4); }
+    .gallery-button svg { transition: transform 0.3s ease; }
+    .gallery-button:hover svg { transform: translate(3px, -3px); }
+
+    /* ========== 返回頂部按鈕 ========== */
+    .back-to-top {
+      position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: #0074D9; color: white;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;
+      opacity: 0; visibility: hidden; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,116,217,0.3);
+      z-index: 1000; border: none;
+    }
+    .back-to-top:hover { background: #005ba7; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,116,217,0.4); }
+    .back-to-top.visible { opacity: 1; visibility: visible; }
+    .back-to-top svg { width: 24px; height: 24px; }
+
+    /* ========== 頁尾 ========== */
+    footer { background: #1a1a1a; color: #888; text-align: center; padding: 20px; }
+    .footer-text { margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* ========== 輔助類別 ========== */
+    .highlight { color: #ff6b6b; font-weight: bold; }
+    .warning { background: #ff6b6b; color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.9em; display: inline-block; }
+    .text-highlight { color: #ff6b6b; }
+    .text-size { font-size: 0.8em; }
+    .badge { display: inline-block; background: #ff6b6b; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9em; margin-bottom: 20px; }
+
+    /* 列表樣式 */
+    ul { list-style: none; padding-left: 20px; }
+    ul li::before { content: "▸ "; color: #0074D9; font-weight: bold; margin-right: 5px; }
+    /* 統一縮小所有清單縮排 */
+    ol, ul {
+      padding-left: 16px;   /* 比原本小，預設是 40px/20px */
+    }
+    ol ol, ul ul {
+      padding-left: 14px;   /* 第二層再小一點 */
+    }
+    .custom-list li {
+      padding-left: 1.6em;  /* 原本 2em，讓數字更靠近文字 */
+    }
+
+@media (max-width:768px){
+  .custom-list li .school-name {
+  display: block;           /* ✅ 換行顯示 */
+  margin-left: 0;           /* 清掉舊的 margin */
+  text-indent: -2.2em;      /* 負縮排，和「北區」開頭對齊 */
+  padding-left: 2.2em;      /* 推回縮排，保持整齊 */
+}
+}
+
+    /* 手機隱藏內嵌地址；讓清單可點 */
+@media (max-width: 768px){
+  .addr-pop{ display:none; }
+  .custom-list li{ cursor:pointer; }
+}
+
+/* 小窗樣式（寬度隨內容） */
+.popover{
+  position: fixed;
+  display: none;                /* 由 .show 控制顯示 */
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--popover-bg, #111827); /* ← 可用 CSS 變數改色 */
+  color: var(--popover-fg, #fff);
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  z-index: 9999;
+
+  /* 關鍵：寬度由內容撐開 */
+  white-space: nowrap;                 /* 不換行，寬度等於內容 */
+  max-width: calc(100vw - 24px);       /* 仍避免超出螢幕 */
+}
+.popover.show{ display: inline-block; } /* 讓寬度依內容 */
+
+.popover::after{
+  content:"";
+  position:absolute;
+  width:10px; height:10px;
+  background: var(--popover-bg, #111827); /* 箭頭同底色 */
+  transform: rotate(45deg);
+  top:-5px; left:16px;
+}
+
+    /* ========== 響應式設計 ========== */
+/* ===== 769px 以上：平板～PC 統一比例 ===== */
+@media (min-width: 769px) {
+  .hero-main-content { 
+    top: 50%; 
+    transform: translate(-50%, -50%); 
+  }
+
+  .banner-desktop{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: clamp(0px, 0.6vw, 10px);  /* 數字越小→兩圖越近 */
+    width: min(1280px, 94vw);
+    margin: clamp(-110px, -9vw, -70px) auto 0;
+  }
+
+  .banner-left,
+  .banner-right{
+    width: auto;
+    height: clamp(340px, 50vh, 640px); /* 一體縮放 */
+    object-fit: contain;
+    flex: 0 0 auto;
+    min-width: 0;
+    display: block;
+  }
+
+  /* 左圖單獨縮小到 80% */
+  .banner-left {
+    transform: scale(0.8);
+    transform-origin: center center;
+  }
+
+  /* 只把右圖往左移一點，讓兩圖更靠近 */
+  .banner-right {
+    transform: translateX(-12px);  /* 想更近就 -16px / -20px */
+  }
+
+  .banner-mobile{ display:none; }
+}
+
+/* ===== 平板專用：避免藍色四卡被擠高，改 4 欄 → 2 欄 ===== */
+@media (min-width: 769px) and (max-width: 1199px) {
+  .organizers-grid,
+  .schools-grid{                         /* 你的 class 若是 schools-grid 也一起吃到 */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  .organizer-item,
+  .school-card{ padding: 18px 16px; }
+}
+
+    /* 平板尺寸 */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .hero-main-content { width: 75%; max-width: 600px; }
+    }
+    /* 手機尺寸 */
+@media (max-width: 768px) {
+  .hero-main-content {
+    width: 95%; 
+    max-width: 600px; 
+    padding: 5px;
+    top: 18%; 
+    transform: translate(-50%, -18%);
+  }
+
+  .organizers-grid { grid-template-columns: 1fr; gap: 25px; }
+  .desktop-only { display: none; }
+  .mobile-only { display: block; }
+
+  .co-schools .school-region { flex-direction: column; margin: 15px 0; }
+  .co-schools .region-label { margin-bottom: 5px; }
+
+  .timeline-table { font-size: 0.9em; }
+  .timeline-table th, 
+  .timeline-table td { padding: 10px; }
+
+  .scoring-table { display: none; }
+  .vertical-scoring-table { display: table; }
+
+  .contact-content { grid-template-columns: 1fr; }
+
+  .gallery-button-section { padding: 60px 20px; }
+  .gallery-button-section h2 { font-size: 2em; }
+  .gallery-button { padding: 15px 30px; font-size: 1em; }
+
+  .back-to-top { bottom: 20px; right: 20px; width: 45px; height: 45px; }
+
+  /* === 手機 FAQ：協辦學校/協辦單位（+ / − 開合，帶淺色背景框）=== */
+.m-faq details{
+  background: rgba(255,255,255,0.1);   /* ✅ 淺白透明底，和 organizer-item 一致 */
+  border-radius: 12px;
+  margin: 12px 0;
+  box-shadow: none;
+  overflow: hidden;
+  backdrop-filter: blur(5px);          /* ✅ 跟 organizer-item 一樣毛玻璃效果 */
+}
+.m-faq summary{
+  list-style: none;
+  display: flex; 
+  align-items: center; 
+  justify-content: flex-start;   /* 👈 改這裡，不用 space-between */
+  gap: 6px;                      /* 控制標題和副標之間距離 */
+  padding: 14px 16px;
+  font-weight: 600; 
+  font-size: 1.1em;       /* ✅ 和 organizer-item h4 相同大小 */
+  color: #f2e84f;
+  position: relative;
+}
+.m-faq summary::-webkit-details-marker{ display: none; }
+
+.m-faq .sub{
+  font-weight: 400; 
+  font-size: 0.8em;       /* ✅ 縮小副標字 */
+  opacity: .85; 
+  margin-left: 2px;       /* ✅ 與標題有點距離 👈 改小距離 */
+  color: rgba(255,255,255,.9);
+}
+
+  /* 手機 FAQ：方框 +/− 動畫（唯一圖示） */
+.m-faq summary{ position: relative; } /* 讓圖示靠右對齊 */
+.m-faq .pm{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:20px; height:20px; margin-left: auto;
+  position:relative; flex:0 0 20px;
+  transition: transform .25s ease;
+}
+
+.m-faq .pm::before, .m-faq .pm::after{
+  content:""; position:absolute; background:currentColor;
+  width:12px; height:2px; border-radius:1px;
+  left:50%; top:50%; transform:translate(-50%,-50%);
+  transition: transform .25s ease, opacity .25s ease;
+}
+/* 橫線（－）置中 */
+.m-faq .pm::before{}
+/* 直線（｜）預設存在 → 表示 + */
+.m-faq .pm::after{ transform:translate(-50%,-50%) rotate(90deg); }
+
+/* 展開：把直線縮成 0，視覺上 + → −，可加上方框旋轉 */
+.m-faq details[open] .pm{ transform: rotate(180deg); } /* 想低調可刪 */
+.m-faq details[open] .pm::after{ transform:translate(-50%,-50%) rotate(90deg) scaleX(0); opacity:0; }
+
+.m-faq .content{
+  padding: 10px 24px 16px 24px;   /* ✅ 左右 padding 加大 (原本 16px → 24px) */
+  border-top: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,.9);
+  text-align: justify;            /* ✅ 兩端對齊 */
+  text-justify: inter-ideograph;  /* ✅ 中文優化對齊 */
+}
+.m-faq .row{ margin: 8px 0; line-height: 1.7; }
+.m-faq .region-label{ color:#f2e84f; font-weight:700; margin-right:6px; }
+.m-faq .school-names{ color:rgba(255,255,255,.9); }
+  .organizers .m-faq{ max-width: 1200px; margin: 10px auto 0; }
+}
+
+    /* 小手機調整 */
+    @media (max-width: 480px) {
+      .hero-main-content { width: 100%; max-width: 400px; top: 42%; transform: translate(-50%, -42%); }
+      .footer-text { font-size: clamp(0.7rem, 3.5vw, 0.9rem); }
+    }
+    @media (max-width: 375px) {
+      .hero-main-content { width: 100%; max-width: 350px; padding: 5px; top: 40%; transform: translate(-50%, -40%); }
+      .footer-text { font-size: clamp(0.6rem, 3vw, 0.8rem); }
+    }
+    /* 橫向模式優化 */
+    @media (orientation: landscape) and (max-height: 600px) {
+      .hero-main-content { max-width: 500px; top: 50%; transform: translate(-50%, -50%); }
+    }
+    @media (orientation: landscape) and (max-height: 500px) {
+      .hero-main-content { max-width: 400px; padding: 5px; }
+    }
+
+    /* ========== 內容保護 (選用) ========== */
+    img { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -webkit-user-drag: none; user-drag: none; }
+    .protected-content { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+
+    /* PC 版 - 4個並排卡片 */
+    .prize-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
+    .prize-card {
+      display: flex; flex-direction: column; align-items: center; text-align: center; background: #fff; border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08); padding: 30px 20px; transition: transform 0.3s ease, box-shadow 0.3s ease; min-height: 280px;
+    }
+    .prize-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+    .prize-icon { width: 80px; height: 80px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; }
+    .prize-icon img { width: 100%; height: auto; object-fit: contain; }
+    .prize-title { font-size: 1.5em; font-weight: bold; color: #2c3e50; margin-bottom: 10px; }
+    .prize-amount { font-size: 2em; font-weight: bold; color: #0074D9; margin-bottom: 15px; }
+    .prize-benefits { list-style: none; padding: 0; margin: 0; font-size: 0.9em; color: #666; line-height: 1.6; }
+    .prize-benefits li { margin: 5px 0; position: relative; padding-left: 1.2em; }
+    .prize-benefits li::before { content: "✓"; color: #0074D9; font-weight: bold; position: absolute; left: 0; }
+
+    /* 手機版獎項排版 */
+    @media (max-width: 768px) {
+      .prize-grid { grid-template-columns: 1fr; gap: 18px; }
+      .prize-card {
+        display: grid; grid-template-columns: 110px 1fr; grid-template-rows: auto auto;
+        grid-template-areas: "icon right" "benefits benefits"; align-items: center;
+        padding: 14px 14px; text-align: left; min-height: auto;
+        padding-left: 18px; padding-right: 16px; column-gap: 10px;
+      }
+      .prize-icon { grid-area: icon; margin: 0; padding: 0; display: flex; justify-content: center; justify-self: end; }
+      .prize-icon img { width: 94px; height: auto; object-fit: contain; }
+      .prize-content { grid-area: right; padding: 0 0 0 10px; display: flex; flex-direction: column; align-items: flex-start; }
+      .prize-title { display: none; }
+      .prize-amount { font-size: clamp(26px, 7.2vw, 38px); line-height: 1.1; margin: 0 0 8px 0; color: #2c3e50; }
+      .team-badge { color: #fff; font-weight: 700; padding: 8px 16px; border-radius: 999px; font-size: 16px; line-height: 1; }
+      .badge-gold{ background:#5f231a; } .badge-silver{ background:#ffad37; } .badge-bronze{ background:#7e8d93; } .badge-special{ background:#a14f4f; }
+      .prize-benefits{ grid-area: benefits; margin: 10px 0 0; padding: 0; list-style: none; font-size: 16px; line-height: 1.7; text-align: center; }
+      .prize-benefits li{
+        display: inline-flex; align-items: center; justify-content: center; gap: 4px; margin: 6px auto; width: fit-content; white-space: normal;
+      }
+      .prize-benefits li::before{ content: "✓"; color: #0d6efd; font-weight: 700; display: inline-block; vertical-align: middle; line-height: 1; margin-top: 1px; }
+    }
+
+    /* 移除子層清單的預設樣式並重設計數器 */
+    .custom-list { list-style-type: none; padding-left: 0; counter-reset: custom-counter; }
+    .custom-list li { position: relative; padding-left: 1.6em; }
+    .custom-list li::before { content: '(' counter(custom-counter) ') '; counter-increment: custom-counter; position: absolute; left: 0; }
+
+    /* ========= 保險用覆蓋：dvh 優先（兼容舊版） ========= */
+    @supports (height: 100dvh) {
+      .hero { height: 100dvh; }
+      .organizers { margin-top: 100dvh; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <div class="hero">
+    <!-- 背景圖片容器 -->
+    <div class="hero-background">
+      <img src="banner-bg.jpg" alt="Background" class="hero-bg-image">
+    </div>
+
+    <!-- 主體內容容器 -->
+    <div class="hero-main-content">
+      <!-- 桌機版：左右兩張圖 -->
+      <div class="banner-desktop">
+        <img src="banner-left.png" alt="左圖" class="banner-left">
+        <img src="banner-right.png" alt="右圖" class="banner-right">
+      </div>
+      <!-- 手機版：單張主視覺 -->
+      <div class="banner-mobile">
+        <img src="banner-main.png" alt="第十三屆全國大專保單健診暨保險規劃大賽" class="hero-main-image">
+      </div>
+    </div>
+
+    <!-- 下滑提示 -->
+    <div class="scroll-indicator">
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M7 7l5 5 5-5"/>
+    <path d="M7 13l5 5 5-5"/>
+  </svg>
+</div>
+
+  </div>
+
+  <!-- Organizers -->
+  <div class="organizers">
+    <h3><span style="color: #f2e84f;">主辦單位：</span>太陽保險經紀人股份有限公司</h3>
+
+    <!-- 桌面版顯示 -->
+    <div class="desktop-only">
+      <div class="organizers-grid">
+        <div class="organizer-item"><h4>全國總決賽 主辦學校</h4><p>朝陽科技大學-保險金融管理系</p></div>
+        <div class="organizer-item"><h4><span class="region-badge">北</span> 主辦學校</h4><p>銘傳大學-資訊應用與金融保險學系</p></div>
+        <div class="organizer-item"><h4><span class="region-badge">中</span> 主辦學校</h4><p>國立臺中科技大學-保險金融管理系</p></div>
+        <div class="organizer-item"><h4><span class="region-badge">南</span> 主辦學校</h4><p>樹德科技大學-金融管理系</p></div>
+      </div>
+    </div>
+
+    <!-- 手機版顯示 -->
+    <div class="mobile-only">
+      <div class="organizers-grid">
+        <div class="organizer-item"><h4>｜ 全國總決賽 主辦學校 ｜</h4><p>朝陽科技大學-保險金融管理系</p></div>
+        <div class="organizer-item">
+          <h4>｜ 主辦學校 ｜</h4>
+          <div class="mobile-schools-list">
+            <div class="mobile-school-item"><span class="region-badge">北</span><span>銘傳大學-資訊應用與金融保險學系</span></div>
+            <div class="mobile-school-item"><span class="region-badge">中</span><span>國立臺中科技大學-保險金融管理系</span></div>
+            <div class="mobile-school-item"><span class="region-badge">南</span><span>樹德科技大學-金融管理系</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 協辦廠商區塊 -->
+    <div style="max-width: 1200px; margin: 25px auto 0;">
+      <div class="organizer-item"><h4>｜ 協辦廠商 ｜</h4><p>期靈旺決策科技有限公司</p></div>
+    </div>
+
+    <!-- 協辦學校區塊（PC 版保留原樣） -->
+<div class="desktop-only" style="max-width: 1200px; margin: 25px auto 0;">
+  <div class="organizer-item co-schools">
+    <h4>｜ 協辦學校 ｜</h4>
+    <p style="font-size: 0.85em; margin: 0 0 6px;">(依筆劃排序)</p>
+    <div class="schools-list">
+      <div class="school-region">
+        <span class="region-label">[北區]</span>
+        <span class="school-names">中國文化大學-財務金融學系｜致理科技大學-財務金融系｜淡江大學-風險管理與保險學系｜實踐大學-風險管理與保險學系｜德明財經科技大學-風險管理與財富規劃系｜龍華科技大學-財務金融系</span>
+      </div>
+      <div class="school-region">
+        <span class="region-label">[中區]</span>
+        <span class="school-names">南華大學-財務金融學系｜逢甲大學-風險管理與保險學系｜國立雲林科技大學-財務金融系｜僑光科技大學-財務金融系</span>
+      </div>
+      <div class="school-region">
+        <span class="region-label">[南區]</span>
+        <span class="school-names">正修科技大學-金融管理系｜國立屏東大學-財務金融學系｜國立高雄大學-應用經濟學系｜國立高雄科技大學-風險管理與保險系｜實踐大學(高雄校區)-金融管理學系</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 手機版：協辦學校（+ / − 開合，沿用藍底白字） -->
+<div class="mobile-only m-faq" style="max-width: 1200px; margin: 25px auto 0;">
+  <details>
+    <summary>
+      ｜ 協辦學校 ｜ <span class="sub">(依筆劃排序)</span>
+    <span class="pm" aria-hidden="true"></span>   <!-- 新增這行 -->
+    </summary>
+    <div class="content">
+      <div class="row"><span class="region-label">[北區]</span><span class="school-names">中國文化大學-財務金融學系｜致理科技大學-財務金融系｜淡江大學-風險管理與保險學系｜實踐大學-風險管理與保險學系｜德明財經科技大學-風險管理與財富規劃系｜龍華科技大學-財務金融系</span></div>
+      <div class="row"><span class="region-label">[中區]</span><span class="school-names">南華大學-財務金融學系｜逢甲大學-風險管理與保險學系｜國立雲林科技大學-財務金融系｜僑光科技大學-財務金融系</span></div>
+      <div class="row"><span class="region-label">[南區]</span><span class="school-names">正修科技大學-金融管理系｜國立屏東大學-財務金融學系｜國立高雄大學-應用經濟學系｜國立高雄科技大學-風險管理與保險系｜實踐大學(高雄校區)-金融管理學系</span></div>
+    </div>
+  </details>
+</div>
+
+    <!-- 協辦單位（PC 版保留原樣） -->
+<div class="desktop-only" style="max-width: 1200px; margin: 25px auto 0;">
+  <div class="organizer-item">
+    <h4 style="margin-bottom: 2px;">｜ 協辦單位 ｜</h4>
+    <p style="font-size: 0.85em; margin: 0 0 6px;">(依筆劃排序)</p>
+    <p>
+      元大人壽⨯友邦人壽｜台新人壽｜台灣人壽｜全球人壽｜安達人壽｜法國巴黎人壽｜
+      第一金人壽｜凱基人壽｜新光人壽｜遠雄人壽｜中國信託產險｜安達產物｜
+      兆豐保險｜明台產物保險｜法國巴黎產險｜泰安產物保險｜國泰產險｜富邦產險｜
+      華南產險｜新光產物保險｜國立高雄科技大學-產學營運處｜
+    </p>
+  </div>
+</div>
+
+<!-- 手機版：協辦單位（+ / − 開合，沿用藍底白字） -->
+<div class="mobile-only m-faq" style="max-width: 1200px; margin: 25px auto 0;">
+  <details>
+    <summary>
+      ｜ 協辦單位 ｜ <span class="sub">(依筆劃排序)</span>
+    <span class="pm" aria-hidden="true"></span>   <!-- 新增這行 -->
+    </summary>
+    <div class="content">
+      元大人壽⨯友邦人壽｜台新人壽｜台灣人壽｜全球人壽｜安達人壽｜法國巴黎人壽｜
+      第一金人壽｜凱基人壽｜新光人壽｜遠雄人壽｜中國信託產險｜安達產物｜
+      兆豐保險｜明台產物保險｜法國巴黎產險｜泰安產物保險｜國泰產險｜富邦產險｜
+      華南產險｜新光產物保險｜國立高雄科技大學-產學營運處｜
+    </div>
+  </details>
+</div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <!-- Schedule Section -->
+    <div class="section">
+      <h2 class="section-title">- 大賽重要時程表 -</h2>
+      <table class="timeline-table">
+        <thead><tr><th>日期</th><th>內容</th></tr></thead>
+        <tbody>
+          <tr><td>2025/12/26 (五) 12:00</td><td>比賽報名暨初賽收件截止</td></tr>
+          <tr><td>2025/12/27 (六) ~ 2026/01/02 (五)</td><td>入圍審核</td></tr>
+          <tr><td>2026/01/05 (一) 17:00</td><td>入圍暨優等組公告</td></tr>
+          <tr><td>2026/01/12 (一)</td><td>北區入圍公告暨優等組頒獎典禮</td></tr>
+          <tr><td>2026/01/13 (二)</td><td>中區入圍公告暨優等組頒獎典禮</td></tr>
+          <tr><td>2026/01/14 (三)</td><td>南區入圍公告暨優等組頒獎典禮</td></tr>
+          <tr><td>2026/03/05 (四)</td><td>全國總決賽</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Registration Process -->
+    <div class="section">
+      <h2 class="section-title">- 報名程序說明 -</h2>
+      <h4>(一) 報名資格：</h4>
+      <p>全國各大專院校金融、財金、保險相關科系或對於保險規劃有興趣之在校學生皆可組隊參與，初賽參與各團隊人數3人以上，最多6人。</p>
+      <h4>(二) 報名方式：</h4>
+      <p>自大賽官網下載或大賽簡章中填寫約定書，於報名截止日前完成線上報名程序且<a href="https://www.taiyung.com.tw/competition/register.aspx" target="_blank" class="highlight">將約定書上傳官網</a>，完成報名程序。</p>
+      <h4>(三) 說明會、比賽報名日期：</h4>
+      <p>2025年09月08日(一)起至2025年12月26日(五)。</p>
+      <h4>(四) 收件截止日期：</h4>
+      <p class="highlight">2025年12月26日(五)12:00 止。</p>
+      <h4>(五) 完成線上報名程序且約定書得隨同初賽資料傳送至主辦單位，視同報名完成。</h4>
+      <h4>(六) 報名費用：無需費用。</h4>
+    </div>
+
+    <!-- Initial Competition Process -->
+    <div class="section">
+      <h2 class="section-title">- 初賽程序說明 -</h2>
+      <h4>(一) 業界老師提供參賽隊伍諮商與輔導並協助進行初賽報告。</h4>
+      <ol style="margin: 20px 0; padding-left: 40px;">
+        <li>可向主辦單位申請業界老師。</li>
+        <li>可自行尋找曾經參與比賽之在校或畢業的學長姐擔任業界老師。</li>
+        <li>自行尋找現職保險業務人員擔任業界老師。</li>
+        <li>健診軟體可由參賽隊伍自由選擇使用。</li>
+      </ol>
+
+      <h4>(二) 比賽內容：</h4>
+      <p style="margin: 10px 0;">依據拜訪的家庭狀況進行保單健診並規劃保單，規劃時需詳述被保險人家庭狀況，包含以下：</p>
+      <ol style="margin: 10px 0; padding-left: 40px;">
+        <li>成員</li><li>收支</li><li>情境</li><li>目前保單狀況</li><li>未來保單規劃</li><li>規劃目的與方向總結</li>
+      </ol>
+
+      <h4>(三) 保險規劃書範本：</h4>
+      <p>報名隊伍可自大賽官網下載保險規劃書範本，範本僅供參考非初賽作品必備形式。</p>
+
+      <h4>(四) 保單健診規劃報告：</h4>
+      <p>拜訪家庭並進行家庭成員保單健診，每隊須取得同家庭至少三位以上被保險人的保單資料進行保單健診。針對受訪家庭保單健診結果，依其需求擬定完整的家庭保險建議書，進行保險商品查詢與比較，並就保險規劃之目的與方向簡述。本賽事不蒐集利用受訪家庭個資，比賽報告內要被保險人姓名皆以化名處理。</p>
+
+      <h4>(五) 初賽報告收件：</h4>
+      <p>作品資料僅須註明隊伍名稱及學生姓名，不可揭露學校、系所、指導老師與業師等資訊，包含隊伍取名，並於初賽收件截止日2025年12月26日(五)12:00前將參賽保險規劃書以PDF檔格式自官網上傳給主辦單位，完成初賽程序。<span class="warning">初賽報告總頁數以50頁(含附件)為上限</span></p>
+
+      <h4>(六) 初賽結果：</h4>
+      <ol style="margin: 10px 0; padding-left: 40px;">
+        <li>入圍公告，各區依初審結果取前十名隊伍公告為優等隊伍，且取數名隊伍入圍參賽全國總決賽，惟參賽隊伍代表需簽回【參與總決賽確認函】，若無回覆，取消參賽資格，由次一名次隊伍依序遞補入圍。優等獎之獲獎隊伍數，依參賽隊伍數酌與調整之。</li>
+        <li>全國總決賽三區入圍隊伍數，依實際繳交報告隊伍數比例分配，總參賽隊伍為12隊。</li>
+        <li>入圍公告暨優等組頒獎典禮地點及時間：</li>
+        <ol class="custom-list">
+          <li>
+            北區：2026/01/12（一）
+            <span class="school-name">銘傳大學</span>
+            <span class="addr-pop" data-addr="111台北市士林區基河路130號">
+              (111台北市士林區基河路130號)
+            </span>
+          </li>
+          <li>
+            中區：2026/01/13（二）
+            <span class="school-name">國立臺中科技大學</span>
+            <span class="addr-pop" data-addr="404台中市北區三民路三段129號">
+              (404台中市北區三民路三段129號)
+            </span>
+          </li>
+          <li>
+            南區：2026/01/14（三）
+            <span class="school-name">樹德科技大學</span>
+            <span class="addr-pop" data-addr="824高雄市燕巢區橫山路59號">
+              (824高雄市燕巢區橫山路59號)
+            </span>
+          </li>
+        </ol>
+        <li>為鼓勵認真完成報告且完善者之隊伍，頒布佳作獎項。</li>
+      </ol>
+
+      <h4>(七) 報名且完成初賽報告隊伍每位皆可獲得【參賽證明】。</h4>
+
+      <h4>(八) 評審及評分事宜：</h4>
+      <ol style="margin: 10px 0; padding-left: 40px;">
+        <li>初賽評審：由主辦學校邀請學者老師三位擔任書面評審，跨區評分。</li>
+        <li>評審規則：</li>
+        <ol class="custom-list">
+          <li>初賽評審（3位）於入圍審核截止日前完成初賽評分。</li>
+          <li>依據初賽評分標準評分。</li>
+          <li>各評審完成評分並各自排出初賽名次後，再以3位評審各自的排序補上100分遞減分數後取出平均數，計算出總分數。</li>
+          <li>北、中、南三區各四隊入圍全國總決賽，初賽如遇同分，視比重最高之評分項目，分數較高者為入圍隊伍。</li>
+        </ol>
+        <li>主辦單位報告規範：</li>
+          <ol class="custom-list">
+          <li>健診報告須取得同家庭至少<span class="highlight">三位以上</span>被保險人的保單資料進行保單健診。</li>
+          <li>初賽報告總頁數以<span class="highlight">50頁(含附件)為上限</span>。</li>
+          <li>報告上傳檔案格式：<span class="highlight">PDF</span>。</li>
+          <li>簡報請將要被保險人姓名皆以<span class="highlight">化名處理</span>。</li>
+          <li>作品資料一律<span class="highlight">請勿揭露</span>學校、系所、指導老師與業師等資訊(含隊伍取名)。</li>
+        </ol>
+        <li>初賽評分標準：</li>
+      </ol>
+      <!-- 桌面版橫式表格 -->
+      <div class="desktop-only">
+        <table class="scoring-table">
+          <tbody>
+            <tr>
+              <td class="category" rowspan="2">評分項目</td>
+              <td style="font-weight: bold; background: #e8e8e8;">A 簡報內容方式</td>
+              <td style="font-weight: bold; background: #e8e8e8;">B 家庭健診資料彙整</td>
+              <td style="font-weight: bold; background: #e8e8e8;">C 保單規劃與建議</td>
+            </tr>
+            <tr>
+              <td>A-1 提綱簡明扼要<br>A-2 內容編輯美觀<br>A-3 符合主辦單位報告規範</td>
+              <td>B-1 家庭既有保單項目<br>B-2 家庭財務收支狀況<br>B-3 家庭保障需求順位</td>
+              <td>C-1 保單建議內容完整性<br>C-2 保費預算安排合理性<br>C-3 長期生涯規劃適合性</td>
+            </tr>
+            <tr>
+              <td class="category">評分比重</td>
+              <td style="font-size: 1.5em; font-weight: bold; background: #fde8d4;">20%</td>
+              <td style="font-size: 1.5em; font-weight: bold; background: #fde8d4;">30%</td>
+              <td style="font-size: 1.5em; font-weight: bold; background: #fde8d4;">50%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 手機版直式表格 -->
+      <div class="mobile-only">
+        <table class="vertical-scoring-table">
+          <thead><tr><th>評分項目</th><th>評分比重</th></tr></thead>
+          <tbody>
+            <tr><td class="category-header-left">A 簡報內容方式</td><td class="score-cell" rowspan="2">20%</td></tr>
+            <tr><td class="item-cell">A-1 提綱簡明扼要<br>A-2 內容編輯美觀<br>A-3 符合主辦單位報告規範</td></tr>
+            <tr><td class="category-header-left">B 家庭健診資料彙整</td><td class="score-cell" rowspan="2">30%</td></tr>
+            <tr><td class="item-cell">B-1 家庭既有保單項目<br>B-2 家庭財務收支狀況<br>B-3 家庭保障需求順位</td></tr>
+            <tr><td class="category-header-left">C 保單規劃與建議</td><td class="score-cell" rowspan="2">50%</td></tr>
+            <tr><td class="item-cell">C-1 保單建議內容完整性<br>C-2 保費預算安排合理性<br>C-3 長期生涯規劃適合性</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 獎項區塊 Prize Section -->
+    <div class="section">
+      <h2 class="section-title">- 總決賽獎勵 -</h2>
+      <p style="text-align: center; margin: 20px 0 30px;">每人獎狀乙張｜每隊錦旗一面</p>
+
+      <div class="prize-grid">
+        <div class="prize-card">
+          <div class="prize-icon"><img src="ICON-01.svg" alt="冠軍"></div>
+          <div class="prize-content"><div class="prize-amount">$30,000</div><div class="team-badge badge-gold">1 隊</div></div>
+          <ul class="prize-benefits"><li>※冠軍20,000元+主辦單位太陽保經另加碼獎金新台幣10,000元</li><li>保險健診王軟體每位使用權限3年</li></ul>
+        </div>
+
+        <div class="prize-card">
+          <div class="prize-icon"><img src="ICON-02.svg" alt="亞軍"></div>
+          <div class="prize-content"><div class="prize-amount">$10,000</div><div class="team-badge badge-silver">2 隊</div></div>
+          <ul class="prize-benefits"><li>保險健診王軟體每位使用權限3年</li></ul>
+        </div>
+
+        <div class="prize-card">
+          <div class="prize-icon"><img src="ICON-03.svg" alt="季軍"></div>
+          <div class="prize-content"><div class="prize-amount">$8,000</div><div class="team-badge badge-bronze">3 隊</div></div>
+          <ul class="prize-benefits"><li>保險健診王軟體每位使用權限3年</li></ul>
+        </div>
+
+        <div class="prize-card">
+          <div class="prize-icon"><img src="ICON-00.svg" alt="特優"></div>
+          <div class="prize-content"><div class="prize-amount">$6,000</div><div class="team-badge badge-special">6 隊</div></div>
+          <ul class="prize-benefits"><li>保險健診王軟體每位使用權限2年</li></ul>
+        </div>
+      </div>
+
+      <p style="text-align: center; margin-top: 20px;">※保險健診王軟體使用權限於大賽總決賽日翌日起一個月內申請完畢，如逾將視為放棄資格※</p>
+      <p>為鼓勵認真投入且繳交完整初賽報告之隊伍，新設佳作獎項，並於全國總決賽後頒發至各隊伍系上。</p>
+      <h4>總決賽現場進行頒獎儀式，得獎隊伍將於活動官方網站及相關報章媒體刊出。</h4>
+    </div>
+
+    <!-- 注意事項 -->
+    <div class="section">
+      <h2 class="section-title">- 注意事項 -</h2>
+      <ul>
+        <li>本人之參賽作品須符合未曾參加國內各公開競賽之得獎文章，或已於其他刊物、網路或媒體（含保險公司內部刊物、保戶刊物及網站等）發表過以及由他人代筆等。</li>
+        <li>前揭作品若有任何著作權或其他相關權利糾紛之情形，經檢舉且查證屬實，除自行負法律責任外且與主辦單位無涉，將取消得獎資格並追回相關獎勵。</li>
+        <li>得獎金額依所得稅法規定，將依得獎獎金之給付全額代扣10％所得稅，惟扣繳之所得稅額未滿2000元者，可免予扣繳。</li>
+        <li>凡報名參賽者，即認同本活動一切規定，競賽辦法如有未盡事宜，主辦單位得視實際需要隨時修訂之，詳情請參考活動網址。</li>
+        <li>主辦單位享有參賽學生供參加本次活動之全部相關資料的著作財產權及所有權，參賽學生享有著作人格權。</li>
+        <li>保險健診王軟體使用權限於大賽總決賽日翌日起一個月內申請完畢，如逾將視為放棄資格。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <div class="contact-container">
+      <h2 class="section-title">❰ 聯絡我們 ❱</h2>
+      <div class="contact-content">
+        <div>
+          <div class="contact-header"><div class="divider"></div><h3>活動相關</h3></div>
+          <div class="contact-info">
+            <div class="contact-details">
+              <div class="contact-row"><span class="label">聯絡人：</span><span class="value">保單大賽工作團隊</span></div>
+              <div class="contact-row"><span class="label">手機號碼：</span><span class="value"><a href="tel:+886924120288" class="contact-link">0924-120-288</a></span></div>
+              <div class="contact-row"><span class="label">傳真：</span><span class="value"><a href="tel:+88679728818" class="contact-link">(07)972-8818</a></span></div>
+              <div class="contact-row"><span class="label">Line ID：</span><span class="value"><a href="https://line.me/ti/p/~0924120288" class="contact-link" target="_blank" rel="noopener noreferrer">
+                <svg width="18" height="18" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:4px;" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#06C655"/><path d="M12 6.2c-3.3 0-6 2.3-6 5.1 0 2.1 1.5 3.9 3.7 4.7-.1.7-.4 1.8-1.1 2.8 1.2-.3 2.4-1 3.1-1.5.1 0 .2.1.3.1 3.3 0 6-2.3 6-5.1s-2.7-5.1-6-5.1z" fill="#fff"/></svg>@0924120288</a></span></div>
+              <div class="contact-row"><span class="label">聯絡電話：</span><span class="value"><a href="tel:+88679728898" class="contact-link">(07)972-8898</a></span></div>
+              <div class="contact-row"><span class="label">電子郵件：</span><span class="value"><a href="mailto:999@taiyung.com.tw" class="contact-link">999@taiyung.com.tw</a></span></div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="contact-header"><div class="divider"></div><h3>保單健診系統 諮詢專線</h3></div>
+          <div class="contact-info">
+            <div class="contact-details">
+              <div class="contact-row"><span class="label">客服電話：</span><span class="value"><a href="tel:+88672211987" class="contact-link">(07)221-1987</a></span></div>
+              <div class="contact-row"><span class="label">Line 客服：</span><span class="value"><a href="https://line.me/ti/p/@osa0846b" class="contact-link" target="_blank" rel="noopener noreferrer">
+                <svg width="18" height="18" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:4px;" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#06C655"/><path d="M12 6.2c-3.3 0-6 2.3-6 5.1 0 2.1 1.5 3.9 3.7 4.7-.1.7-.4 1.8-1.1 2.8 1.2-.3 2.4-1 3.1-1.5.1 0 .2.1.3.1 3.3 0 6-2.3 6-5.1s-2.7-5.1-6-5.1z" fill="#fff"/></svg>@osa0846b</a></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 單行、可縮放字體的注意語 -->
+      <div class="disclaimer">
+        <p>※大賽期間提供保單健診系統免費使用※</p>
+        <p>詳見本大賽官方網站</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" onclick="scrollToTop()">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+    </svg>
+  </button>
+
+  <!-- Footer -->
+  <footer><p class="footer-text">-大賽相關日期與地點如有更動，以主辦單位最新公告為準-</p></footer>
+
+  <script>
+    // ========== 動態視窗大小調整（完整）==========
+    function adjustHeroSize() {
+      const heroContent = document.querySelector('.hero-main-content');
+      const organizers = document.querySelector('.organizers');
+      if (!heroContent || !organizers) return;
+
+      const windowWidth  = window.innerWidth;
+      // 使用 visualViewport 高度較不受手機網址列影響
+      const windowHeight = (window.visualViewport && window.visualViewport.height)
+        ? Math.round(window.visualViewport.height)
+        : window.innerHeight;
+
+      // ===== 主視覺最大寬度計算（雙圖友善版） =====
+      let optimalWidth;
+      if (windowWidth > 768) {
+        // 桌機：左右兩張加上間距，容器更寬（上限 1300px，佔螢幕寬 90%）
+        optimalWidth = Math.min(1280, windowWidth * 0.94);
+      } else {
+        // 手機：沿用你的原本邏輯
+        if (windowWidth >= 1920)      optimalWidth = Math.min(650,  windowWidth * 0.35);
+        else if (windowWidth >= 1440) optimalWidth = Math.min(600,  windowWidth * 0.4);
+        else if (windowWidth >= 1024) optimalWidth = Math.min(550,  windowWidth * 0.45);
+        else if (windowWidth >= 768)  optimalWidth = Math.min(500,  windowWidth * 0.6);
+        else                          optimalWidth = Math.min(windowWidth * 0.95, 600);
+      }
+
+      // 不超過視窗高度 80%（僅手機）
+      const maxHeightBasedWidth = windowHeight * 0.8;
+      if (optimalWidth > maxHeightBasedWidth && windowWidth <= 768) {
+        optimalWidth = maxHeightBasedWidth;
+      }
+      heroContent.style.maxWidth = optimalWidth + 'px';
+
+      // ===== 調整 organizers 的 margin-top（手機 / 平板 / PC）=====
+if (windowWidth <= 768) {
+  organizers.style.marginTop = (windowHeight * 0.87) + 'px';
+} else if (windowWidth <= 1199) {
+  organizers.style.marginTop = (windowHeight * 0.78) + 'px'; // 平板：留多一點空間
+} else {
+  organizers.style.marginTop = (windowHeight * 0.72) + 'px'; // PC：更貼近
+}
+
+      // ===== Hero 垂直置中（保留你的原本邏輯） =====
+      if (windowWidth <= 768) {
         const topPosition = windowHeight <= 667 ? 15 : 18;
         heroContent.style.top = topPosition + '%';
         heroContent.style.transform = `translate(-50%, -${topPosition}%)`;
-    } else {
+        baseTopPercent = topPosition;   // ★ 新增
+      } else {
         heroContent.style.top = '50%';
         heroContent.style.transform = 'translate(-50%, -50%)';
+        baseTopPercent = 50;            // ★ 新增
+      }
     }
+
+    // 節流的 resize
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(adjustHeroSize, 100);
+    });
+
+    // 若支援 visualViewport，監聽其變化（手機網址列/鍵盤影響）
+if (window.visualViewport) {
+  // 保留 resize → 視窗高度或鍵盤影響時即時調整
+  window.visualViewport.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(adjustHeroSize, 50);
+  });
+
+  // 移除 scroll → 避免和滾動動畫打架，體驗更順
+  // window.visualViewport.addEventListener('scroll', () => {
+  //   clearTimeout(resizeTimer);
+  //   resizeTimer = setTimeout(adjustHeroSize, 50);
+  // });
 }
 
-        // 監聽視窗大小變化
-        let resizeTimer;
-        window.addEventListener('resize', function() {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(adjustHeroSize, 100);
-        });
+    let baseTopPercent = 32; // 跟著 adjustHeroSize() 同步
 
-        // ========== 滾動效果 ==========
-        // 視差滾動效果
-        const heroSection = document.querySelector('.hero');
-        let ticking = false;
+    // ========== 滾動效果 ==========
+const heroSection = document.querySelector('.hero');
+const heroBg = document.querySelector('.hero-background');
+const heroMain = document.querySelector('.hero-main-content');
+const heroOverlay = document.querySelector('.hero::before'); // 假的，需要用另一種方式控制
 
-        function updateHeroEffect() {
-            const scrolled = window.pageYOffset;
-            
-            if (scrolled > 50) {
-                heroSection.classList.add('scrolled');
-            } else {
-                heroSection.classList.remove('scrolled');
-            }
-            
-            ticking = false;
+let ticking = false;
+function updateHeroEffect() {
+  const scrolled = window.pageYOffset;
+  const windowHeight = window.innerHeight;
+
+  // 進度 0 ~ 1
+  const progress = Math.min(scrolled / windowHeight, 1);
+
+  // 背景圖：漸進放大 + 模糊
+  heroBg.style.transform = `scale(${1 + progress * 0.15}) translateY(${progress * -40}px)`;
+  heroBg.style.filter = `blur(${progress * 5}px)`;
+
+  // 主視覺：跟著基準 top% 上移 + 微縮 + 微模糊 + 漸隱
+const moveUp = window.innerWidth <= 768 ? 24 : 32;
+heroMain.style.transform = `translate(-50%, -${baseTopPercent + progress * moveUp}%) scale(${1 - progress * 0.08})`;
+heroMain.style.filter = `blur(${progress * 3}px)`;
+heroMain.style.opacity = Math.max(0, 1 - progress * 1.1);
+
+  // 黑色遮罩：漸進加深
+  heroSection.style.setProperty("--overlay-opacity", Math.min(progress * 0.7, 0.7));
+
+  ticking = false;
+}
+
+function requestTick() {
+  if (!ticking) {
+    window.requestAnimationFrame(updateHeroEffect);
+    ticking = true;
+  }
+}
+window.addEventListener('scroll', requestTick);
+
+    // 返回頂部
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // 回頂後重算方式更精準（不丟假的 resize）
+      const recalcBanner = () => { adjustHeroSize(); updateHeroEffect(); };
+
+      if ('onscrollend' in window) {
+        window.addEventListener('scrollend', recalcBanner, { once: true });
+      } else {
+        // 非 scrollend：用 rAF 偵測停止在頂端
+        let lastY = window.scrollY, idle = 0;
+        const tick = () => {
+          const y = window.scrollY;
+          if (y === 0 && y === lastY) idle++; else idle = 0;
+          lastY = y;
+          if (idle >= 6) recalcBanner(); else requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }
+    }
+
+    // 顯示/隱藏「返回頂部」
+    window.addEventListener('scroll', function() {
+      const backToTopBtn = document.querySelector('.back-to-top');
+      if (window.pageYOffset > 300) backToTopBtn.classList.add('visible');
+      else backToTopBtn.classList.remove('visible');
+    });
+
+    // ========== 初始化 ==========
+    document.addEventListener('DOMContentLoaded', function() {
+    // 初始化動態大小調整
+    adjustHeroSize();
+
+    // 點擊下滑指示器
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+      scrollIndicator.addEventListener('click', function() {
+        const targetScroll = window.innerWidth <= 768
+          ? (window.visualViewport?.height || window.innerHeight)
+          : 600;
+        window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+      });
+    }
+
+    // 平滑滾動到錨點
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // 元素進入視窗動畫
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -100px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
         }
+      });
+    }, observerOptions);
 
-        function requestTick() {
-            if (!ticking) {
-                window.requestAnimationFrame(updateHeroEffect);
-                ticking = true;
-            }
+    document.querySelectorAll('.prize-item').forEach(item => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateY(20px)';
+      item.style.transition = 'all 0.6s ease';
+      observer.observe(item);
+    });
+
+      /* ========== 內容保護 (選用，可移除) ========== */
+      document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
+      document.addEventListener('dragstart', e => { if (e.target.tagName === 'IMG') { e.preventDefault(); return false; } });
+      document.addEventListener('selectstart', e => { if (e.target.tagName === 'IMG') { e.preventDefault(); return false; } });
+      document.addEventListener('keydown', function(e) {
+        if (e.keyCode === 123) { e.preventDefault(); return false; }                       // F12
+        if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 67)) {          // Ctrl+Shift+I/C
+          e.preventDefault(); return false;
         }
-
-        window.addEventListener('scroll', requestTick);
-
-        // 返回頂部功能
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+        if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83)) {                        // Ctrl+U/S
+          e.preventDefault(); return false;
         }
-
-        // 顯示/隱藏返回頂部按鈕
-        window.addEventListener('scroll', function() {
-            const backToTopBtn = document.querySelector('.back-to-top');
-            if (window.pageYOffset > 300) {
-                backToTopBtn.classList.add('visible');
-            } else {
-                backToTopBtn.classList.remove('visible');
-            }
-        });
-
-        // ========== 初始化 ==========
-        document.addEventListener('DOMContentLoaded', function() {
-            // 初始化動態大小調整
-            adjustHeroSize();
-            
-            // 點擊下滑指示器
-            const scrollIndicator = document.querySelector('.scroll-indicator');
-            if (scrollIndicator) {
-                scrollIndicator.addEventListener('click', function() {
-                    const targetScroll = window.innerWidth <= 768 ? window.innerHeight : 600;
-                    window.scrollTo({
-                        top: targetScroll,
-                        behavior: 'smooth'
-                    });
-                });
-            }
-
-            // 平滑滾動到錨點
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            });
-
-            // 元素進入視窗動畫
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -100px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.prize-item').forEach(item => {
-                item.style.opacity = '0';
-                item.style.transform = 'translateY(20px)';
-                item.style.transition = 'all 0.6s ease';
-                observer.observe(item);
-            });
-
-            // ========== 內容保護 (選用) ==========
-            // 如果不需要保護功能，可以註解或刪除以下程式碼
-            
-            // 防止右鍵選單
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                return false;
-            });
-
-            // 防止拖拽圖片
-            document.addEventListener('dragstart', function(e) {
-                if (e.target.tagName === 'IMG') {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-
-            // 防止選取圖片
-            document.addEventListener('selectstart', function(e) {
-                if (e.target.tagName === 'IMG') {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-
-            // 防止快捷鍵
-            document.addEventListener('keydown', function(e) {
-                // F12
-                if (e.keyCode === 123) {
-                    e.preventDefault();
-                    return false;
-                }
-                // Ctrl+Shift+I
-                if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
-                    e.preventDefault();
-                    return false;
-                }
-                // Ctrl+Shift+C
-                if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
-                    e.preventDefault();
-                    return false;
-                }
-                // Ctrl+U (檢視原始碼)
-                if (e.ctrlKey && e.keyCode === 85) {
-                    e.preventDefault();
-                    return false;
-                }
-                // Ctrl+S (儲存頁面)
-                if (e.ctrlKey && e.keyCode === 83) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-        });
-    </script>
+      });
+    });
+  </script>
 </body>
 </html>
