@@ -245,7 +245,7 @@ img, svg { max-width:100%; height:auto; display:block; }
     }
     .contact-details { margin-top: 10px; }
 
-    /* Contact rows（統一版）— 直接覆蓋原本兩段 */
+    /* Contact rows（統一版） */
     .contact-row{
       display: grid; grid-template-columns: 80px 1fr; gap: 8px 12px; align-items: start;
       margin: 8px 0; line-height: 1.8; padding-left: 6px;  /* 右欄 可調，數字越大越往左 */
@@ -253,7 +253,8 @@ img, svg { max-width:100%; height:auto; display:block; }
     .contact-row .label{
       display: block; width: 100%; white-space: nowrap;
       text-align: justify; text-justify: inter-ideograph; text-align-last: justify;
-      font-weight: 600; color: #333; padding-left: 8px;  /* 左欄 可調，越大越往右 */
+      font-weight: 600; color: #333; padding-left: 8px; /* 左欄 可調，越大越往右 */
+      letter-spacing: 0.05em; /* 可調整，讓字距更自然 */
     }
     .contact-row .label::after{ content: ""; display: inline-block; width: 100%; }
     .contact-row .value{ color:#555; word-break: break-word; }
