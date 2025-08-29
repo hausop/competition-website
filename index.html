@@ -251,19 +251,11 @@ img, svg { max-width:100%; height:auto; display:block; }
       margin: 8px 0; line-height: 1.8; padding-left: 6px;  /* 右欄 可調，數字越大越往左 */
     }
     .contact-row .label{
-  display: block;
-  width: 100%;
-  text-align: justify;          /* 左右齊寬 */
-  text-justify: inter-ideograph; 
-  text-align-last: justify;     /* 最後一行也齊寬 */
-  font-weight: 600; 
-  color: #333;
-}
-.contact-row .label::after{
-  content: ""; 
-  display: inline-block; 
-  width: 100%;                  /* 撐滿格子，確保冒號排齊 */
-}
+      display: block; width: 100%; white-space: nowrap;
+      text-align: justify; text-justify: inter-ideograph; text-align-last: justify;
+      font-weight: 600; color: #333; padding-left: 8px; /* 左欄 可調，越大越往右 */
+    }
+    .contact-row .label::after{ content: ""; display: inline-block; width: 100%; }
     .contact-row .value{ color:#555; word-break: break-word; }
     .contact-row .value a{
   display: inline-flex; 
