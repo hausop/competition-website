@@ -584,37 +584,72 @@ img, svg { max-width:100%; height:auto; display:block; }
 }
 
     /* 手機版獎項排版 */
-    @media (max-width: 768px) {
-      .prize-grid { grid-template-columns: 1fr; gap: 18px; }
-      .prize-card {
-        display: grid; grid-template-columns: 110px 1fr; grid-template-rows: auto auto;
-        grid-template-areas: "icon right" "benefits benefits"; align-items: center;
-        padding: 14px 14px; text-align: left; min-height: auto;
-        padding-left: 18px; padding-right: 16px; column-gap: 10px;
-      }
-      .prize-icon { grid-area: icon; margin: 0; padding: 0; display: flex; justify-content: center; justify-self: end; }
-      .prize-icon img { width: 94px; height: auto; object-fit: contain; }
-      .prize-content { grid-area: right; padding: 0 0 0 10px; display: flex; flex-direction: column; align-items: flex-start; }
-      .prize-title { display: none; }
-      .prize-amount { font-size: clamp(26px, 7.2vw, 38px); line-height: 1.1; margin: 0 0 8px 0; color: #2c3e50; }
-      .team-badge { color: #fff; font-weight: 700; padding: 8px 16px; border-radius: 999px; font-size: 16px; line-height: 1; }
-      .badge-gold{ background:#5f231a; } .badge-silver{ background:#ffad37; } .badge-bronze{ background:#7e8d93; } .badge-special{ background:#a14f4f; }
-      .prize-benefits{ grid-area: benefits; margin: 10px 0 0; padding: 0; list-style: none; font-size: 16px; line-height: 1.7; text-align: center; }
-      .prize-benefits li{
-  display: flex;
-  align-items: flex-start;   /* 讓勾勾對齊文字第一行 */
-  justify-content: flex-start;
-  gap: 6px;
-  margin: 6px 0;
-  text-align: left;          /* 文字靠左 */
-  white-space: normal;       /* 允許換行 */
-}
-.prize-benefits li::before{
-  content: "✓";
-  color: #0d6efd;
-  font-weight: 700;
-  flex-shrink: 0;            /* 勾勾固定在左側 */
-  margin-top: 2px;           /* 微調垂直對齊 */
+@media (max-width: 768px) {
+  .prize-grid { grid-template-columns: 1fr; gap: 18px; }
+
+  .prize-card {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: "icon right" "benefits benefits";
+    align-items: center;
+    padding: 14px 14px;
+    text-align: left;
+    min-height: auto;
+    padding-left: 18px;
+    padding-right: 16px;
+    column-gap: 10px;
+  }
+
+  .prize-icon {
+    grid-area: icon;
+    margin: 0; padding: 0;
+    display: flex;
+    justify-content: center;
+    justify-self: end;
+  }
+  .prize-icon img { width: 94px; height: auto; object-fit: contain; }
+
+  .prize-content {
+    grid-area: right;
+    padding: 0 0 0 10px;
+    display: flex; flex-direction: column; align-items: flex-start;
+  }
+
+  .prize-title { display: none; }
+  .prize-amount { font-size: clamp(26px, 7.2vw, 38px); line-height: 1.1; margin: 0 0 8px 0; color: #2c3e50; }
+  .team-badge { color: #fff; font-weight: 700; padding: 8px 16px; border-radius: 999px; font-size: 16px; line-height: 1; }
+  .badge-gold{ background:#5f231a; } .badge-silver{ background:#ffad37; } .badge-bronze{ background:#7e8d93; } .badge-special{ background:#a14f4f; }
+
+  .prize-benefits{
+    grid-area: benefits;
+    margin: 10px 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 16px;
+    line-height: 1.7;
+    text-align: left; /* ← 原本 center，改成 left */
+  }
+
+  .prize-benefits li{
+    display: flex;
+    align-items: flex-start; /* 勾勾對齊文字第一行 */
+    gap: 6px;
+    margin: 6px 0;
+    white-space: normal;
+  }
+  .prize-benefits li::before{
+    content: "✓";
+    color: #0d6efd;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* 非冠軍：清單整體往右推 16px（18 → 34） */
+  .prize-card:not(.is-champion) .prize-benefits{ padding-left: 16px; }
+  /* 若尚未加 .is-champion，可改用：
+     .prize-grid .prize-card:not(:first-child) .prize-benefits{ padding-left:16px; } */
 }
 
     /* 移除子層清單的預設樣式並重設計數器 */
