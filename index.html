@@ -646,10 +646,12 @@ img, svg { max-width:100%; height:auto; display:block; }
     margin-top: 2px;
   }
 
+  /* 非冠軍：每條項目（含勾勾+文字）水平置中 */
+.prize-card:not(.is-champion) .prize-benefits li{ justify-content: center; text-align: center; }
+
   /* 非冠軍：清單整體往右推 16px（18 → 34） */
-  .prize-card:not(.is-champion) .prize-benefits{ padding-left: 16px; }
-  /* 若尚未加 .is-champion，可改用：
-     .prize-grid .prize-card:not(:first-child) .prize-benefits{ padding-left:16px; } */
+ .prize-card:not(.is-champion) .prize-benefits{ padding-left: 0; text-align: center; }
+
 }
 
     /* 移除子層清單的預設樣式並重設計數器 */
