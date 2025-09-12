@@ -49,40 +49,11 @@ img, svg { max-width:100%; height:auto; display:block; }
     }
 
     /* 背景圖片容器 */
-.hero-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  transition: none;
-  will-change: transform, filter;
-}
-.hero-bg-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* 新增：放大與模糊控制變數 */
-:root {
-  --hero-scale: 1;
-  --hero-blur: 0px;
-}
-
-/* 手機版：用變數控制縮放/模糊，JS 會動態更新 */
-@media (max-width: 768px) {
-  .hero .hero-background {
-    transform: scale(var(--hero-scale));
-    filter: blur(var(--hero-blur));
-    will-change: transform, filter;
-    transition: transform 120ms linear, filter 120ms linear;
-  }
-}
+    .hero-background {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0; transition: none; will-change: transform, filter;
+    }
+    .hero-bg-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
 
     /* 深色遮罩層 */
     .hero::before {
@@ -619,10 +590,21 @@ img, svg { max-width:100%; height:auto; display:block; }
       .badge-gold{ background:#5f231a; } .badge-silver{ background:#ffad37; } .badge-bronze{ background:#7e8d93; } .badge-special{ background:#a14f4f; }
       .prize-benefits{ grid-area: benefits; margin: 10px 0 0; padding: 0; list-style: none; font-size: 16px; line-height: 1.7; text-align: center; }
       .prize-benefits li{
-        display: inline-flex; align-items: center; justify-content: center; gap: 4px; margin: 6px auto; width: fit-content; white-space: normal;
-      }
-      .prize-benefits li::before{ content: "✓"; color: #0d6efd; font-weight: 700; display: inline-block; vertical-align: middle; line-height: 1; margin-top: 1px; }
-    }
+  display: flex;
+  align-items: flex-start;   /* 讓勾勾對齊文字第一行 */
+  justify-content: flex-start;
+  gap: 6px;
+  margin: 6px 0;
+  text-align: left;          /* 文字靠左 */
+  white-space: normal;       /* 允許換行 */
+}
+.prize-benefits li::before{
+  content: "✓";
+  color: #0d6efd;
+  font-weight: 700;
+  flex-shrink: 0;            /* 勾勾固定在左側 */
+  margin-top: 2px;           /* 微調垂直對齊 */
+}
 
     /* 移除子層清單的預設樣式並重設計數器 */
     .custom-list { list-style-type: none; padding-left: 0; counter-reset: custom-counter; }
@@ -744,7 +726,7 @@ img, svg { max-width:100%; height:auto; display:block; }
     <h4 style="margin-bottom: 2px;">｜ 協辦單位 ｜</h4>
     <p style="font-size: 0.85em; margin: 0 0 6px;">(依筆劃排序)</p>
     <p>
-      元大人壽⨯友邦人壽｜台新人壽｜台灣人壽｜全球人壽｜安達人壽｜法國巴黎人壽｜
+      元大人壽｜友邦人壽｜台新人壽｜台灣人壽｜全球人壽｜安達人壽｜法國巴黎人壽｜
       第一金人壽｜凱基人壽｜新光人壽｜遠雄人壽｜中國信託產險｜安達產物｜
       兆豐保險｜明台產物保險｜法國巴黎產險｜泰安產物保險｜國泰產險｜富邦產險｜
       華南產險｜新光產物保險｜國立高雄科技大學-產學營運處｜
@@ -760,7 +742,7 @@ img, svg { max-width:100%; height:auto; display:block; }
     <span class="pm" aria-hidden="true"></span>   <!-- 新增這行 -->
     </summary>
     <div class="content">
-      元大人壽⨯友邦人壽｜台新人壽｜台灣人壽｜全球人壽｜安達人壽｜法國巴黎人壽｜
+      元大人壽｜友邦人壽｜台新人壽｜台灣人壽｜全球人壽｜安達人壽｜法國巴黎人壽｜
       第一金人壽｜凱基人壽｜新光人壽｜遠雄人壽｜中國信託產險｜安達產物｜
       兆豐保險｜明台產物保險｜法國巴黎產險｜泰安產物保險｜國泰產險｜富邦產險｜
       華南產險｜新光產物保險｜國立高雄科技大學-產學營運處｜
@@ -773,7 +755,7 @@ img, svg { max-width:100%; height:auto; display:block; }
   <div class="content">
     <!-- Schedule Section -->
     <div class="section">
-      <h2 class="section-title">- 大賽重要時程表 -</h2>
+      <h2 class="section-title">❰ 大賽重要時程表 ❱</h2>
       <table class="timeline-table">
         <thead><tr><th>日期</th><th>內容</th></tr></thead>
         <tbody>
@@ -790,7 +772,7 @@ img, svg { max-width:100%; height:auto; display:block; }
 
     <!-- Registration Process -->
     <div class="section">
-      <h2 class="section-title">- 報名程序說明 -</h2>
+      <h2 class="section-title">❰ 報名程序說明 ❱</h2>
       <h4>(一) 報名資格：</h4>
       <p>全國各大專院校金融、財金、保險相關科系或對於保險規劃有興趣之在校學生皆可組隊參與，初賽參與各團隊人數3人以上，最多6人。</p>
       <h4>(二) 報名方式：</h4>
@@ -805,7 +787,7 @@ img, svg { max-width:100%; height:auto; display:block; }
 
     <!-- Initial Competition Process -->
     <div class="section">
-      <h2 class="section-title">- 初賽程序說明 -</h2>
+      <h2 class="section-title">❰ 初賽程序說明 ❱</h2>
       <h4>(一) 業界老師提供參賽隊伍諮商與輔導並協助進行初賽報告。</h4>
       <ol style="margin: 20px 0; padding-left: 40px;">
         <li>可向主辦單位申請業界老師。</li>
@@ -925,32 +907,41 @@ img, svg { max-width:100%; height:auto; display:block; }
 
     <!-- 獎項區塊 Prize Section -->
     <div class="section">
-      <h2 class="section-title">- 總決賽獎勵 -</h2>
-      <p style="text-align: center; margin: 20px 0 30px;">每人獎狀乙張｜每隊錦旗一面</p>
+      <h2 class="section-title">❰ 大賽獎勵 ❱</h2>
+      <p style="text-align: center; margin: 20px 0 30px;">- 總決賽獎勵 -</p>
 
       <div class="prize-grid">
         <div class="prize-card">
           <div class="prize-icon"><img src="ICON-01.svg" alt="冠軍"></div>
           <div class="prize-content"><div class="prize-amount">$30,000</div><div class="team-badge badge-gold">1 隊</div></div>
-          <ul class="prize-benefits"><li>※冠軍20,000元+主辦單位太陽保經另加碼獎金新台幣10,000元</li><li>保險健診王軟體每位使用權限3年</li></ul>
+          <ul class="prize-benefits"><li>※冠軍20,000元+主辦單位太陽保經另加碼獎金新台幣10,000元</li><li>每人獎狀乙張｜隊伍錦旗一面</li><li>保險健診王軟體每位使用權限3年</li></ul>
         </div>
 
         <div class="prize-card">
           <div class="prize-icon"><img src="ICON-02.svg" alt="亞軍"></div>
           <div class="prize-content"><div class="prize-amount">$10,000</div><div class="team-badge badge-silver">2 隊</div></div>
-          <ul class="prize-benefits"><li>保險健診王軟體每位使用權限3年</li></ul>
+          <ul class="prize-benefits"><li>每人獎狀乙張｜隊伍錦旗一面</li><li>保險健診王軟體每位使用權限3年</li></ul>
         </div>
 
         <div class="prize-card">
           <div class="prize-icon"><img src="ICON-03.svg" alt="季軍"></div>
           <div class="prize-content"><div class="prize-amount">$8,000</div><div class="team-badge badge-bronze">3 隊</div></div>
-          <ul class="prize-benefits"><li>保險健診王軟體每位使用權限3年</li></ul>
+          <ul class="prize-benefits"><li>每人獎狀乙張｜隊伍錦旗一面</li><li>保險健診王軟體每位使用權限3年</li></ul>
         </div>
 
         <div class="prize-card">
           <div class="prize-icon"><img src="ICON-00.svg" alt="特優"></div>
           <div class="prize-content"><div class="prize-amount">$6,000</div><div class="team-badge badge-special">6 隊</div></div>
-          <ul class="prize-benefits"><li>保險健診王軟體每位使用權限2年</li></ul>
+          <ul class="prize-benefits"><li>每人獎狀乙張｜隊伍錦旗一面</li><li>保險健診王軟體每位使用權限2年</li></ul>
+        </div>
+      </div>
+
+      <p style="text-align: center; margin: 20px 0 30px;">- 初賽入圍獎勵 -</p>
+
+      <div class="prize-card">
+          <div class="prize-icon"><img src="ICON-000.svg" alt="優等"></div>
+          <div class="prize-content"><div class="prize-amount">$2,000</div><div class="team-badge badge-special">18 隊</div></div>
+          <ul class="prize-benefits"><li>隊伍錦旗一面</li></ul>
         </div>
       </div>
 
@@ -961,7 +952,7 @@ img, svg { max-width:100%; height:auto; display:block; }
 
     <!-- 注意事項 -->
     <div class="section">
-      <h2 class="section-title">- 注意事項 -</h2>
+      <h2 class="section-title">❰ 注意事項 ❱</h2>
       <ul>
         <li>本人之參賽作品須符合未曾參加國內各公開競賽之得獎文章，或已於其他刊物、網路或媒體（含保險公司內部刊物、保戶刊物及網站等）發表過以及由他人代筆等。</li>
         <li>前揭作品若有任何著作權或其他相關權利糾紛之情形，經檢舉且查證屬實，除自行負法律責任外且與主辦單位無涉，將取消得獎資格並追回相關獎勵。</li>
@@ -1111,41 +1102,24 @@ const heroOverlay = document.querySelector('.hero::before'); // 假的，需要�
 
 let ticking = false;
 function updateHeroEffect() {
-  const scrolled = window.pageYOffset || 0;
-  const winH = window.innerHeight || 1;
-  const progress = Math.min(scrolled / winH, 1);
+  const scrolled = window.pageYOffset;
+  const windowHeight = window.innerHeight;
 
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  // 進度 0 ~ 1
+  const progress = Math.min(scrolled / windowHeight, 1);
 
-  // ===== 手機：用 CSS 變數驅動 =====
-  if (isMobile) {
-    const scale = 1 + progress * 0.12;   // 想更強烈可調大 0.12 → 0.15
-    const blur  = progress * 10;         // 想更糊可調大 10 → 12
+  // 背景圖：漸進放大 + 模糊
+  heroBg.style.transform = `scale(${1 + progress * 0.15}) translateY(${progress * -40}px)`;
+  heroBg.style.filter = `blur(${progress * 5}px)`;
 
-    document.documentElement.style.setProperty('--hero-scale', scale.toFixed(3));
-    document.documentElement.style.setProperty('--hero-blur',  blur.toFixed(1) + 'px');
+  // 主視覺：跟著基準 top% 上移 + 微縮 + 微模糊 + 漸隱
+const moveUp = window.innerWidth <= 768 ? 24 : 32;
+heroMain.style.transform = `translate(-50%, -${baseTopPercent + progress * moveUp}%) scale(${1 - progress * 0.08})`;
+heroMain.style.filter = `blur(${progress * 3}px)`;
+heroMain.style.opacity = Math.max(0, 1 - progress * 1.1);
 
-    const moveUp = 24; // 手機上移幅度（％）
-    heroMain.style.transform =
-      `translate(-50%, -${baseTopPercent + progress * moveUp}%) scale(${(1 - progress * 0.08).toFixed(3)})`;
-    heroMain.style.filter  = `blur(${(progress * 3).toFixed(1)}px)`;
-    heroMain.style.opacity = Math.max(0, 1 - progress * 1.1).toFixed(3);
-  }
-  // ===== 桌機：維持原本行為 =====
-  else {
-    heroBg.style.transform =
-      `scale(${(1 + progress * 0.15).toFixed(3)}) translateY(${(-40 * progress).toFixed(0)}px)`;
-    heroBg.style.filter = `blur(${(progress * 5).toFixed(1)}px)`;
-
-    const moveUp = 32; // 桌機上移幅度（％）
-    heroMain.style.transform =
-      `translate(-50%, -${baseTopPercent + progress * moveUp}%) scale(${(1 - progress * 0.08).toFixed(3)})`;
-    heroMain.style.filter  = `blur(${(progress * 3).toFixed(1)}px)`;
-    heroMain.style.opacity = Math.max(0, 1 - progress * 1.1).toFixed(3);
-  }
-
-  // 共用：黑色遮罩
-  heroSection.style.setProperty('--overlay-opacity', Math.min(progress * 0.7, 0.7));
+  // 黑色遮罩：漸進加深
+  heroSection.style.setProperty("--overlay-opacity", Math.min(progress * 0.7, 0.7));
 
   ticking = false;
 }
@@ -1191,7 +1165,6 @@ window.addEventListener('scroll', requestTick);
     document.addEventListener('DOMContentLoaded', function() {
     // 初始化動態大小調整
     adjustHeroSize();
-    updateHeroEffect();   // 初始化一次（手機/桌機都安全）
 
     // 點擊下滑指示器
     const scrollIndicator = document.querySelector('.scroll-indicator');
