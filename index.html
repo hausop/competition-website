@@ -572,6 +572,17 @@ img, svg { max-width:100%; height:auto; display:block; }
     .prize-benefits li { margin: 5px 0; position: relative; padding-left: 1.2em; }
     .prize-benefits li::before { content: "✓"; color: #0074D9; font-weight: bold; position: absolute; left: 0; }
 
+    /* 對齊：除冠軍外，其餘獎項的清單左內距設成 34px */
+.prize-card:not(:has(.prize-icon img[alt="冠軍"])) .prize-benefits{ padding-left: 34px; }
+
+/* 保險：避免父層的置中影響，確保清單整體為靠左 */
+.prize-card .prize-benefits{ text-align: left; }
+
+    @supports not (selector(:has(*))){
+  /* 幫第一張冠軍卡加 .is-champion 後，改用 class 排除 */
+  .prize-card:not(.is-champion) .prize-benefits{ padding-left: 34px; }
+}
+
     /* 手機版獎項排版 */
     @media (max-width: 768px) {
       .prize-grid { grid-template-columns: 1fr; gap: 18px; }
@@ -911,7 +922,7 @@ img, svg { max-width:100%; height:auto; display:block; }
       <p style="text-align: center; margin: 20px 0 30px;">- 總決賽獎勵 -</p>
 
       <div class="prize-grid">
-        <div class="prize-card">
+        <div class="prize-card is-champion">
           <div class="prize-icon"><img src="ICON-01.svg" alt="冠軍"></div>
           <div class="prize-content"><div class="prize-amount">$30,000</div><div class="team-badge badge-gold">1 隊</div></div>
           <ul class="prize-benefits"><li>※冠軍20,000元+主辦單位太陽保經另加碼獎金新台幣10,000元</li><li>每人獎狀乙張｜隊伍錦旗一面</li><li>保險健診王軟體每位使用權限3年</li></ul>
