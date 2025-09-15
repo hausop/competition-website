@@ -576,6 +576,53 @@ img, svg { max-width:100%; height:auto; display:block; }
       display: flex; flex-direction: column; align-items: center; text-align: center; background: #fff; border-radius: 16px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.08); padding: 30px 20px; transition: transform 0.3s ease, box-shadow 0.3s ease; min-height: 280px;
     }
+    /* ===== 桌機版：橫式排列、補齊隊伍徽章樣式 ===== */
+@media (min-width: 769px) {
+  .prize-grid {
+    grid-template-columns: 1fr;      /* 單欄，卡片橫式排版 */
+    max-width: 1080px;
+    gap: 20px;
+  }
+  .prize-card {
+    flex-direction: row;             /* 改成橫向 */
+    align-items: center;
+    text-align: left;
+    padding: 20px 30px;
+  }
+  .prize-icon {
+    flex: 0 0 100px; 
+    margin: 0 20px 0 0;
+  }
+  .prize-content {
+    flex: 0 0 200px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .prize-benefits {
+    flex: 1;
+    margin: 0;
+    padding-left: 20px;
+    font-size: 1em;
+    color: #333;   /* 統一顏色 */
+  }
+  .prize-amount { color: #0B4870; }  /* 統一金額顏色 */
+
+  /* 桌機版隊伍徽章 */
+  .team-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 999px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .badge-gold   { background: #FAD776; color: #5A4300; }
+  .badge-silver { background: #E6E8EE; color: #4A4F5C; }
+  .badge-bronze { background: #E9C3A6; color: #5A3B1F; }
+  .badge-special{ background: #D9E8FF; color: #0B6BFF; }
+}
     .prize-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
     .prize-icon { width: 80px; height: 80px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; }
     .prize-icon img { width: 100%; height: auto; object-fit: contain; }
