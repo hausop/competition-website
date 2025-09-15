@@ -574,7 +574,8 @@ img, svg { max-width:100%; height:auto; display:block; }
 
     /* 手機版獎項排版 */
 @media (max-width: 768px) {
-  .prize-grid { grid-template-columns: 1fr; gap: 18px; }
+  .prize-grid { grid-template-columns: 1fr; gap: 18px; justify-items: stretch;   /* ★ 新增：卡片撐滿欄寬（覆寫桌機的 center） */
+ }
 
   .prize-card {
   display: grid;
@@ -586,6 +587,7 @@ img, svg { max-width:100%; height:auto; display:block; }
   text-align: left;
   min-height: 200px;                  /* ← 統一最小高度，避免優等太小 */
   column-gap: 12px;                   /* ← 統一間距 */
+  width: 100%;
 }
 
   .prize-icon {
