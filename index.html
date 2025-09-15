@@ -594,7 +594,7 @@ img, svg { max-width:100%; height:auto; display:block; }
     grid-template-areas: "icon right" "benefits benefits";
     align-items: center;
     padding: 14px 14px;
-    text-align: left;
+    text-align: center;
     min-height: auto;
     padding-left: 18px;
     padding-right: 16px;
@@ -613,7 +613,7 @@ img, svg { max-width:100%; height:auto; display:block; }
   .prize-content {
     grid-area: right;
     padding: 0 0 0 10px;
-    display: flex; flex-direction: column; align-items: flex-start;
+    display: flex; flex-direction: column; align-items: center;
   }
 
   .prize-title { display: none; }
@@ -628,30 +628,25 @@ img, svg { max-width:100%; height:auto; display:block; }
     list-style: none;
     font-size: 16px;
     line-height: 1.7;
-    text-align: left; /* ← 原本 center，改成 left */
+    text-align: center; /* ✅ 整段置中 */
   }
 
- /* 手機：每一條 li 自身視為一段文字，方便整段置中 */
-.prize-benefits li{
-  display: inline-block;      /* 不用 flex，寬度以內容為準 */
-  margin: 6px 0;
-  white-space: normal;
-  text-align: center;         /* 多行時每行也置中 */
-}
+  .prize-benefits li{
+    display: inline-block;      /* 依內容寬度 */
+    margin: 6px 0;
+    white-space: normal;
+    text-align: center;         /* 多行仍置中 */
+  }
 
-  /* 手機：勾勾當作文字一部分，一起置中 */
-.prize-benefits li::before{
-  content: "✓";
-  color: #0d6efd;
-  font-weight: 700;
-  position: static;       /* 不是 absolute，跟文字同一流 */
-  display: inline;        /* 跟文字同一行 */
-  margin-right: 6px;      /* 勾與文字間距 */
-  vertical-align: baseline;
-}
-
-  /* 非冠軍：清單整體往右推 16px（18 → 34） */
- .prize-card:not(.is-champion) .prize-benefits{ padding-left: 0; text-align: center; }
+  .prize-benefits li::before{
+    content: "✓";
+    color: #0d6efd;
+    font-weight: 700;
+    position: static;       /* ✅ 不再絕對定位 */
+    display: inline;        /* ✅ 和文字同一行 */
+    margin-right: 6px;
+    vertical-align: baseline;
+  }
 }
 
     /* 移除子層清單的預設樣式並重設計數器 */
