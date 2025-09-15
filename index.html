@@ -576,37 +576,50 @@ img, svg { max-width:100%; height:auto; display:block; }
       display: flex; flex-direction: column; align-items: center; text-align: center; background: #fff; border-radius: 16px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.08); padding: 30px 20px; transition: transform 0.3s ease, box-shadow 0.3s ease; min-height: 280px;
     }
-    /* ===== 桌機版：橫式排列、補齊隊伍徽章樣式 ===== */
+   /* === 修正桌機：橫式 + 與副標同寬 + 卡片等寬 === */
 @media (min-width: 769px) {
-    /* 與 .prize-subtitle 同寬：1100px，且卡片等寬撐滿 */
+  /* 讓網格與「- 總決賽獎勵 -」一致 1100px，且一行一卡橫置 */
   .prize-grid{
-    max-width: 1100px;           /* ← 1080 改 1100 */
-    justify-items: stretch;       /* ← 讓每張卡片撐滿欄寬 */
-    gap: 16px;                    /* 間距略收斂 */
+    grid-template-columns: 1fr;  /* 單欄（每張卡片佔滿一行） */
+    max-width: 1100px;           /* 與 .prize-subtitle 同寬 */
+    margin: 0 auto;
+    justify-items: stretch;      /* 卡片撐滿欄寬 */
+    gap: 16px;
   }
+
   .prize-card{
-    width: 100%;                  /* ← 等寬 */
-    padding: 14px 18px;           /* ← 上下內距變窄 */
-    min-height: auto;             /* ← 高度跟隨內容 */
-    align-items: flex-start;      /* 圖文靠上對齊，避免視覺空洞 */
+    display: flex;               /* 確保是 flex 容器 */
+    flex-direction: row;         /* ★ 關鍵：改橫式 */
+    align-items: flex-start;     
+    text-align: left;
+    width: 100%;                 /* 等寬 */
+    min-height: auto;            /* 高度跟內容 */
+    padding: 14px 18px;          /* 上下縮小，別太高 */
   }
-  .prize-icon{ flex: 0 0 94px; margin: 0 16px 0 0; }  /* 與全域 94px 圖示一致 */
-  .prize-content{ flex: 0 0 auto; display:flex; gap:8px; min-width:220px; }
+
+  .prize-icon{ flex: 0 0 94px; margin: 0 16px 0 0; }
+  .prize-content{ flex: 0 0 auto; display:flex; align-items:center; gap:8px; min-width:220px; }
   .prize-benefits{ flex:1; margin:0; padding-left:18px; font-size:16px; line-height:1.7; color:#333; }
 
-  /* 金額顏色改成跟手機一致 */
+  /* 金額顏色用手機版的 #2c3e50，避免桌機/手機不同色 */
   .prize-amount{ color:#2c3e50; }
+}
 
-  /* 桌機版隊伍徽章 */
-  .team-badge {
-    display: inline-block;
-    padding: 4px 10px;
-    font-size: 14px;
-    font-weight: 700;
-    border-radius: 999px;
-    line-height: 1;
-    white-space: nowrap;
-  }
+  /* === 統一徽章為手機同色（覆蓋版） === */
+.team-badge{
+  display: inline-block;
+  color:#fff;
+  font-weight:700;
+  padding:8px 16px;
+  border-radius:999px;
+  font-size:16px;
+  line-height:1;
+  white-space:nowrap;
+}
+.badge-gold{    background:#5f231a; }
+.badge-silver{  background:#ffad37; }
+.badge-bronze{  background:#7e8d93; }
+.badge-special{ background:#a14f4f; }
 }
     .prize-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
     .prize-icon { width: 80px; height: 80px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; }
