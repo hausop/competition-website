@@ -175,14 +175,17 @@ img, svg { max-width:100%; height:auto; display:block; }
       border-bottom: 3px solid #ffd700; text-align: center; font-weight: bold;
     }
     .prize-subtitle {
-  display: inline-block;
-  background: #c0a371;     /* 這裡改你想要的顏色，例：藍色 #0074D9 */
+  display: block;             /* 讓它可撐滿一行 */
+  width: 100%;                /* 和卡片一樣寬 */
+  max-width: 1100px;          /* 跟 .prize-grid 同樣寬度 */
+  margin: 16px auto 24px;     /* 與上下保持距離，稍微擠緊 */
+  background: #c0a371;
   color: #fff;
-  font-weight: 600;
-  font-size: 1.1em;
-  padding: 8px 20px;
-  border-radius: 6px;      /* 圓角矩形 */
-  margin: 20px auto 30px;
+  font-weight: 700;           /* 粗體 */
+  font-size: 0.95em;          /* 比原本小一點 */
+  text-align: center;
+  padding: 6px 0;             /* 上下高度擠緊，細長感 */
+  border-radius: 6px;         /* 輕微圓角 */
 }
     
     /* ========== 表格樣式 ========== */
