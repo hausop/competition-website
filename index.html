@@ -760,19 +760,23 @@ img, svg { max-width:100%; height:auto; display:block; }
     margin: 0 auto;
   }
 
-      .prize-card {
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    grid-template-rows: auto auto;
-    grid-template-areas: "icon right" "benefits benefits";
-    align-items: center;
-    padding: 16px;
-    text-align: left;
-    min-height: 200px;
-    column-gap: 12px;
-    width: 100%;
-    box-sizing: border-box;  /* ★ 關鍵：避免內距把卡片撐出螢幕 */
-  }
+    .prize-card {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "icon right"
+    "benefits benefits";
+  align-items: center;
+  padding: 16px;
+  text-align: left;
+  min-height: 200px;
+  column-gap: 12px;
+
+  width: 100%;          /* ✅ 卡片填滿容器 */
+  max-width: 100%;      /* ✅ 防止超過螢幕邊界 */
+  box-sizing: border-box; /* ✅ 內距計算在寬度內 */
+}
 
    .prize-icon {
     grid-area: icon;
