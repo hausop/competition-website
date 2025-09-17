@@ -244,36 +244,6 @@ img, svg { max-width:100%; height:auto; display:block; }
     .prize-bronze { background: linear-gradient(135deg, #CD7F32, #8B4513); color: white; }
     .prize-item h3 { font-size: 2em; margin-bottom: 10px; }
     .prize-amount { font-size: 1.5em; font-weight: bold; margin: 10px 0; }
-    
-    /* === 桌機版：icon 與卡片同水平；卡片由 icon 中線向右延伸 === */
-@media (min-width: 769px) {
-  /* 可調參數：icon 寬 & 卡片與 icon 重疊量（預設 = icon 一半 → 卡片從 icon 中線開始） */
-  :root{
-    --iconW: 94px;
-    --cardShift: calc(var(--iconW) / 2);   /* ← 卡片向右推移量 */
-    --gapAfterIcon: 20px;                  /* ← icon 與內文的安全間距 */
-  }
-
-  .prize-grid{
-    grid-template-columns: 1fr;     /* 單欄滿版 */
-    max-width: 1100px;
-    margin: 0 auto;
-    gap: 16px;
-    justify-items: stretch;
-  }
-
-  .prize-card{
-    position: relative;
-    display: flex;
-    align-items: center;             /* ★ 垂直置中（與 icon 對齊） */
-    width: 100%;
-    text-align: left;
-    /* 卡片由 icon 中線開始：向右位移「icon 一半」 */
-    margin-left: var(--cardShift);
-    /* 讓文字區不被 icon 擋住（完整預留 icon 寬 + 安全間距） */
-    padding: 18px 18px 18px calc(var(--iconW) + var(--gapAfterIcon));
-    min-height: auto;
-  }
 
   /* icon 疊在卡片上方，左側對齊「位移前的卡片左邊」（= 往左拉同樣位移） */
   .prize-icon{
@@ -667,23 +637,22 @@ img, svg { max-width:100%; height:auto; display:block; }
     }
    /* === 修正桌機：橫式 + 與副標同寬 + 卡片等寬 === */
 @media (min-width: 769px) {
-  /* 讓網格與「- 總決賽獎勵 -」一致 1100px，且一行一卡橫置 */
   .prize-grid{
-    grid-template-columns: 1fr;  /* 單欄（每張卡片佔滿一行） */
-    max-width: 1100px;           /* 與 .prize-subtitle 同寬 */
+    grid-template-columns: 1fr;
+    max-width: 1100px;
     margin: 0 auto;
-    justify-items: stretch;      /* 卡片撐滿欄寬 */
+    justify-items: stretch;
     gap: 16px;
   }
 
   .prize-card{
-    display: flex;               /* 確保是 flex 容器 */
-    flex-direction: row;         /* ★ 關鍵：改橫式 */
+    display: flex;
+    flex-direction: row;         /* ★ 橫式 */
     align-items: flex-start;     
     text-align: left;
-    width: 100%;                 /* 等寬 */
-    min-height: auto;            /* 高度跟內容 */
-    padding: 14px 18px;          /* 上下縮小，別太高 */
+    width: 100%;
+    min-height: auto;
+    padding: 14px 18px 14px 140px;  /* ← 改這裡：用 padding-left 預留 icon 寬度 */
   }
 
   .prize-icon{ flex: 0 0 94px; margin: 0 16px 0 0; }
@@ -798,6 +767,9 @@ img, svg { max-width:100%; height:auto; display:block; }
       .hero { height: 100dvh; }
       .organizers { margin-top: 100dvh; }
     }
+    
+    body { overflow-x: hidden; }
+    
   </style>
 </head>
 <body>
