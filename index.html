@@ -635,53 +635,100 @@ img, svg { max-width:100%; height:auto; display:block; }
       display: flex; flex-direction: column; align-items: center; text-align: center; background: #fff; border-radius: 16px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.08); padding: 30px 20px; transition: transform 0.3s ease, box-shadow 0.3s ease; min-height: 280px;
     }
-   @media (min-width: 769px) {
-  .prize-card{
-    position: relative;             /* 讓 icon 可以絕對定位在卡片內 */
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;     
-    text-align: left;
-    width: 100%;
-    min-height: auto;
-    padding: 14px 18px 14px 140px;  /* ← 預留空間給左邊 icon */
+    
+   /* === 桌機版：扁卡橫式 / 左側 icon 飄出 / 右側膠囊 === */
+@media (min-width: 769px) {
+  /* 容器置中＋左右邊界，避免超出 */
+  .prize-grid{
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 24px;
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
+  /* 卡片本體：扁卡橫式 */
+  .prize-card{
+    position: relative;                /* 讓 icon 絕對定位用 */
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    background: #f6f6f6;               /* 與 PNG 類似的灰底 */
+    border-radius: 10px;
+    padding: 14px 18px 14px 140px;     /* ← 預留左側 icon 空間 */
+    min-height: 86px;                  /* 扁卡高度 */
+    box-shadow: 0 0 0 1px #ddd inset;  /* 細邊界（可調） */
+  }
+
+  /* 左側圖示：置中漂出 */
   .prize-icon{
     position: absolute;
-    left: 24px;                     /* icon 與卡片左邊距，可依需要微調 */
+    left: -6px;                        /* ← 讓 icon 微微「飄出」卡片 */
     top: 50%;
     transform: translateY(-50%);
-    width: 94px;
+    width: 94px;                       /* 你目前的徽章寬 */
     height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1;
+    pointer-events: none;
   }
-
   .prize-icon img{
     width: 94px;
     height: auto;
     object-fit: contain;
+    display: block;
   }
 
+  /* 上排：金額 + 右側膠囊（同一行） */
   .prize-content{
-    flex: 0 0 auto;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    min-width:220px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;    /* 左右兩端對齊 */
+    gap: 12px;
+    margin-bottom: 8px;
   }
-  .prize-benefits{
-    flex:1;
-    margin:0;
-    padding-left:18px;
-    font-size:16px;
-    line-height:1.7;
-    color:#333;
+  .prize-amount{
+    font-size: clamp(28px, 3.2vw, 36px);  /* 顯眼的金額 */
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #0f2a45;
+    line-height: 1.1;
   }
 
-  .prize-amount{ color:#2c3e50; }
+  /* 右側膠囊（沿用你原本的色系 class，例如 .badge-gold 等） */
+  .team-badge{
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    height: 28px;
+    padding: 0 12px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 28px;
+    white-space: nowrap;
+  }
+
+  /* 下排：清單（維持原有內容，字小些不搶戲） */
+  .prize-benefits{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: #333;
+    font-size: 15px;
+    line-height: 1.7;
+    /* 讓勾勾與文字一起置中對齊整段（你之前的需求）*/
+    text-align: left;
+  }
+  .prize-benefits li{
+    display: block;
+    padding-left: 0;                   /* 不用再用左縮排 */
+    margin: 4px 0;
+  }
 }
 
   /* === 統一徽章為手機同色（覆蓋版） === */
