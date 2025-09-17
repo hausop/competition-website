@@ -638,7 +638,6 @@ img, svg { max-width:100%; height:auto; display:block; }
     
    /* === 桌機版：扁卡橫式 / 左側 icon 飄出 / 右側膠囊 === */
 @media (min-width: 769px) {
-  /* 容器置中＋左右邊界，避免超出 */
   .prize-grid{
     max-width: 1200px;
     margin-inline: auto;
@@ -647,26 +646,24 @@ img, svg { max-width:100%; height:auto; display:block; }
     gap: 16px;
   }
 
-  /* 卡片本體：扁卡橫式 */
   .prize-card{
-    position: relative;                /* 讓 icon 絕對定位用 */
+    position: relative;
     display: block;
-    box-sizing: border-box;
     width: 100%;
-    background: #f6f6f6;               /* 與 PNG 類似的灰底 */
+    box-sizing: border-box;
+    background: #f6f6f6;
     border-radius: 10px;
-    padding: 14px 18px 14px 140px;     /* ← 預留左側 icon 空間 */
-    min-height: 86px;                  /* 扁卡高度 */
-    box-shadow: 0 0 0 1px #ddd inset;  /* 細邊界（可調） */
+    padding: 14px 18px 14px 140px;  /* ← 預留左側 icon 空間 */
+    min-height: 86px;
+    box-shadow: 0 0 0 1px #ddd inset;
   }
 
-  /* 左側圖示：置中漂出 */
   .prize-icon{
     position: absolute;
-    left: -6px;                        /* ← 讓 icon 微微「飄出」卡片 */
+    left: -6px;   /* icon 微微探出卡片左邊 */
     top: 50%;
     transform: translateY(-50%);
-    width: 94px;                       /* 你目前的徽章寬 */
+    width: 94px;
     height: auto;
     display: flex;
     align-items: center;
@@ -681,23 +678,20 @@ img, svg { max-width:100%; height:auto; display:block; }
     display: block;
   }
 
-  /* 上排：金額 + 右側膠囊（同一行） */
   .prize-content{
     display: flex;
     align-items: center;
-    justify-content: space-between;    /* 左右兩端對齊 */
+    justify-content: space-between;
     gap: 12px;
     margin-bottom: 8px;
   }
   .prize-amount{
-    font-size: clamp(28px, 3.2vw, 36px);  /* 顯眼的金額 */
+    font-size: clamp(28px, 3.2vw, 36px);
     font-weight: 700;
-    letter-spacing: 0.5px;
     color: #0f2a45;
     line-height: 1.1;
   }
 
-  /* 右側膠囊（沿用你原本的色系 class，例如 .badge-gold 等） */
   .team-badge{
     flex: 0 0 auto;
     display: inline-flex;
@@ -713,21 +707,19 @@ img, svg { max-width:100%; height:auto; display:block; }
     white-space: nowrap;
   }
 
-  /* 下排：清單（維持原有內容，字小些不搶戲） */
   .prize-benefits{
     margin: 0;
     padding: 0;
     list-style: none;
-    color: #333;
     font-size: 15px;
     line-height: 1.7;
-    /* 讓勾勾與文字一起置中對齊整段（你之前的需求）*/
+    color: #333;
     text-align: left;
   }
   .prize-benefits li{
     display: block;
-    padding-left: 0;                   /* 不用再用左縮排 */
     margin: 4px 0;
+    padding-left: 0;
   }
 }
 
@@ -756,23 +748,26 @@ img, svg { max-width:100%; height:auto; display:block; }
     .prize-benefits li { margin: 5px 0; position: relative; padding-left: 1.2em; }
     .prize-benefits li::before { content: "✓"; color: #0074D9; font-weight: bold; position: absolute; left: 0; }
 
-    /* 手機版獎項排版 */
+    /* === 手機版：直式卡片 / icon 在左 / 下方清單置中 === */
 @media (max-width: 768px) {
-  .prize-grid { grid-template-columns: 1fr; gap: 18px; justify-items: stretch;   /* ★ 新增：卡片撐滿欄寬（覆寫桌機的 center） */
- }
+  .prize-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    justify-items: stretch;
+  }
 
   .prize-card {
-  display: grid;
-  grid-template-columns: 100px 1fr;   /* ← 統一寬度，冠軍不會太大 */
-  grid-template-rows: auto auto;
-  grid-template-areas: "icon right" "benefits benefits";
-  align-items: center;
-  padding: 16px;                      /* ← 統一內距 */
-  text-align: left;
-  min-height: 200px;                  /* ← 統一最小高度，避免優等太小 */
-  column-gap: 12px;                   /* ← 統一間距 */
-  width: 100%;
-}
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: "icon right" "benefits benefits";
+    align-items: center;
+    padding: 16px;
+    text-align: left;
+    min-height: 200px;
+    column-gap: 12px;
+    width: 100%;
+  }
 
   .prize-icon {
     grid-area: icon;
@@ -780,49 +775,60 @@ img, svg { max-width:100%; height:auto; display:block; }
     display: flex;
     justify-content: center;
     justify-self: end;
+    position: static;   /* ★ 重置定位，避免套到桌機版的 absolute */
   }
   .prize-icon img { width: 94px; height: auto; object-fit: contain; }
 
   .prize-content {
     grid-area: right;
-    padding: 0 0 0 10px;
+    padding-left: 10px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
   }
 
   .prize-title { display: none; }
-  .prize-amount { font-size: clamp(26px, 7.2vw, 38px); line-height: 1.1; margin: 0 0 8px 0; color: #2c3e50; }
-  .team-badge { color: #fff; font-weight: 700; padding: 8px 16px; border-radius: 999px; font-size: 16px; line-height: 1; }
-  .badge-gold{ background:#5f231a; } .badge-silver{ background:#ffad37; } .badge-bronze{ background:#7e8d93; } .badge-special{ background:#a14f4f; }
+  .prize-amount {
+    font-size: clamp(26px, 7.2vw, 38px);
+    line-height: 1.1;
+    margin: 0 0 8px 0;
+    color: #2c3e50;
+  }
 
-  .prize-benefits{
-  grid-area: benefits;
-  margin: 10px 0 0;
-  padding: 0;
-  list-style: none;
-  font-size: 16px;
-  line-height: 1.7;
-  text-align: center;   /* ← 整段與卡片置中 */
-}
+  .team-badge {
+    color: #fff;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 16px;
+    line-height: 1;
+  }
 
-.prize-benefits li{
-  display: flex;
-  align-items: flex-start;   /* 勾勾對齊文字首行 */
-  justify-content: flex-start;
-  gap: 6px;
-  margin: 6px 0;
-  text-align: left;          /* ← 內容靠左 */
-  white-space: normal;
-}
-
-.prize-benefits li::before{
-  content: "✓";
-  color: #0d6efd;
-  font-weight: 700;
-  flex-shrink: 0;            /* 勾勾固定在最左 */
-  margin-top: 2px;           /* 微調垂直對齊 */
-}
+  .prize-benefits {
+    grid-area: benefits;
+    margin: 10px 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 16px;
+    line-height: 1.7;
+    text-align: center;   /* 勾勾 + 文字整段置中 */
+  }
+  .prize-benefits li{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 6px;
+    margin: 6px 0;
+    text-align: left;
+    white-space: normal;
+  }
+  .prize-benefits li::before{
+    content: "✓";
+    color: #0d6efd;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
 }
 
     /* 移除子層清單的預設樣式並重設計數器 */
