@@ -798,6 +798,34 @@ img, svg { max-width:100%; height:auto; display:block; }
       .hero { height: 100dvh; }
       .organizers { margin-top: 100dvh; }
     }
+
+    /* === PC：大賽獎勵（修正卡片往右外溢、與「- 總決賽獎勵 -」同寬） === */
+@media (min-width: 1024px) {
+  /* 1) 讓獎項卡片的容器與標題區同寬、置中，並計入左右內距避免溢出 */
+  .section .prize-grid {
+    max-width: clamp(960px, 86vw, 1200px); /* 依你版面可微調上限 */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+    box-sizing: border-box;
+    width: 100% !important;   /* 防止容器被設成比可視區更寬 */
+  }
+  .section .prize-grid * { box-sizing: inherit; } /* 子元素一起計入 padding */
+
+  /* 2) 防止卡片自身的位移或外距把整排往右推 */
+  .prize-card {
+    margin-left: 0 !important;
+    transform: none !important;
+  }
+
+  /* 3) 保守處理：避免 grid 設定造成橫向超寬（維持自適應、不外溢） */
+  .prize-grid {
+    overflow-x: hidden;                 /* 擋掉偶發的 1~2px 超界 */
+    grid-auto-columns: minmax(0, 1fr);  /* 若有使用 auto-columns 時避免撐寬 */
+  }
+}
+
   </style>
 </head>
 <body>
