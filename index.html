@@ -635,31 +635,52 @@ img, svg { max-width:100%; height:auto; display:block; }
       display: flex; flex-direction: column; align-items: center; text-align: center; background: #fff; border-radius: 16px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.08); padding: 30px 20px; transition: transform 0.3s ease, box-shadow 0.3s ease; min-height: 280px;
     }
-   /* === 修正桌機：橫式 + 與副標同寬 + 卡片等寬 === */
-@media (min-width: 769px) {
-  .prize-grid{
-    grid-template-columns: 1fr;
-    max-width: 1100px;
-    margin: 0 auto;
-    justify-items: stretch;
-    gap: 16px;
-  }
-
+   @media (min-width: 769px) {
   .prize-card{
+    position: relative;             /* 讓 icon 可以絕對定位在卡片內 */
     display: flex;
-    flex-direction: row;         /* ★ 橫式 */
+    flex-direction: row;
     align-items: flex-start;     
     text-align: left;
     width: 100%;
     min-height: auto;
-    padding: 14px 18px 14px 140px;  /* ← 改這裡：用 padding-left 預留 icon 寬度 */
+    padding: 14px 18px 14px 140px;  /* ← 預留空間給左邊 icon */
   }
 
-  .prize-icon{ flex: 0 0 94px; margin: 0 16px 0 0; }
-  .prize-content{ flex: 0 0 auto; display:flex; align-items:center; gap:8px; min-width:220px; }
-  .prize-benefits{ flex:1; margin:0; padding-left:18px; font-size:16px; line-height:1.7; color:#333; }
+  .prize-icon{
+    position: absolute;
+    left: 24px;                     /* icon 與卡片左邊距，可依需要微調 */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 94px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-  /* 金額顏色用手機版的 #2c3e50，避免桌機/手機不同色 */
+  .prize-icon img{
+    width: 94px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .prize-content{
+    flex: 0 0 auto;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    min-width:220px;
+  }
+  .prize-benefits{
+    flex:1;
+    margin:0;
+    padding-left:18px;
+    font-size:16px;
+    line-height:1.7;
+    color:#333;
+  }
+
   .prize-amount{ color:#2c3e50; }
 }
 
