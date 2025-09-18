@@ -768,6 +768,11 @@ img, svg { max-width:100%; height:auto; display:block; }
     overflow-x: hidden;                 /* 擋掉偶發的 1~2px 超界 */
     grid-auto-columns: minmax(0, 1fr);  /* 若有使用 auto-columns 時避免撐寬 */
   }
+  /* 讓 hover 在桌機也能生效（覆蓋 transform: none !important） */
+  .prize-card:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
+    transform: translateY(-5px) !important;
+  }
 }
     /* --- 大賽獎勵區塊下方說明文字 --- */
 .award-note-small {
