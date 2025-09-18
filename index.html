@@ -92,31 +92,6 @@ img, svg { max-width:100%; height:auto; display:block; }
     /* 4K 螢幕限制 */
     @media (min-width: 2560px) { .hero-main-content { max-width: 700px; } }
 
-    /* 下滑指示器 */
-    .scroll-indicator {
-  position: absolute; 
-  top: 75%;  /* 數值越小位置越上 */
-  left: 50%; 
-  transform: translateX(-50%);
-  z-index: 9999;   /* 永遠在最上層 */
-    animation: slideDown 2s infinite;
-  cursor: pointer; 
-  color: white; 
-  transition: opacity 0.5s ease;
-}
-
-    .hero.scrolled .scroll-indicator { opacity: 0; }
-    @keyframes bounce {
-      0%,20%,50%,80%,100% { transform: translateX(-50%) translateY(0); }
-      40% { transform: translateX(-50%) translateY(-10px); }
-      60% { transform: translateX(-50%) translateY(-5px); }
-    }
-    @keyframes slideDown {
-  0%   { transform: translateX(-50%) translateY(0); opacity: 1; }
-  70%  { transform: translateX(-50%) translateY(15px); opacity: 0; }
-  100% { transform: translateX(-50%) translateY(0); opacity: 0; }
-}
-
     /* PC & 預設 */
     .organizers {
       position: relative; z-index: 1; background: #0074D9; color: white;
@@ -174,7 +149,20 @@ img, svg { max-width:100%; height:auto; display:block; }
       font-size: 1.8em; color: #2c3e50; margin-bottom: 20px; padding-bottom: 10px;
       border-bottom: 3px solid #ffd700; text-align: center; font-weight: bold;
     }
-
+    .prize-subtitle {
+  display: block;             /* 讓它可撐滿一行 */
+  width: 100%;                /* 和卡片一樣寬 */
+  max-width: 1100px;          /* 跟 .prize-grid 同樣寬度 */
+  margin: 16px auto 24px;     /* 與上下保持距離，稍微擠緊 */
+  background: #c0a371;
+  color: #fff;
+  font-weight: 700;           /* 粗體 */
+  font-size: 0.95em;          /* 比原本小一點 */
+  text-align: center;
+  padding: 6px 0;             /* 上下高度擠緊，細長感 */
+  border-radius: 6px;         /* 輕微圓角 */
+}
+    
     /* ========== 表格樣式 ========== */
     .timeline-table, .scoring-table {
       width: 100%; border-collapse: collapse; margin: 20px 0;
@@ -231,7 +219,7 @@ img, svg { max-width:100%; height:auto; display:block; }
     .prize-bronze { background: linear-gradient(135deg, #CD7F32, #8B4513); color: white; }
     .prize-item h3 { font-size: 2em; margin-bottom: 10px; }
     .prize-amount { font-size: 1.5em; font-weight: bold; margin: 10px 0; }
-
+    
     /* ========== 聯絡區塊 ========== */
     .contact-section { background: #f8f9fa; padding: 35px 20px; }
     .contact-container { max-width: 1200px; margin: 0 auto; }
@@ -558,52 +546,190 @@ img, svg { max-width:100%; height:auto; display:block; }
     .protected-content { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
 
     /* PC 版 - 4個並排卡片 */
-    .prize-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
+    .prize-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; justify-items: center; /* 新增：各欄中的卡片置中 */ }
     .prize-card {
       display: flex; flex-direction: column; align-items: center; text-align: center; background: #fff; border-radius: 16px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.08); padding: 30px 20px; transition: transform 0.3s ease, box-shadow 0.3s ease; min-height: 280px;
     }
+   /* === 桌機版：獎項整體置中（圖片 / 金額 / 標籤 / 內文） === */
+@media (min-width: 769px) {
+  .prize-grid{
+    grid-template-columns: 1fr;  
+    max-width: 1100px;           
+    margin: 0 auto;
+    justify-items: stretch;      
+    gap: 16px;
+  }
+
+  /* 改用 3 欄 Grid：圖示 | 金額+標籤 | 內文
+     讓三區都能在各自欄內水平置中，整卡片視覺置中 */
+  .prize-card{
+    display: grid;
+    grid-template-columns: 120px minmax(220px, 300px) 1fr; /* 固定左欄，右欄自適應 */
+    align-items: center;         /* ★ 三區垂直置中 */
+    text-align: center;          /* ★ 欄內文字置中 */
+    width: 100%;
+    min-height: auto;
+    padding: 18px 24px;          /* 卡片內距 */
+    column-gap: 24px;            /* ★ 固定欄間距，避免太貼 */
+  }
+
+  .prize-icon{ 
+    grid-column: 1;
+    justify-self: center;        /* ★ 圖片置中 */
+    margin: 0;
+  }
+
+  /* 金額 + 標籤改為直式堆疊，並上下置中對齊 */
+  .prize-content{ 
+    grid-column: 2;
+    display: flex; 
+    flex-direction: column;      /* ★ 上下排列 */
+    align-items: center;         /* ★ 置中 */
+    justify-content: center;     /* ★ 置中 */
+    gap: 10px;
+    min-width: 0;
+  }
+  .prize-amount{ 
+    color:#2c3e50; 
+    font-size: 28px; 
+    font-weight: 700; 
+    line-height: 1;
+    text-align: center;          /* ★ 金額置中 */
+    min-width: 0;
+    margin: 0;
+  }
+  .team-badge{
+    display: inline-block;
+    color:#fff;
+    font-weight:700;
+    padding:8px 16px;
+    border-radius:999px;
+    font-size:16px;
+    line-height:1;
+    white-space:nowrap;
+  }
+  .badge-gold{    background:#5f231a; }
+  .badge-silver{  background:#ffad37; }
+  .badge-bronze{  background:#7e8d93; }
+  .badge-special{ background:#a14f4f; }
+  .badge-regular{ background:#c18888; }
+
+  /* 右側內文改成置中，並與中欄保持固定間距，不再貼太近 */
+  .prize-benefits{ 
+    grid-column: 3;
+    margin: 0;
+    padding: 0 8px;
+    font-size: 16px; 
+    line-height: 1.7; 
+    color:#333; 
+    text-align: center;          /* ★ 內文整段置中 */
+    list-style: none;
+  }
+  .prize-benefits li{
+    margin: 6px 0;
+    padding-left: 0;             /* 移除舊的縮排 */
+    display: inline-flex;        /* 讓勾勾與文字一體置中 */
+    align-items: flex-start;
+    justify-content: center;
+    gap: 6px;                    /* 勾與文字間距 */
+    white-space: normal;
+  }
+  .prize-benefits li::before{
+    content: "✓";
+    color: #0d6efd;
+    font-weight: 700;
+    position: static;            /* ★ 不用絕對定位，才能跟文字一起置中 */
+    margin-right: 0;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+}
+
     .prize-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
     .prize-icon { width: 80px; height: 80px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; }
     .prize-icon img { width: 100%; height: auto; object-fit: contain; }
     .prize-title { font-size: 1.5em; font-weight: bold; color: #2c3e50; margin-bottom: 10px; }
-    .prize-amount { font-size: 2em; font-weight: bold; color: #0074D9; margin-bottom: 15px; }
+    .prize-amount { font-size: 2em; font-weight: bold; color: #2C3E50; margin-bottom: 15px; }
     .prize-benefits { list-style: none; padding: 0; margin: 0; font-size: 0.9em; color: #666; line-height: 1.6; }
     .prize-benefits li { margin: 5px 0; position: relative; padding-left: 1.2em; }
     .prize-benefits li::before { content: "✓"; color: #0074D9; font-weight: bold; position: absolute; left: 0; }
 
     /* 手機版獎項排版 */
-    @media (max-width: 768px) {
-      .prize-grid { grid-template-columns: 1fr; gap: 18px; }
-      .prize-card {
-        display: grid; grid-template-columns: 110px 1fr; grid-template-rows: auto auto;
-        grid-template-areas: "icon right" "benefits benefits"; align-items: center;
-        padding: 14px 14px; text-align: left; min-height: auto;
-        padding-left: 18px; padding-right: 16px; column-gap: 10px;
-      }
-      .prize-icon { grid-area: icon; margin: 0; padding: 0; display: flex; justify-content: center; justify-self: end; }
-      .prize-icon img { width: 94px; height: auto; object-fit: contain; }
-      .prize-content { grid-area: right; padding: 0 0 0 10px; display: flex; flex-direction: column; align-items: flex-start; }
-      .prize-title { display: none; }
-      .prize-amount { font-size: clamp(26px, 7.2vw, 38px); line-height: 1.1; margin: 0 0 8px 0; color: #2c3e50; }
-      .team-badge { color: #fff; font-weight: 700; padding: 8px 16px; border-radius: 999px; font-size: 16px; line-height: 1; }
-      .badge-gold{ background:#5f231a; } .badge-silver{ background:#ffad37; } .badge-bronze{ background:#7e8d93; } .badge-special{ background:#a14f4f; }
-      .prize-benefits{ grid-area: benefits; margin: 10px 0 0; padding: 0; list-style: none; font-size: 16px; line-height: 1.7; text-align: center; }
-      .prize-benefits li{
+@media (max-width: 768px) {
+  .prize-grid { grid-template-columns: 1fr; gap: 18px; justify-items: stretch;   /* ★ 新增：卡片撐滿欄寬（覆寫桌機的 center） */
+ }
+
+  .prize-card {
+  display: grid;
+  grid-template-columns: 100px 1fr;   /* ← 統一寬度，冠軍不會太大 */
+  grid-template-rows: auto auto;
+  grid-template-areas: "icon right" "benefits benefits";
+  align-items: center;
+  padding: 16px;                      /* ← 統一內距 */
+  text-align: left;
+  min-height: 200px;                  /* ← 統一最小高度，避免優等太小 */
+  column-gap: 12px;                   /* ← 統一間距 */
+  width: 100%;
+}
+
+  .prize-icon {
+    grid-area: icon;
+    margin: 0; padding: 0;
+    display: flex;
+    justify-content: center;
+    justify-self: end;
+  }
+  .prize-icon img { width: 94px; height: auto; object-fit: contain; }
+
+  .prize-content {
+    grid-area: right;
+    padding: 0 0 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .prize-title { display: none; }
+  .prize-amount { font-size: clamp(26px, 7.2vw, 38px); line-height: 1.1; margin: 0 0 8px 0; color: #2c3e50; }
+  .team-badge { color: #fff; font-weight: 700; padding: 8px 16px; border-radius: 999px; font-size: 16px; line-height: 1; }
+  .badge-gold{ background:#5f231a; } .badge-silver{ background:#ffad37; } .badge-bronze{ background:#7e8d93; } .badge-special{ background:#a14f4f; } .badge-regular{ background:#c18888; }
+
+  .prize-benefits{
+  grid-area: benefits;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 16px;
+  line-height: 1.7;
+  text-align: center;   /* ← 整段與卡片置中 */
+}
+
+.prize-benefits li{
   display: flex;
-  align-items: flex-start;   /* 讓勾勾對齊文字第一行 */
+  align-items: flex-start;   /* 勾勾對齊文字首行 */
   justify-content: flex-start;
   gap: 6px;
   margin: 6px 0;
-  text-align: left;          /* 文字靠左 */
-  white-space: normal;       /* 允許換行 */
+  text-align: left;          /* ← 內容靠左 */
+  white-space: normal;
 }
+
 .prize-benefits li::before{
   content: "✓";
   color: #0d6efd;
   font-weight: 700;
-  flex-shrink: 0;            /* 勾勾固定在左側 */
+  flex-shrink: 0;            /* 勾勾固定在最左 */
   margin-top: 2px;           /* 微調垂直對齊 */
+}
+  .prize-card.is-excellence {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    min-height: auto;   /* 移除原本 200px 的強制高度 */
+  }
+  .prize-card.is-excellence .prize-benefits {
+    margin-top: 4px;   /* 更緊湊一點 */
+  }
 }
 
     /* 移除子層清單的預設樣式並重設計數器 */
@@ -616,6 +742,48 @@ img, svg { max-width:100%; height:auto; display:block; }
       .hero { height: 100dvh; }
       .organizers { margin-top: 100dvh; }
     }
+
+    /* === PC：大賽獎勵（修正卡片往右外溢、與「- 總決賽獎勵 -」同寬） === */
+@media (min-width: 1024px) {
+  /* 1) 讓獎項卡片的容器與標題區同寬、置中，並計入左右內距避免溢出 */
+  .section .prize-grid {
+    max-width: clamp(960px, 86vw, 1200px); /* 依你版面可微調上限 */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+    box-sizing: border-box;
+    width: 100% !important;   /* 防止容器被設成比可視區更寬 */
+  }
+  .section .prize-grid * { box-sizing: inherit; } /* 子元素一起計入 padding */
+
+  /* 2) 防止卡片自身的位移或外距把整排往右推 */
+  .prize-card {
+    margin-left: 0 !important;
+    transform: none !important;
+  }
+
+  /* 3) 保守處理：避免 grid 設定造成橫向超寬（維持自適應、不外溢） */
+  .prize-grid {
+    overflow-x: hidden;                 /* 擋掉偶發的 1~2px 超界 */
+    grid-auto-columns: minmax(0, 1fr);  /* 若有使用 auto-columns 時避免撐寬 */
+  }
+}
+    /* --- 大賽獎勵區塊下方說明文字 --- */
+.award-note-small {
+  text-align: center;
+  font-size: 13px;      /* 小一號字 */
+  color: #0D6EFD;       /* 跟打勾一樣的藍色 */
+  margin-top: 8px;
+}
+
+.award-note {
+  text-align: center;
+  font-size: 15px;      /* 一般字體大小 */
+  color: #000;          /* 黑色 */
+  margin-top: 8px;
+}
+
   </style>
 </head>
 <body>
@@ -638,15 +806,6 @@ img, svg { max-width:100%; height:auto; display:block; }
         <img src="banner-main.png" alt="第十三屆全國大專保單健診暨保險規劃大賽" class="hero-main-image">
       </div>
     </div>
-
-    <!-- 下滑提示 -->
-    <div class="scroll-indicator">
-  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <path d="M7 7l5 5 5-5"/>
-    <path d="M7 13l5 5 5-5"/>
-  </svg>
-</div>
-
   </div>
 
   <!-- Organizers -->
@@ -907,38 +1066,47 @@ img, svg { max-width:100%; height:auto; display:block; }
 
     <!-- 獎項區塊 Prize Section -->
     <div class="section">
-      <h2 class="section-title">❰ 總決賽獎勵 ❱</h2>
-      <p style="text-align: center; margin: 20px 0 30px;">每人獎狀乙張｜每隊錦旗一面</p>
+      <h2 class="section-title">❰ 大賽獎勵 ❱</h2>
+      <p class="prize-subtitle">- 總決賽獎勵 -</p>
 
       <div class="prize-grid">
-        <div class="prize-card">
+        <div class="prize-card is-champion">
           <div class="prize-icon"><img src="ICON-01.svg" alt="冠軍"></div>
           <div class="prize-content"><div class="prize-amount">$30,000</div><div class="team-badge badge-gold">1 隊</div></div>
-          <ul class="prize-benefits"><li>※冠軍20,000元+主辦單位太陽保經另加碼獎金新台幣10,000元</li><li>保險健診王軟體每位使用權限3年</li></ul>
+          <ul class="prize-benefits"><li>※冠軍20,000元+主辦單位太陽保經另加碼獎金新台幣10,000元</li><li>每人獎狀乙張｜隊伍錦旗一面</li><li>保險健診王軟體每位使用權限3年</li></ul>
         </div>
 
         <div class="prize-card">
           <div class="prize-icon"><img src="ICON-02.svg" alt="亞軍"></div>
           <div class="prize-content"><div class="prize-amount">$10,000</div><div class="team-badge badge-silver">2 隊</div></div>
-          <ul class="prize-benefits"><li>保險健診王軟體每位使用權限3年</li></ul>
+          <ul class="prize-benefits"><li>每人獎狀乙張｜隊伍錦旗一面</li><li>保險健診王軟體每位使用權限3年</li></ul>
         </div>
 
         <div class="prize-card">
           <div class="prize-icon"><img src="ICON-03.svg" alt="季軍"></div>
           <div class="prize-content"><div class="prize-amount">$8,000</div><div class="team-badge badge-bronze">3 隊</div></div>
-          <ul class="prize-benefits"><li>保險健診王軟體每位使用權限3年</li></ul>
+          <ul class="prize-benefits"><li>每人獎狀乙張｜隊伍錦旗一面</li><li>保險健診王軟體每位使用權限3年</li></ul>
         </div>
 
         <div class="prize-card">
           <div class="prize-icon"><img src="ICON-00.svg" alt="特優"></div>
           <div class="prize-content"><div class="prize-amount">$6,000</div><div class="team-badge badge-special">6 隊</div></div>
-          <ul class="prize-benefits"><li>保險健診王軟體每位使用權限2年</li></ul>
+          <ul class="prize-benefits"><li>每人獎狀乙張｜隊伍錦旗一面</li><li>保險健診王軟體每位使用權限2年</li></ul>
         </div>
       </div>
 
-      <p style="text-align: center; margin-top: 20px;">※保險健診王軟體使用權限於大賽總決賽日翌日起一個月內申請完畢，如逾將視為放棄資格※</p>
-      <p>為鼓勵認真投入且繳交完整初賽報告之隊伍，新設佳作獎項，並於全國總決賽後頒發至各隊伍系上。</p>
-      <h4>總決賽現場進行頒獎儀式，得獎隊伍將於活動官方網站及相關報章媒體刊出。</h4>
+      <p class="prize-subtitle">- 初賽入圍獎勵 -</p>
+       
+      <div class="prize-grid">
+      <div class="prize-card is-excellence">
+          <div class="prize-icon"><img src="ICON-000.svg" alt="優等"></div>
+          <div class="prize-content"><div class="prize-amount">$2,000</div><div class="team-badge badge-regular">18 隊</div></div>
+          <ul class="prize-benefits"><li>隊伍錦旗一面</li></ul>
+        </div>
+      </div>
+
+      <p class="award-note-small">※為鼓勵認真投入且繳交完整初賽報告之隊伍，新設佳作獎項，並於全國總決賽後提供檔案給系辦※</p>
+      <p class="award-note">總決賽現場進行頒獎儀式，得獎隊伍將於活動官方網站及相關報章媒體刊出。</p>
     </div>
 
     <!-- 注意事項 -->
@@ -1156,17 +1324,6 @@ window.addEventListener('scroll', requestTick);
     document.addEventListener('DOMContentLoaded', function() {
     // 初始化動態大小調整
     adjustHeroSize();
-
-    // 點擊下滑指示器
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    if (scrollIndicator) {
-      scrollIndicator.addEventListener('click', function() {
-        const targetScroll = window.innerWidth <= 768
-          ? (window.visualViewport?.height || window.innerHeight)
-          : 600;
-        window.scrollTo({ top: targetScroll, behavior: 'smooth' });
-      });
-    }
 
     // 平滑滾動到錨點
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
