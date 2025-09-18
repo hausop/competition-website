@@ -576,97 +576,80 @@ img, svg { max-width:100%; height:auto; display:block; }
       display: flex; flex-direction: column; align-items: center; text-align: center; background: #fff; border-radius: 16px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.08); padding: 30px 20px; transition: transform 0.3s ease, box-shadow 0.3s ease; min-height: 280px;
     }
-   /* === 桌機版：獎項整體置中（圖片 / 金額 / 標籤 / 內文） === */
+   /* === 桌機版：圖示｜金額｜內文｜隊伍標籤 同列排列 === */
 @media (min-width: 769px) {
   .prize-grid{
-    grid-template-columns: 1fr;  
-    max-width: 1100px;           
+    grid-template-columns: 1fr;      /* 單欄容器，卡片滿寬 */
+    max-width: 1100px;
     margin: 0 auto;
-    justify-items: stretch;      
     gap: 16px;
   }
 
-  /* 改用 3 欄 Grid：圖示 | 金額+標籤 | 內文
-     讓三區都能在各自欄內水平置中，整卡片視覺置中 */
+  /* 卡片本體改成 4 欄：圖示 | 金額 | 內文 | 隊伍標籤 */
   .prize-card{
     display: grid;
-    grid-template-columns: 120px minmax(220px, 300px) 1fr; /* 固定左欄，右欄自適應 */
-    align-items: center;         /* ★ 三區垂直置中 */
-    text-align: center;          /* ★ 欄內文字置中 */
+    grid-template-columns: 120px auto 1fr auto;
+    align-items: center;
+    column-gap: 18px;
     width: 100%;
-    min-height: auto;
-    padding: 18px 24px;          /* 卡片內距 */
-    column-gap: 24px;            /* ★ 固定欄間距，避免太貼 */
+    padding: 14px 24px;
+    text-align: left;                /* 內文字靠左，更像範例條帶 */
   }
 
-  .prize-icon{ 
+  /* 左側圖示 */
+  .prize-icon{
     grid-column: 1;
-    justify-self: center;        /* ★ 圖片置中 */
+    justify-self: start;
     margin: 0;
   }
 
-  /* 金額 + 標籤改為直式堆疊，並上下置中對齊 */
-  .prize-content{ 
+  /* 關鍵：把 .prize-content 攤平，讓內部兩個子元素
+     （.prize-amount 與 .team-badge）直接參與 .prize-card 的 Grid  */
+  .prize-content{ display: contents; }
+
+  /* 金額在第 2 欄，字重大、與卡片垂直置中 */
+  .prize-amount{
     grid-column: 2;
-    display: flex; 
-    flex-direction: column;      /* ★ 上下排列 */
-    align-items: center;         /* ★ 置中 */
-    justify-content: center;     /* ★ 置中 */
-    gap: 10px;
-    min-width: 0;
-  }
-  .prize-amount{ 
-    color:#2c3e50; 
-    font-size: 28px; 
-    font-weight: 700; 
+    font-size: 28px;
+    font-weight: 700;
     line-height: 1;
-    text-align: center;          /* ★ 金額置中 */
-    min-width: 0;
     margin: 0;
+    white-space: nowrap;
   }
-  .team-badge{
-    display: inline-block;
-    color:#fff;
-    font-weight:700;
-    padding:8px 16px;
-    border-radius:999px;
-    font-size:16px;
-    line-height:1;
-    white-space:nowrap;
-  }
-  .badge-gold{    background:#5f231a; }
-  .badge-silver{  background:#ffad37; }
-  .badge-bronze{  background:#7e8d93; }
-  .badge-special{ background:#a14f4f; }
 
-  /* 右側內文改成置中，並與中欄保持固定間距，不再貼太近 */
-  .prize-benefits{ 
+  /* 打勾清單放第 3 欄，與金額同列 */
+  .prize-benefits{
     grid-column: 3;
     margin: 0;
-    padding: 0 8px;
-    font-size: 16px; 
-    line-height: 1.7; 
-    color:#333; 
-    text-align: center;          /* ★ 內文整段置中 */
+    padding: 0;
     list-style: none;
+    line-height: 1.7;
   }
   .prize-benefits li{
-    margin: 6px 0;
-    padding-left: 0;             /* 移除舊的縮排 */
-    display: inline-flex;        /* 讓勾勾與文字一體置中 */
+    display: inline-flex;            /* 勾與文字同列、可多行自動換 */
     align-items: flex-start;
-    justify-content: center;
-    gap: 6px;                    /* 勾與文字間距 */
-    white-space: normal;
+    gap: 6px;
+    margin-right: 14px;              /* 多項目時的間距 */
   }
   .prize-benefits li::before{
     content: "✓";
     color: #0d6efd;
     font-weight: 700;
-    position: static;            /* ★ 不用絕對定位，才能跟文字一起置中 */
-    margin-right: 0;
+    position: static;                /* 讓勾跟文字一起流動 */
     margin-top: 2px;
     flex-shrink: 0;
+  }
+
+  /* 右側隊伍數量標籤在第 4 欄，靠右 */
+  .team-badge{
+    grid-column: 4;
+    justify-self: end;
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
   }
 }
 
