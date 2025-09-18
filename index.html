@@ -722,6 +722,14 @@ img, svg { max-width:100%; height:auto; display:block; }
   flex-shrink: 0;            /* 勾勾固定在最左 */
   margin-top: 2px;           /* 微調垂直對齊 */
 }
+  .prize-card.is-excellence {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    min-height: auto;   /* 移除原本 200px 的強制高度 */
+  }
+  .prize-card.is-excellence .prize-benefits {
+    margin-top: 4px;   /* 更緊湊一點 */
+  }
 }
 
     /* 移除子層清單的預設樣式並重設計數器 */
@@ -1090,7 +1098,7 @@ img, svg { max-width:100%; height:auto; display:block; }
       <p class="prize-subtitle">- 初賽入圍獎勵 -</p>
        
       <div class="prize-grid">
-      <div class="prize-card">
+      <div class="prize-card is-excellence">
           <div class="prize-icon"><img src="ICON-000.svg" alt="優等"></div>
           <div class="prize-content"><div class="prize-amount">$2,000</div><div class="team-badge badge-regular">18 隊</div></div>
           <ul class="prize-benefits"><li>隊伍錦旗一面</li></ul>
