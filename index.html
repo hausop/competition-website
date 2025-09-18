@@ -682,12 +682,13 @@ img, svg { max-width:100%; height:auto; display:block; }
     text-align: left;
     width: 100%;                 
     min-height: auto;            
-    padding: 14px 18px;          
+    padding: 14px 24px 14px 36px; /* ← 改這行：加大左側內距，整張卡片內容右移 */  
   }
 
   .prize-icon{ 
     flex: 0 0 94px; 
-    margin: 0 16px 0 0; 
+    margin: 0 16px 0 0;
+    margin-left: 8px;
   }
 
   /* === 調整：獎金數字靠右，隊伍標籤對齊數字 === */
@@ -695,7 +696,7 @@ img, svg { max-width:100%; height:auto; display:block; }
     flex: 0 0 auto; 
     display:flex; 
     align-items: baseline; 
-    justify-content: flex-end;   /* ★ 靠右 */
+    justify-content: flex-end;
     gap: 12px; 
     min-width: 220px; 
   }
