@@ -245,95 +245,6 @@ img, svg { max-width:100%; height:auto; display:block; }
     .prize-item h3 { font-size: 2em; margin-bottom: 10px; }
     .prize-amount { font-size: 1.5em; font-weight: bold; margin: 10px 0; }
     
-    /* === 桌機版：icon 與卡片同水平；卡片由 icon 中線向右延伸 === */
-@media (min-width: 769px) {
-  /* 可調參數：icon 寬 & 卡片與 icon 重疊量（預設 = icon 一半 → 卡片從 icon 中線開始） */
-  :root{
-    --iconW: 94px;
-    --cardShift: calc(var(--iconW) / 2);   /* ← 卡片向右推移量 */
-    --gapAfterIcon: 20px;                  /* ← icon 與內文的安全間距 */
-  }
-
-  .prize-grid{
-    grid-template-columns: 1fr;     /* 單欄滿版 */
-    max-width: 1100px;
-    margin: 0 auto;
-    gap: 16px;
-    justify-items: stretch;
-  }
-
-  .prize-card{
-    position: relative;
-    display: flex;
-    align-items: center;             /* ★ 垂直置中（與 icon 對齊） */
-    width: 100%;
-    text-align: left;
-    /* 卡片由 icon 中線開始：向右位移「icon 一半」 */
-    margin-left: var(--cardShift);
-    /* 讓文字區不被 icon 擋住（完整預留 icon 寬 + 安全間距） */
-    padding: 18px 18px 18px calc(var(--iconW) + var(--gapAfterIcon));
-    min-height: auto;
-  }
-
-  /* icon 疊在卡片上方，左側對齊「位移前的卡片左邊」（= 往左拉同樣位移） */
-  .prize-icon{
-    position: absolute;
-    left: calc(-1 * var(--cardShift));  /* ★ 抵銷卡片的右移，icon 回到原左邊 */
-    top: 50%;
-    transform: translateY(-50%);        /* ★ 與卡片垂直置中對齊 */
-    z-index: 3;
-    pointer-events: none;
-  }
-  .prize-icon img{
-    width: var(--iconW);
-    height: auto;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,.18));
-  }
-
-  /* 左：金額 + 標籤（同一水平）；中：說明；右：留白 */
-  .prize-content{
-    display: inline-flex;
-    align-items: baseline;
-    gap: 14px;
-    min-width: 220px;
-  }
-  .prize-amount{
-    font-size: 28px;
-    font-weight: 700;
-    color: #2c3e50;                   /* 與手機版一致 */
-    line-height: 1;
-  }
-
-  .team-badge{
-    margin-left: 4px;
-    display: inline-flex !important;  /* 若桌機版曾被隱藏，這裡強制顯示 */
-    align-items: center;
-    padding: 6px 12px;
-    border-radius: 999px;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 1;
-    color: #fff;
-  }
-  .badge-gold{    background:#5f231a; }
-  .badge-silver{  background:#ffad37; }
-  .badge-bronze{  background:#7e8d93; }
-  .badge-special{ background:#a14f4f; }
-
-  /* 說明置左，佔滿中間，不與 icon 打架 */
-  .prize-benefits{
-    flex: 1;
-    margin: 0 0 0 16px;
-    padding: 0;
-    list-style: none;
-    font-size: 14px;
-    color: #555;
-    text-align: left;
-    line-height: 1.7;
-  }
-  .prize-benefits li{ margin: 4px 0; }
-}
-
     /* ========== 聯絡區塊 ========== */
     .contact-section { background: #f8f9fa; padding: 35px 20px; }
     .contact-container { max-width: 1200px; margin: 0 auto; }
@@ -682,13 +593,13 @@ img, svg { max-width:100%; height:auto; display:block; }
     text-align: left;
     width: 100%;                 
     min-height: auto;            
-    padding: 14px 24px 14px 36px; /* ← 改這行：加大左側內距，整張卡片內容右移 */  
+    padding: 14px 24px 14px 56px; /* ← 左內距 36→56，整體更往右 */  
   }
 
   .prize-icon{ 
     flex: 0 0 94px; 
     margin: 0 16px 0 0;
-    margin-left: 8px;
+    margin-left: 20px; /* 8→20；icon 再往右 */
   }
 
   /* === 調整：獎金數字靠右，隊伍標籤對齊數字 === */
@@ -697,7 +608,7 @@ img, svg { max-width:100%; height:auto; display:block; }
     display:flex; 
     align-items: baseline; 
     justify-content: flex-end;
-    gap: 12px; 
+    gap: 12px;           /* 數字與徽章間距（可改 16/20） */
     min-width: 220px; 
   }
   .prize-amount{ 
@@ -705,14 +616,14 @@ img, svg { max-width:100%; height:auto; display:block; }
     font-size: 28px; 
     font-weight: 700; 
     line-height: 1;
-    text-align: right;           /* ★ 數字靠右 */
-    min-width: 100px;            /* ★ 固定寬度 */
+    text-align: right;   /* ★ 數字靠右 */
+    min-width: 120px;    /* 100→120/140，可確保位數不同仍對齊 */
   }
 
   .prize-benefits{ 
     flex:1; 
     margin:0; 
-    padding-left:18px; 
+    padding-left:24px;   /* 18→24，避免文字貼到 icon */
     font-size:16px; 
     line-height:1.7; 
     color:#333; 
