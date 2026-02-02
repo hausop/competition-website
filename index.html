@@ -784,6 +784,33 @@ img, svg { max-width:100%; height:auto; display:block; }
   margin-top: 8px;
 }
 
+    /* ===== 優等獎：參賽獎狀下載按鈕 ===== */
+.award-download{
+  display: flex;
+  justify-content: center;   /* 水平置中 */
+  margin-top: 10px;
+}
+
+.award-download-btn{
+  display: inline-flex;      /* 寬度隨文字 */
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0d6efd;
+  border: 1.5px solid #0d6efd;
+  border-radius: 999px;      /* 膠囊型 */
+  text-decoration: none;
+  white-space: nowrap;       /* ✅ 文字永不換行 */
+  transition: all .25s ease;
+}
+
+.award-download-btn:hover{
+  background: #0d6efd;
+  color: #fff;
+}
+
   </style>
 </head>
 <body>
@@ -1104,6 +1131,17 @@ img, svg { max-width:100%; height:auto; display:block; }
           <ul class="prize-benefits"><li>隊伍錦旗一面</li></ul>
         </div>
       </div>
+
+      <div class="award-download">
+  <a
+    href="https://script.google.com/macros/s/AKfycbyX8zqiN8TX02sfc_LDjTI_-VOJjNu_7TviaPB8xLKIYjaktLQOTNQYZLsAVxkOhDdC/exec"
+    target="_blank"
+    rel="noopener"
+    class="award-download-btn"
+  >
+    參賽獎狀下載
+  </a>
+</div>
 
       <p class="award-note-small">※為鼓勵認真投入且繳交完整初賽報告之隊伍，新設佳作獎項，並於全國總決賽後頒發檔案給系辦※</p>
       <p class="award-note">總決賽現場進行頒獎儀式，得獎隊伍將於活動官方網站及相關報章媒體刊出。</p>
