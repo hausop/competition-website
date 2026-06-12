@@ -73,7 +73,7 @@ img, svg { max-width:100%; height:auto; display:block; }
       padding: 20px; transition: none;
       will-change: transform, top;
     }
-    .hero-main-image { width: 100%; max-height: 85vh; object-fit: contain; }
+    .hero-main-image { width: 100%; height: auto; object-fit: contain; }
 
     /* ====== 主視覺：雙圖容器（基礎：手機優先） ====== */
     .banner-desktop { display: none; } /* 手機預設隱藏雙圖 */
@@ -427,11 +427,11 @@ img, svg { max-width:100%; height:auto; display:block; }
     /* 手機尺寸 */
 @media (max-width: 768px) {
   .hero-main-content {
-    width: 100%; 
-    max-width: none; 
-    padding: 0px;
-    top: 50%; 
-    transform: translate(-50%, -50%);
+    width: 95%; 
+    max-width: 600px; 
+    padding: 5px;
+    top: 18%; 
+    transform: translate(-50%, -18%);
   }
 
   .organizers-grid { grid-template-columns: 1fr; gap: 25px; }
@@ -830,7 +830,7 @@ img, svg { max-width:100%; height:auto; display:block; }
       </div>
       <!-- 手機版：單張主視覺 -->
       <div class="banner-mobile">
-        <img src="banner-main.svg" alt="第十三屆全國大專保單健診暨保險規劃大賽" class="hero-main-image">
+        <img src="banner-main.png" alt="第十三屆全國大專保單健診暨保險規劃大賽" class="hero-main-image">
       </div>
     </div>
   </div>
