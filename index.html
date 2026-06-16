@@ -523,18 +523,25 @@ img, svg { max-width:100%; height:auto; display:block; }
 .m-faq .school-names{ color:rgba(255,255,255,.9); }
   .organizers .m-faq{ max-width: 1200px; margin: 10px auto 0; }
  
-/* ===== 手機版：大賽重要時程表改為單欄完整表格 ===== */
+/* ===== 手機版：大賽重要時程表（比照評分表風格） ===== */
+
 .timeline-table thead{
   display:none;
 }
 
-.timeline-table,
-.timeline-table tbody{
+.timeline-table{
   display:block;
   width:100%;
-  border:1px solid #ddd;
+  border-collapse:separate;
+  border-spacing:0;
+  background:#fff;
   border-radius:12px;
   overflow:hidden;
+  box-shadow:0 2px 4px rgba(0,0,0,0.1);
+}
+
+.timeline-table tbody{
+  display:block;
 }
 
 .timeline-table tr{
@@ -542,41 +549,49 @@ img, svg { max-width:100%; height:auto; display:block; }
   flex-direction:column;
 }
 
+/* 共用設定 */
+
 .timeline-table td{
   display:block;
   width:100%;
-  border:none;
   padding:14px 16px;
+  border:none;
 }
 
-/* 時間 */
+/* 時間（藍底白字） */
+
 .timeline-table td:first-child{
   background:#0074D9;
   color:#fff;
   font-weight:600;
   text-align:center;
-  border-top:1px solid #fff;
+  border-top:2px solid #e5e7eb;
 }
 
-/* 第一列不要有上邊框 */
+/* 第一筆不要上框 */
+
 .timeline-table tr:first-child td:first-child{
   border-top:none;
 }
 
-/* 內容 */
+/* 內容（白底黑字） */
+
 .timeline-table td:last-child{
   background:#fff;
   color:#333;
   text-align:center;
-  border-bottom:1px solid #e5e7eb;
+  line-height:1.6;
+  border-bottom:2px solid #e5e7eb;
 }
 
-/* 最後一列不要底線 */
+/* 最後一筆不要底線 */
+
 .timeline-table tr:last-child td:last-child{
   border-bottom:none;
 }
 
 /* 移除桌機版斑馬紋 */
+
 .timeline-table tr:nth-child(even){
   background:transparent;
 }
