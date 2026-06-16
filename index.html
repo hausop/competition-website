@@ -522,79 +522,7 @@ img, svg { max-width:100%; height:auto; display:block; }
 .m-faq .region-label{ color:#f2e84f; font-weight:700; margin-right:6px; }
 .m-faq .school-names{ color:rgba(255,255,255,.9); }
   .organizers .m-faq{ max-width: 1200px; margin: 10px auto 0; }
- 
-/* ===== 手機版：大賽重要時程表（比照評分表風格） ===== */
 
-.timeline-table thead{
-  display:none;
-}
-
-.timeline-table{
-  display:block;
-  width:100%;
-  border-collapse:separate;
-  border-spacing:0;
-  background:#fff;
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 2px 4px rgba(0,0,0,0.1);
-}
-
-.timeline-table tbody{
-  display:block;
-}
-
-.timeline-table tr{
-  display:flex;
-  flex-direction:column;
-}
-
-/* 共用設定 */
-
-.timeline-table td{
-  display:block;
-  width:100%;
-  padding:14px 16px;
-  border:none;
-}
-
-/* 時間（藍底白字） */
-
-.timeline-table td:first-child{
-  background:#0074D9;
-  color:#fff;
-  font-weight:600;
-  text-align:center;
-  border-top:2px solid #e5e7eb;
-}
-
-/* 第一筆不要上框 */
-
-.timeline-table tr:first-child td:first-child{
-  border-top:none;
-}
-
-/* 內容（白底黑字） */
-
-.timeline-table td:last-child{
-  background:#fff;
-  color:#333;
-  text-align:center;
-  line-height:1.6;
-  border-bottom:2px solid #e5e7eb;
-}
-
-/* 最後一筆不要底線 */
-
-.timeline-table tr:last-child td:last-child{
-  border-bottom:none;
-}
-
-/* 移除桌機版斑馬紋 */
-
-.timeline-table tr:nth-child(even){
-  background:transparent;
-}
 }
 
     /* 小手機調整 */
@@ -884,6 +812,38 @@ img, svg { max-width:100%; height:auto; display:block; }
   color: #fff;
 }
 
+    /* ===== 手機版直式時程表 ===== */
+
+.vertical-timeline-table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 2px 4px rgba(0,0,0,.1);
+}
+
+.vertical-timeline-table .time-cell{
+  background:#0074D9;
+  color:#fff;
+  font-weight:600;
+  text-align:center;
+  padding:14px 16px;
+}
+
+.vertical-timeline-table .event-cell{
+  background:#fff;
+  color:#333;
+  text-align:center;
+  line-height:1.6;
+  padding:14px 16px;
+  border-bottom:2px solid #e5e7eb;
+}
+
+.vertical-timeline-table tr:last-child .event-cell{
+  border-bottom:none;
+}
+
   </style>
 </head>
 <body>
@@ -1019,6 +979,7 @@ img, svg { max-width:100%; height:auto; display:block; }
     <!-- Schedule Section -->
     <div class="section">
       <h2 class="section-title">❰ 大賽重要時程表 ❱</h2>
+      <div class="desktop-only">
       <table class="timeline-table">
         <thead><tr><th>日期</th><th>內容</th></tr></thead>
         <tbody>
@@ -1031,6 +992,40 @@ img, svg { max-width:100%; height:auto; display:block; }
           <tr><td>2027/03/04 (四)</td><td>全國總決賽</td></tr>
         </tbody>
       </table>
+        </div>
+
+      <div class="mobile-only">
+
+<table class="vertical-timeline-table">
+
+<tbody>
+
+<tr><td class="time-cell">2026/12/24（四）12:00</td></tr>
+<tr><td class="event-cell">比賽報名暨初賽收件截止</td></tr>
+
+<tr><td class="time-cell">2026/12/25（五）～2026/12/31（四）</td></tr>
+<tr><td class="event-cell">入圍審核</td></tr>
+
+<tr><td class="time-cell">2027/01/04（一）17:00</td></tr>
+<tr><td class="event-cell">入圍暨優等組公告</td></tr>
+
+<tr><td class="time-cell">2027/01/11（一）</td></tr>
+<tr><td class="event-cell">北區入圍公告暨優等組頒獎典禮</td></tr>
+
+<tr><td class="time-cell">2027/01/12（二）</td></tr>
+<tr><td class="event-cell">中區入圍公告暨優等組頒獎典禮</td></tr>
+
+<tr><td class="time-cell">2027/01/13（三）</td></tr>
+<tr><td class="event-cell">南區入圍公告暨優等組頒獎典禮</td></tr>
+
+<tr><td class="time-cell">2027/03/04（四）</td></tr>
+<tr><td class="event-cell">全國總決賽</td></tr>
+
+</tbody>
+
+</table>
+
+</div>
     </div>
 
     <!-- Registration Process -->
