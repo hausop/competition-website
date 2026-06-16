@@ -522,6 +522,58 @@ img, svg { max-width:100%; height:auto; display:block; }
 .m-faq .region-label{ color:#f2e84f; font-weight:700; margin-right:6px; }
 .m-faq .school-names{ color:rgba(255,255,255,.9); }
   .organizers .m-faq{ max-width: 1200px; margin: 10px auto 0; }
+
+  
+  /* ===== 手機版：大賽重要時程表改為直式 ===== */
+  /* 隱藏表頭 */
+  .timeline-table thead{
+    display:none;
+  }
+
+  /* 整張表格改成區塊模式 */
+  .timeline-table,
+  .timeline-table tbody,
+  .timeline-table tr{
+    display:block;
+    width:100%;
+  }
+
+  /* 每筆資料變成一張卡片 */
+  .timeline-table tr{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:16px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    overflow:hidden;
+    background:#fff;
+  }
+
+  /* 時間（藍底白字） */
+  .timeline-table td:first-child{
+    width:100%;
+    background:#0074D9;
+    color:#fff;
+    font-weight:600;
+    text-align:center;
+    padding:12px 16px;
+    border:none;
+  }
+
+  /* 內容（白底黑字） */
+  .timeline-table td:last-child{
+    width:100%;
+    background:#fff;
+    color:#333;
+    text-align:center;
+    padding:14px 16px;
+    border:none;
+  }
+
+  /* 移除桌機版斑馬紋 */
+  .timeline-table tr:nth-child(even){
+    background:transparent;
+  }
 }
 
     /* 小手機調整 */
