@@ -767,7 +767,7 @@ img, svg { max-width:100%; height:auto; display:block; }
 
   /* 3) 保守處理：避免 grid 設定造成橫向超寬（維持自適應、不外溢） */
   .prize-grid {
-    overflow-x: hidden;                 /* 擋掉偶發的 1~2px 超界 */
+    overflow: visible;
     grid-auto-columns: minmax(0, 1fr);  /* 若有使用 auto-columns 時避免撐寬 */
   }
 }
