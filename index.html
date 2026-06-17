@@ -9,7 +9,12 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", "微軟正黑體", sans-serif;
-      line-height: 1.6; color: #333; background-color: #f5f5f5;
+      line-height: 1.6; color: #333;
+      background-color: #000;           /* 最底層備用黑色 */
+  background-image: url('banner-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;    /* 手機不支援 fixed，用 scroll */
     }
 
     /* 統一圖片/SVG 自適應 */
