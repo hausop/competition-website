@@ -624,28 +624,25 @@ img, svg { max-width:100%; height:auto; display:block; }
     font-size: 16px; 
     line-height: 1.7; 
     color:#333; 
+    text-align: center;          /* ★ 內文整段置中 */
     list-style: none;
   }
   .prize-benefits li{
-    margin: 6px auto;
+    margin: 6px 0;
     padding-left: 0;             /* 移除舊的縮排 */
-    display:grid;        /* 讓勾勾與文字一體置中 */
-    grid-template-columns: 18px 1fr;  /* 勾勾固定寬度 + 文字區 */
-    align-items:start;
-    width: fit-content;     /* 整組置中 */
-    max-width: 100%;
+    display:flex;        /* 讓勾勾與文字一體置中 */
+    align-items:center;
     justify-content:flex-start;
-    gap: 8px;                    /* 勾與文字間距 */
-    text-align: left;       /* 文字靠左 */
+    gap: 6px;                    /* 勾與文字間距 */
     white-space: normal;
   }
   .prize-benefits li::before{
     content: "✓";
     width:18px;
+    text-align:left;
     color: #0d6efd;
     font-weight: 700;
     position: static;            /* ★ 不用絕對定位，才能跟文字一起置中 */
-    text-align:center;
     margin: 0;
     flex-shrink: 0;
   }
