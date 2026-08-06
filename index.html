@@ -605,6 +605,16 @@ img, svg { max-width:100%; height:auto; display:block; }
     min-width: 0;
     margin: 0;
   }
+  
+  .participant-title{
+    font-size:32px;
+    font-weight:700;
+    color:#24364c;
+    line-height:1.25;
+    max-width:360px;
+    width:100%;
+}
+
   .team-badge{
     display: inline-block;
     color:#fff;
@@ -620,6 +630,15 @@ img, svg { max-width:100%; height:auto; display:block; }
   .badge-bronze{  background:#7e8d93; }
   .badge-special{ background:#a14f4f; }
   .badge-regular{ background:#c18888; }
+
+  .participant-badge{
+    width:180px;
+    justify-content:center;
+    margin-top:14px;
+    white-space:normal;
+    text-align:center;
+    line-height:1.35;
+}
 
   /* 右側內文改成置中，並與中欄保持固定間距，不再貼太近 */
   .prize-benefits{ 
@@ -697,8 +716,34 @@ img, svg { max-width:100%; height:auto; display:block; }
     align-items: flex-start;
   }
 
+  .participant-title{
+
+    font-size:22px;
+
+    max-width:260px;
+
+    text-align:center;
+
+    margin:0 auto;
+}
+
+.participant-badge{
+
+    width:140px;
+
+    margin:12px auto 0;
+}
+
   .prize-title { display: none; }
   .prize-amount { font-size: clamp(26px, 7.2vw, 38px); line-height: 1.1; margin: 0 0 8px 0; color: #2c3e50; }
+  .participant-title{
+    font-size:32px;
+    font-weight:700;
+    color:#24364c;
+    line-height:1.25;
+    max-width:360px;
+    width:100%;
+}
   .team-badge { color: #fff; font-weight: 700; padding: 8px 16px; border-radius: 999px; font-size: 16px; line-height: 1; }
   .badge-gold{ background:#5f231a; } .badge-silver{ background:#ffad37; } .badge-bronze{ background:#7e8d93; } .badge-special{ background:#a14f4f; } .badge-regular{ background:#c18888; }
 
@@ -1218,8 +1263,6 @@ img, svg { max-width:100%; height:auto; display:block; }
       </div>
 
       <div class="prize-separator"></div>
-
-      <p class="award-note">為鼓勵認真投入且繳交完整初賽報告之隊伍，新設佳作獎項，並於全國總決賽後頒發檔案給系辦</p>
       
       <p class="prize-subtitle">- 初賽入圍獎勵 -</p>
        
@@ -1231,17 +1274,18 @@ img, svg { max-width:100%; height:auto; display:block; }
         </div>
       </div>
 
-      <p class="prize-subtitle">- 參　賽 -</p>
+      <p class="prize-subtitle">- 參賽獎勵 -</p>
        
       <div class="prize-grid">
       <div class="prize-card is-excellence">
           <div class="prize-icon"><img src="ICON-0000.svg" alt="佳作"></div>
           <div class="prize-content">
             <div class="participant-title">
-             報名參賽並繳交完整<br>
-            初賽報告之隊伍
+             繳交完整初賽<br>
+             報告之隊伍
            </div>
     <div class="team-badge badge-regular participant-badge">參賽資格</div>
+           <ul class="prize-benefits"><li>每人獎狀乙張</li></ul>
         </div>
       </div>
 
