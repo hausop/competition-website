@@ -23,10 +23,7 @@ img, svg { max-width:100%; height:auto; display:block; }
 /* 有些 SVG 檔內寫死 width/height，這裡一律覆蓋 */
 .prize-icon img,
 .prize-icon svg { width:94px !important; height:auto !important; object-fit:contain; }
-    
-.participant-icon{
-    width: 66%;
-}
+
 
 /* 文字行內的小圖示（獎勵清單那種） */
 .prize-item p img,
@@ -49,6 +46,7 @@ img, svg { max-width:100%; height:auto; display:block; }
       display: inline-block; 
       vertical-align: middle; 
     }
+
     /* ========== Hero 區塊 ========== */
     .hero {
       position: fixed; top: 0; left: 0; width: 100%;
@@ -711,9 +709,6 @@ img, svg { max-width:100%; height:auto; display:block; }
     justify-self: end;
   }
   .prize-icon img { width: 94px; height: auto; object-fit: contain; }
-  .participant-icon{
-    width:72px !important;
-}
 
   .prize-content {
     grid-area: right;
@@ -1278,7 +1273,7 @@ img, svg { max-width:100%; height:auto; display:block; }
   <div class="prize-card is-excellence">
 
     <div class="prize-icon">
-      <img src="ICON-0000.svg" alt="佳作" class="participant-icon">
+      <img src="ICON-0000.svg" alt="佳作" style="width:68px; height:auto;">
     </div>
 
     <!-- 中間欄 -->
