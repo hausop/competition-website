@@ -8,7 +8,7 @@ body {
   line-height: 1.6;
   color: #333;
   background-color: #000;           /* 最底層備用黑色 */
-  background-image: url('banner-bg.jpg');
+  background-image: url('images/banner-bg.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: scroll;    /* 手機不支援 fixed，用 scroll */
