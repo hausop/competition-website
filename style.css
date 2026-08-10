@@ -7,7 +7,11 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", "微軟正黑體", sans-serif;
   line-height: 1.6;
   color: #333;
-  background-color: #000; /* 最底層備用色，避免圖片載入前出現白閃 */
+  background-color: #000;           /* 最底層備用黑色 */
+  background-image: url('images/banner-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;    /* 手機不支援 fixed，用 scroll */
 }
 
 /* ==========================================================
@@ -41,27 +45,25 @@ ol ol, ul ul { padding-left: 14px; }
 .custom-list li::before { content: '(' counter(custom-counter) ') '; counter-increment: custom-counter; position: absolute; left: 0; }
 
 /* ==========================================================
-   3. HERO 區塊（banner 固定背景：往下滑會放大＋模糊）
+   3. HERO 區塊
 ========================================================== */
 .hero {
   position: fixed; top: 0; left: 0; width: 100%;
   height: 100vh;                    /* 基礎後備值 */
   color: white; text-align: center;
-  overflow: hidden; z-index: -1;    /* 固定貼在最底層，只在還沒被下方色塊蓋住的範圍內看得到 */
+  overflow: hidden; z-index: -1;
 }
 @supports (height: 100dvh) {
-  .hero { height: 100dvh; }         /* 避免行動裝置網址列收合造成位移 */
+  .hero { height: 100dvh; }         /* 避免行動裝置網址列收合錯位 */
 }
 
-/* 背景圖層本身：script.js 會直接對這一層套用 transform（放大）與 filter（模糊），
-   這是「直接模糊自己」而非「即時擷取背後畫面模糊」，相容性最好，不會有黑屏風險 */
 .hero-background {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%;
   z-index: 0; will-change: transform, filter;
 }
 .hero-bg-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
 
-/* 深色遮罩層（透明度由 script.js 透過 --overlay-opacity 隨滑動加深） */
+/* 深色遮罩層（透明度由 script.js 透過 --overlay-opacity 控制） */
 .hero::before {
   content: '';
   position: absolute; inset: 0;
@@ -69,7 +71,6 @@ ol ol, ul ul { padding-left: 14px; }
   z-index: 1;
 }
 
-/* 主視覺（logo/標題圖）：往下滑會放大縮小＋模糊＋淡出＋往上位移 */
 .hero-main-content {
   position: absolute; top: 32%; left: 50%;
   transform: translate(-50%, -32%);
@@ -127,7 +128,7 @@ ol ol, ul ul { padding-left: 14px; }
 }
 
 /* ==========================================================
-   4. 主辦/協辦單位 ORGANIZERS（固定藍色色塊，不透明）
+   4. 主辦/協辦單位 ORGANIZERS
 ========================================================== */
 .organizers {
   position: relative; z-index: 1; background: #0074D9; color: white;
@@ -226,12 +227,11 @@ ol ol, ul ul { padding-left: 14px; }
 }
 
 /* ==========================================================
-   5. 主要內容區塊 CONTENT / SECTIONS（固定白色卡片，不透明）
+   5. 主要內容區塊 CONTENT / SECTIONS
 ========================================================== */
 .content { max-width: 1200px; margin: 0 auto; padding: 20px; }
 .section {
-  background: white;
-  margin: 20px 0; padding: 30px; border-radius: 10px;
+  background: white; margin: 20px 0; padding: 30px; border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 .section-title {
@@ -410,7 +410,7 @@ ol ol, ul ul { padding-left: 14px; }
 }
 
 /* ==========================================================
-   8. 聯絡我們 CONTACT（固定灰白色塊，不透明）
+   8. 聯絡我們 CONTACT
 ========================================================== */
 .contact-section { background: #f8f9fa; padding: 35px 20px; }
 .contact-container { max-width: 1200px; margin: 0 auto; }
